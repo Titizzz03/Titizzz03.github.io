@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Docker</title>
+    <url>/2024/12/30/Docker/</url>
+    <content><![CDATA[<ul>
+<li>镜像<br>docker镜像类似于一个安装包，类比mysql，内部可以有mysql安装依赖部署等，docker可以拉取镜像到本地虚拟机中，并忽略不同操作系统之间的差异，拉取后可以直接使用</li>
+<li>容器<br>镜像拉取到本地后，会在本地开辟一个隔离空间来运行，称之为容器，一个镜像可以开辟多个不同的容器，且之间不会有干扰，实现多开效果，注意，一个容器是运行在虚拟机内部，完全隔离外界的，拥有自己的ip地址等，但是无法与外界进行通信，类似自己一个小主机，只能和宿主机实现通信效果</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>运维</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2024/12/29/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
