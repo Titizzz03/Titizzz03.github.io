@@ -1,42 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Selinux</title>
-    <url>/2024/12/30/Selinux/</url>
-    <content><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>LINUX传统访问控制标准是DAC自主访问控制，这种情况下进程以一个UID或者一个SUID运行，拥有该角色的权限。而MAC强制访问控制中，策略和安全上下文决定了主体能够访问哪个对象。</p>
-<h3 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h3><p><code>Enforcing</code>：强制模式，基于策略规则拒绝主体对目标的访问。<br><code>Permissive</code>：宽容模式，属于旁观者状态，不会拒绝访问，但是会把信息记录到日志中。<br><code>Disabled</code>：关闭禁用selinux。</p>
-<h3 id="工作策略"><a href="#工作策略" class="headerlink" title="工作策略"></a>工作策略</h3><p><code>Targeted</code>：默认模式，对大部分网络服务进程进行管理<br><code>Minimum</code>：对选定的网络服务进行管理<br><code>Mls</code>：多级高级安全保护</p>
-<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p>&#x2F;etc&#x2F;selinux&#x2F;config</p>
-<h3 id="查询selinux状态"><a href="#查询selinux状态" class="headerlink" title="查询selinux状态"></a>查询selinux状态</h3><p><code>sestatus (-v)</code> -v显示详细内容<br><code>getenforce</code></p>
-<h3 id="设置selinux开关"><a href="#设置selinux开关" class="headerlink" title="设置selinux开关"></a>设置selinux开关</h3><ul>
-<li>临时开关：setenforce 1&#x2F;0 （1表示开启0表示关闭）</li>
-<li>永久修改：修改配置文件&#x2F;etc&#x2F;selinux&#x2F;config（重启系统生效）</li>
-</ul>
-<h3 id="安全上下文"><a href="#安全上下文" class="headerlink" title="安全上下文"></a>安全上下文</h3><p>Selinux为每个文件&#x2F;目录&#x2F;进程服务提供安全上下文信息，这些信息标签作为可否访问文件的依据</p>
-<p><strong>1. 查看</strong><br>文件&#x2F;目录查看安全上下文：<code>ls -Z</code><br>进程服务查看安全上下文：<code>ps -auxZ</code><br>显示内容：<code>[user] [role] [type] [degree] [file-name]</code><br>（其中Z选项都是查看安全上下文的子选项）<br>selinux进程访问时，会四配与日标文件的安全上下文中的类型type字段，匹配成功进行访问，匹配失败根据工作模式进行相对应操作</p>
-<p><strong>2. 临时性修改安全上下文信息chcon</strong><br>由于chcon是临时性操作，固常用于调试，重启后即失效<br>格式：<code>chcon [选项] [文件/目录]</code><br>常用选项：-R递归；-t指定类型；-u指定用户；-r指定角色</p>
-<p><strong>3. 永久性&#x2F;修改默认安全上下文信息 semanage</strong><br>semanage是一个管理selinux的主命令，其中包含一些子命令，每个子命令都有自己的选项和功能<br>通过man semanage查看关于semanage的使用手册说明，也可以通过semanage –help和semanage -h查看使用 说明的简短信息<br>修改类型标签：<code>semanage fcontext [选项] [路径(/.*)? ]</code><br>常用选项：-a添加&#x2F;-m修改&#x2F;-d删除&#x2F;-l查看&#x2F;-t指定类型</p>
-<p><strong>4. restorecon恢复安全上下文</strong><br>格式：<code>restorecon [选项] [文件/目录]</code><br>常用选项：-R递归；-v显示细节<br>在临时修改后，使用restorecon重置删除上下文<br>在永久修改后，使用restorecon保存上下文配置</p>
-<p><strong>5. 复制与移动对文件安全上下文的继承效果</strong><br>复制文件，文件安全上下文信息被更改，继承了新的目录的安全上下文<br>移动文件，保留了原有的安全上下文信息</p>
-<p><strong>6. 常用上下文</strong><br>WEB端用户家目录：<code>httpd_user_content_t</code><br>WEB端目录：<code>httpd_sys_content_t</code><br>WEB端可读目录：<code>httpd_sys_rw_content_t</code><br>SAMBA服务：<code>samba_share_t</code></p>
-<h3 id="安全策略"><a href="#安全策略" class="headerlink" title="安全策略"></a>安全策略</h3><p>Selinux策略辅助于selinux上下文匹配，二者结合对于进程访问主体做管控</p>
-<p><strong>1. 策略管理常用命令</strong><br>设置策略开关：<code>setsebool  (-P)  policy_name  on/off(1/0)</code> ，-P为永久设置，立即生效<br><img src="/images/SeBoolean.png" alt="图片"><br><strong>2. 常用策略</strong><br><code>httpd_enable_homedirs</code><br><code>samba_enable_home_dirs</code><br><code>samba_export_all_rw</code><br><code>httpd_unified</code></p>
-<h3 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h3><p>查看所有端口：<code>semanage port -l</code><br>添加端口：<code>semanage port -a -t &lt;type&gt; -p &lt;protocol&gt; &lt;port_number&gt;</code><br>删除端口：<code>semanage port -d -t &lt;type&gt; -p &lt;protocol&gt; &lt;port_number&gt;</code><br>常用端口上下文：<code>http_port_t</code> <code>ssh_port_t</code></p>
-<h3 id="日志追踪"><a href="#日志追踪" class="headerlink" title="日志追踪"></a>日志追踪</h3><p>selinux系统相关安全信息主要存放在<code>/var/log/audit/audit.log</code>下，有些分布在<code>/var/log/messages</code>公共目录下</p>
-<p>由于观察selinux拦截的系统信息时，查看不方便，多使用<code>sealert</code>，<code>audit2why</code>和<code>audit2allow</code>工具进行自动分析，后存放至一个文件下，需要查看时执行命令进行更新分析。</p>
-<p>格式：<br><code>sealert -a /var/log/audit/audit.log &gt; name.txt </code>（-a: analyse)<br><code>audit2why &lt; /var/log/audit/audit.log &gt; name.txt</code><br><code>audit2allow -a /var/log/audit/audit.log &gt; name.txt</code><br>下载工具包：yum install -y setroubleshoot* 和 yum install -y policycoreutils*</p>
-<h3 id="有关审计日志"><a href="#有关审计日志" class="headerlink" title="有关审计日志"></a>有关审计日志</h3><p>若audit审计工具在运行，selinux的拒绝信息被写入&#x2F;var&#x2F;log&#x2F;audit&#x2F;audit.log中<br>服务名：<code>auditd</code>；查看状态：systemctl status auditd 或 auditctl -s</p>
-<h3 id="常见报错"><a href="#常见报错" class="headerlink" title="常见报错"></a>常见报错</h3><p>NOT FOUND：文件路径找不到，路径错误<br>Forbidden：权限错误</p>
-<h3 id="访问出错排查"><a href="#访问出错排查" class="headerlink" title="访问出错排查"></a>访问出错排查</h3><p>1，网络是否通常（内网和虚拟机，虚拟机内网ping外网）<br>2，DAC权限是否可以操作<br>3，防火墙firewalld是否关闭<br>4，Apache&#x2F;samba&#x2F;auditd是否开启（关乎是否能上网，是否能window与linux远程登陆，是否记录审计日志）<br>5，进程与文件是否属于同一个域<br>6，策略方案getsebool -a | grep<br>7，http 端口</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mail</title>
     <url>/2024/12/31/Mail/</url>
     <content><![CDATA[<p><img src="/images/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8.png"></p>
@@ -45,7 +9,7 @@
 <li>邮件用户代理<br>MUA-Mail User Agent，负责发送和接收邮件。常用协议：IMAP，POP3，POP3S。常见代理商软件：Dovecot，常见Web端：openwebmail，roundcubemail。</li>
 <li>邮件投递代理<br>MDA-Mail Delivery Agent，负责将邮件存储到接收方的邮箱中。</li>
 </ul>
-<h4 id="Postfix-配置"><a href="#Postfix-配置" class="headerlink" title="Postfix 配置"></a>Postfix 配置</h4><p>安装 postfix 软件包，对主配置文件 <code>/et/postfix/main.cf</code> 文件进行配置，并重启服务</p>
+<h4 id="一、Postfix-配置"><a href="#一、Postfix-配置" class="headerlink" title="一、Postfix 配置"></a>一、Postfix 配置</h4><p>安装 postfix 软件包，对主配置文件 <code>/et/postfix/main.cf</code> 文件进行配置，并重启服务</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[titi@localhost ~]$ <span class="built_in">sudo</span> dnf install -y postfix</span><br><span class="line">[titi@localhost ~]$ <span class="built_in">sudo</span> vim /etc/postfix/main.cf</span><br><span class="line">myhostname = mail.titi.cn    <span class="comment"># 主机名</span></span><br><span class="line">mydomain = titi.cn           <span class="comment"># 域名</span></span><br><span class="line">myorigin = <span class="variable">$mydomain</span>                    <span class="comment"># 查看邮件发件人来源设置</span></span><br><span class="line">inet_interfaces = all                   <span class="comment"># 通过所有可用的网络接口来接收和发送邮件</span></span><br><span class="line">mydestination = <span class="variable">$myhostname</span>, <span class="variable">$mydomain</span>, localhost       <span class="comment"># 定义接收的邮件域名</span></span><br><span class="line">[titi@localhost ~]$ <span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now postfix</span><br></pre></td></tr></table></figure>
 <p>防火墙放行 SMTP 服务的所有数据包</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[titi@localhost ~]$ <span class="built_in">sudo</span> firewall-cmd --add-service=smtp --per</span><br><span class="line">success</span><br><span class="line">[titi@localhost ~]$ <span class="built_in">sudo</span> firewall-cmd --reload</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
@@ -55,7 +19,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[titi@localhost ~]$ <span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/postfix/main.cf | grep -v <span class="string">&#x27;^#&#x27;</span> | grep -v <span class="string">&#x27;^$&#x27;</span></span><br></pre></td></tr></table></figure>
 
 
-<h4 id="Dovecot-配置"><a href="#Dovecot-配置" class="headerlink" title="Dovecot 配置"></a>Dovecot 配置</h4><p>安装服务，配置配置文件，开启允许协议通过，定义邮件存储格式</p>
+<h4 id="二、Dovecot-配置"><a href="#二、Dovecot-配置" class="headerlink" title="二、Dovecot 配置"></a>二、Dovecot 配置</h4><p>安装服务，配置配置文件，开启允许协议通过，定义邮件存储格式</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">[titi@localhost ~]$ <span class="built_in">sudo</span> dnf install -y dovecot</span><br><span class="line"><span class="comment"># 主配置文件，开放接收协议</span></span><br><span class="line">[titi@localhost ~]$ <span class="built_in">sudo</span> vim /etc/dovecot/dovecot.conf</span><br><span class="line">[titi@localhost ~]$ <span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/dovecot/dovecot.conf | grep -v <span class="string">&#x27;^#&#x27;</span> | grep protocol</span><br><span class="line">protocols = imap pop3 lmtp submission      </span><br><span class="line"><span class="comment"># 子配置文件，定义邮件存储格式</span></span><br><span class="line">[titi@localhost ~]$ <span class="built_in">cd</span> /etc/dovecot/conf.d</span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> vim 10-mail.conf</span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> <span class="built_in">cat</span> 10-mail.conf | grep -v <span class="string">&#x27;^#&#x27;</span> | grep mail_location</span><br><span class="line">   mail_location = mbox:~/mail:INBOX=/var/mail/%u   </span><br><span class="line"><span class="comment"># 开机自动启动</span></span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now dovecot</span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> systemctl is-active dovecot</span><br><span class="line">active</span><br></pre></td></tr></table></figure>
 <p>防火墙放行所需的 pop3s 协议</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> firewall-cmd --add-service=pop3s --per</span><br><span class="line">success</span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> firewall-cmd --add-service=imaps --per</span><br><span class="line">success</span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> firewall-cmd --reload</span><br><span class="line">success</span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> firewall-cmd --list-services</span><br><span class="line">cockpit dhcpv6-client dns mdns pop3s samba smtp ssh</span><br></pre></td></tr></table></figure>
@@ -71,7 +35,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> sh -x /usr/share/doc/dovecot/mkcert.sh</span><br><span class="line"><span class="comment"># + echo &#x27;/etc/pki/dovecot/certs/dovecot.pem already exists, won&#x27;\&#x27;&#x27;t overwrite&#x27;</span></span><br><span class="line"><span class="comment"># /etc/pki/dovecot/certs/dovecot.pem already exists, won&#x27;t overwrite</span></span><br><span class="line"><span class="comment"># + exit 1</span></span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> <span class="built_in">rm</span> /etc/pki/dovecot/certs/dovecot.pem</span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> sh -x /usr/share/doc/dovecot/mkcert.sh</span><br><span class="line"><span class="comment"># + echo &#x27;/etc/pki/dovecot/private/dovecot.pem already exists, won&#x27;\&#x27;&#x27;t overwrite&#x27;</span></span><br><span class="line"><span class="comment"># /etc/pki/dovecot/private/dovecot.pem already exists, won&#x27;t overwrite</span></span><br><span class="line"><span class="comment"># + exit 1</span></span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> <span class="built_in">rm</span> /etc/pki/dovecot/private/dovecot.pem</span><br><span class="line">[titi@localhost conf.d]$ <span class="built_in">sudo</span> sh -x /usr/share/doc/dovecot/mkcert.sh</span><br><span class="line">+ <span class="built_in">umask</span> 077</span><br><span class="line">+ OPENSSL=openssl</span><br><span class="line">+ SSLDIR=/etc/pki/dovecot</span><br><span class="line">+ OPENSSLCONFIG=/etc/pki/dovecot/dovecot-openssl.cnf</span><br><span class="line">+ CERTDIR=/etc/pki/dovecot/certs</span><br><span class="line">+ KEYDIR=/etc/pki/dovecot/private</span><br><span class="line">+ CERTFILE=/etc/pki/dovecot/certs/dovecot.pem</span><br><span class="line">+ KEYFILE=/etc/pki/dovecot/private/dovecot.pem</span><br><span class="line">+ <span class="string">&#x27;[&#x27;</span> <span class="string">&#x27;!&#x27;</span> -d /etc/pki/dovecot/certs <span class="string">&#x27;]&#x27;</span></span><br><span class="line">+ <span class="string">&#x27;[&#x27;</span> <span class="string">&#x27;!&#x27;</span> -d /etc/pki/dovecot/private <span class="string">&#x27;]&#x27;</span></span><br><span class="line">+ <span class="string">&#x27;[&#x27;</span> -f /etc/pki/dovecot/certs/dovecot.pem <span class="string">&#x27;]&#x27;</span></span><br><span class="line">+ <span class="string">&#x27;[&#x27;</span> -f /etc/pki/dovecot/private/dovecot.pem <span class="string">&#x27;]&#x27;</span></span><br><span class="line">+ openssl req -new -x509 -nodes -config /etc/pki/dovecot/dovecot-openssl.cnf -out /etc/pki/dovecot/certs/dovecot.pem -keyout /etc/pki/dovecot/private/dovecot.pem -days 365</span><br><span class="line">Generating a RSA private key</span><br><span class="line">..............................++++</span><br><span class="line">...........................................................................................................................................................++++</span><br><span class="line">writing new private key to <span class="string">&#x27;/etc/pki/dovecot/private/dovecot.pem&#x27;</span></span><br><span class="line">-----</span><br><span class="line">+ <span class="built_in">chown</span> root:root /etc/pki/dovecot/certs/dovecot.pem /etc/pki/dovecot/private/dovecot.pem</span><br><span class="line">+ <span class="built_in">chmod</span> 0600 /etc/pki/dovecot/certs/dovecot.pem /etc/pki/dovecot/private/dovecot.pem</span><br><span class="line">+ <span class="built_in">echo</span></span><br><span class="line"></span><br><span class="line">+ openssl x509 -subject -fingerprint -noout -<span class="keyword">in</span> /etc/pki/dovecot/certs/dovecot.pem</span><br><span class="line">subject=OU = IMAP server, CN = imap.example.com, emailAddress = postmaster@example.com</span><br><span class="line">SHA1 Fingerprint=38:33:D4:53:45:51:1D:C2:BB:31:4D:1A:C5:40:3E:E3:CC:98:47:3D</span><br></pre></td></tr></table></figure>
 
 
-<h4 id="roundcube-软件客户端-web-部署"><a href="#roundcube-软件客户端-web-部署" class="headerlink" title="roundcube 软件客户端 web 部署"></a>roundcube 软件客户端 web 部署</h4><p>（1）从官网 <a href="https://roundcube.net/">https://roundcube.net/</a> 上下载客户端工具 complete 版本<br>（2）解压到 <code>/var/www/mail</code> 目录下，根据该工具的配置，编辑 <code>/etc/php.ini</code> 文件，编辑配置时区，<code>date.timezone = Asia/Shanghai</code><br>（3）修改 php-fpm 的配置文件后，重启 Htppd 服务使其生效<br>（4）为 roundcube 创建数据库</p>
+<h4 id="三、roundcube-软件客户端-web-部署"><a href="#三、roundcube-软件客户端-web-部署" class="headerlink" title="三、roundcube 软件客户端 web 部署"></a>三、roundcube 软件客户端 web 部署</h4><p>（1）从官网 <a href="https://roundcube.net/">https://roundcube.net/</a> 上下载客户端工具 complete 版本<br>（2）解压到 <code>/var/www/mail</code> 目录下，根据该工具的配置，编辑 <code>/etc/php.ini</code> 文件，编辑配置时区，<code>date.timezone = Asia/Shanghai</code><br>（3）修改 php-fpm 的配置文件后，重启 Htppd 服务使其生效<br>（4）为 roundcube 创建数据库</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p123 </span><br><span class="line">create database roundcubemail;</span><br><span class="line">show databases;</span><br><span class="line">exit;</span><br></pre></td></tr></table></figure>
 <p>（5）修改 <code>/var/www/mail/&#123;temp,logs&#125;</code> 文件权限，添加 <code>w</code> 写权限<br>（6）在浏览器输入：<code>http://mail.titi.cn/installer</code> 进行一步步配置（本虚拟机的 DNS 配置中，指定 mail.titi.cn 网址指向 &#x2F;var&#x2F;www&#x2F;mail 目录），not OK 问题需要修复，not available 问题可以忽略，若打不开网站，可以尝试重启 httpd 服务，mariadb 或 named 服务<br>（7）在 web 端的安装引导页面，第三页中，生成 <code>config.inc.php</code> 文件，复制到 <code>/var/www/mail/config/</code> 目录下，然后在第三页中点击 <code>initialize database</code> 初始化数据库，最后可以使用 <code>Test IMAP config</code> 进行邮件收发测试<br>（8）最终验证：打开 <code>http://mail.titi.cn</code> 可以登录账号，账号需要在虚拟机中进行创建，加入附加组 mail 组即可<br>（9）其他：本次测试基于 redhat9.2 发行版实施，</p>
 ]]></content>
@@ -81,6 +45,24 @@
       <tags>
         <tag>Linux</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2024/12/29/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>Docker</title>
@@ -161,21 +143,122 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2024/12/29/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <title>Selinux</title>
+    <url>/2024/12/30/Selinux/</url>
+    <content><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>LINUX传统访问控制标准是DAC自主访问控制，这种情况下进程以一个UID或者一个SUID运行，拥有该角色的权限。而MAC强制访问控制中，策略和安全上下文决定了主体能够访问哪个对象。</p>
+<h3 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h3><p><code>Enforcing</code>：强制模式，基于策略规则拒绝主体对目标的访问。<br><code>Permissive</code>：宽容模式，属于旁观者状态，不会拒绝访问，但是会把信息记录到日志中。<br><code>Disabled</code>：关闭禁用selinux。</p>
+<h3 id="工作策略"><a href="#工作策略" class="headerlink" title="工作策略"></a>工作策略</h3><p><code>Targeted</code>：默认模式，对大部分网络服务进程进行管理<br><code>Minimum</code>：对选定的网络服务进行管理<br><code>Mls</code>：多级高级安全保护</p>
+<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p>&#x2F;etc&#x2F;selinux&#x2F;config</p>
+<h3 id="查询selinux状态"><a href="#查询selinux状态" class="headerlink" title="查询selinux状态"></a>查询selinux状态</h3><p><code>sestatus (-v)</code> -v显示详细内容<br><code>getenforce</code></p>
+<h3 id="设置selinux开关"><a href="#设置selinux开关" class="headerlink" title="设置selinux开关"></a>设置selinux开关</h3><ul>
+<li>临时开关：setenforce 1&#x2F;0 （1表示开启0表示关闭）</li>
+<li>永久修改：修改配置文件&#x2F;etc&#x2F;selinux&#x2F;config（重启系统生效）</li>
+</ul>
+<h3 id="安全上下文"><a href="#安全上下文" class="headerlink" title="安全上下文"></a>安全上下文</h3><p>Selinux为每个文件&#x2F;目录&#x2F;进程服务提供安全上下文信息，这些信息标签作为可否访问文件的依据</p>
+<p><strong>1. 查看</strong><br>文件&#x2F;目录查看安全上下文：<code>ls -Z</code><br>进程服务查看安全上下文：<code>ps -auxZ</code><br>显示内容：<code>[user] [role] [type] [degree] [file-name]</code><br>（其中Z选项都是查看安全上下文的子选项）<br>selinux进程访问时，会四配与日标文件的安全上下文中的类型type字段，匹配成功进行访问，匹配失败根据工作模式进行相对应操作</p>
+<p><strong>2. 临时性修改安全上下文信息chcon</strong><br>由于chcon是临时性操作，固常用于调试，重启后即失效<br>格式：<code>chcon [选项] [文件/目录]</code><br>常用选项：-R递归；-t指定类型；-u指定用户；-r指定角色</p>
+<p><strong>3. 永久性&#x2F;修改默认安全上下文信息 semanage</strong><br>semanage是一个管理selinux的主命令，其中包含一些子命令，每个子命令都有自己的选项和功能<br>通过man semanage查看关于semanage的使用手册说明，也可以通过semanage –help和semanage -h查看使用 说明的简短信息<br>修改类型标签：<code>semanage fcontext [选项] [路径(/.*)? ]</code><br>常用选项：-a添加&#x2F;-m修改&#x2F;-d删除&#x2F;-l查看&#x2F;-t指定类型</p>
+<p><strong>4. restorecon恢复安全上下文</strong><br>格式：<code>restorecon [选项] [文件/目录]</code><br>常用选项：-R递归；-v显示细节<br>在临时修改后，使用restorecon重置删除上下文<br>在永久修改后，使用restorecon保存上下文配置</p>
+<p><strong>5. 复制与移动对文件安全上下文的继承效果</strong><br>复制文件，文件安全上下文信息被更改，继承了新的目录的安全上下文<br>移动文件，保留了原有的安全上下文信息</p>
+<p><strong>6. 常用上下文</strong><br>WEB端用户家目录：<code>httpd_user_content_t</code><br>WEB端目录：<code>httpd_sys_content_t</code><br>WEB端可读目录：<code>httpd_sys_rw_content_t</code><br>SAMBA服务：<code>samba_share_t</code></p>
+<h3 id="安全策略"><a href="#安全策略" class="headerlink" title="安全策略"></a>安全策略</h3><p>Selinux策略辅助于selinux上下文匹配，二者结合对于进程访问主体做管控</p>
+<p><strong>1. 策略管理常用命令</strong><br>设置策略开关：<code>setsebool  (-P)  policy_name  on/off(1/0)</code> ，-P为永久设置，立即生效<br><img src="/images/SeBoolean.png" alt="图片"><br><strong>2. 常用策略</strong><br><code>httpd_enable_homedirs</code><br><code>samba_enable_home_dirs</code><br><code>samba_export_all_rw</code><br><code>httpd_unified</code></p>
+<h3 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h3><p>查看所有端口：<code>semanage port -l</code><br>添加端口：<code>semanage port -a -t &lt;type&gt; -p &lt;protocol&gt; &lt;port_number&gt;</code><br>删除端口：<code>semanage port -d -t &lt;type&gt; -p &lt;protocol&gt; &lt;port_number&gt;</code><br>常用端口上下文：<code>http_port_t</code> <code>ssh_port_t</code></p>
+<h3 id="日志追踪"><a href="#日志追踪" class="headerlink" title="日志追踪"></a>日志追踪</h3><p>selinux系统相关安全信息主要存放在<code>/var/log/audit/audit.log</code>下，有些分布在<code>/var/log/messages</code>公共目录下</p>
+<p>由于观察selinux拦截的系统信息时，查看不方便，多使用<code>sealert</code>，<code>audit2why</code>和<code>audit2allow</code>工具进行自动分析，后存放至一个文件下，需要查看时执行命令进行更新分析。</p>
+<p>格式：<br><code>sealert -a /var/log/audit/audit.log &gt; name.txt </code>（-a: analyse)<br><code>audit2why &lt; /var/log/audit/audit.log &gt; name.txt</code><br><code>audit2allow -a /var/log/audit/audit.log &gt; name.txt</code><br>下载工具包：yum install -y setroubleshoot* 和 yum install -y policycoreutils*</p>
+<h3 id="有关审计日志"><a href="#有关审计日志" class="headerlink" title="有关审计日志"></a>有关审计日志</h3><p>若audit审计工具在运行，selinux的拒绝信息被写入&#x2F;var&#x2F;log&#x2F;audit&#x2F;audit.log中<br>服务名：<code>auditd</code>；查看状态：systemctl status auditd 或 auditctl -s</p>
+<h3 id="常见报错"><a href="#常见报错" class="headerlink" title="常见报错"></a>常见报错</h3><p>NOT FOUND：文件路径找不到，路径错误<br>Forbidden：权限错误</p>
+<h3 id="访问出错排查"><a href="#访问出错排查" class="headerlink" title="访问出错排查"></a>访问出错排查</h3><p>1，网络是否通常（内网和虚拟机，虚拟机内网ping外网）<br>2，DAC权限是否可以操作<br>3，防火墙firewalld是否关闭<br>4，Apache&#x2F;samba&#x2F;auditd是否开启（关乎是否能上网，是否能window与linux远程登陆，是否记录审计日志）<br>5，进程与文件是否属于同一个域<br>6，策略方案getsebool -a | grep<br>7，http 端口</p>
 ]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代理</title>
+    <url>/2024/12/31/%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<h2 id="一、Proxy-代理和-NAT-地址转换的区别"><a href="#一、Proxy-代理和-NAT-地址转换的区别" class="headerlink" title="一、Proxy 代理和 NAT 地址转换的区别"></a>一、Proxy 代理和 NAT 地址转换的区别</h2><p><strong>NAT：</strong> 将一个内网 IP 映射为一个公网 IP 才可访问公网，不存在缓存加速功能，适用于小型网络如家庭路由器<br><strong>Proxy：</strong> 相当于一个局域网的出入口，代理服务器拥有一个公网 IP，所有内网 IP 将数据包发送给代理服务器，代理服务器接收数据包后进行转发到公网中；代理服务器因为频繁接收多个请求，会将某些内网 IP 频繁访问的数据进行缓存，每一个生命周期 TTL 过后进行一次更新</p>
+<h2 id="二、正向代理、透明代理与反向代理"><a href="#二、正向代理、透明代理与反向代理" class="headerlink" title="二、正向代理、透明代理与反向代理"></a>二、正向代理、透明代理与反向代理</h2><h4 id="2-1-正向代理："><a href="#2-1-正向代理：" class="headerlink" title="2.1 正向代理："></a>2.1 正向代理：</h4><p>正向代理服务器充当了客户端和服务端之间的中介，客户端无法直接发送数据到达服务端，在客户端需要设置代理服务器的 IP 和端口，使用正向代理服务器去发送数据，可以有效保护真实的客户端地址，向服务端隐藏了客户端地址。</p>
+<ul>
+<li>客户端向代理服务器发送请求。</li>
+<li>代理服务器接收请求并代表客户端访问目标服务器。</li>
+<li>代理服务器将目标服务器的响应转发给客户端。<br><img src="/images/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86.png"></li>
+</ul>
+<h4 id="2-2-透明代理："><a href="#2-2-透明代理：" class="headerlink" title="2.2 透明代理："></a>2.2 透明代理：</h4><p>它在客户端和目标服务器之间充当中间人，但客户端不需要配置代理服务器。透明代理是“隐形”的，客户端并不知道代理的存在。无需客户端配置，透明代理不会隐藏客户端的真实 IP 地址，目标服务器仍然可以看到客户端的真实 IP。</p>
+<ul>
+<li>客户端直接向目标服务器发起请求。</li>
+<li>网络中的透明代理会拦截这些请求，并在不改变客户端配置的情况下转发到目标服务器。</li>
+<li>透明代理会接收目标服务器的响应并将其转发给客户端。</li>
+</ul>
+<h4 id="2-3-反向代理："><a href="#2-3-反向代理：" class="headerlink" title="2.3 反向代理："></a>2.3 反向代理：</h4><p>反向代理服务器对客户端隐藏了服务端的地址，防止了 DDOS 攻击。负载均衡：因为此服务器不止一个，反向代理服务器会将请求均匀的转发给它的服务器资源池中，防止当个服务器因为过多客户端请求而过载。</p>
+<ul>
+<li>客户端向反向代理服务器发送请求，通常是通过域名访问。</li>
+<li>反向代理服务器接收到请求后，会根据负载均衡策略或其他规则，转发请求到实际的目标服务器（也称为后端服务器）。</li>
+<li>后端服务器处理请求并返回响应。</li>
+<li>反向代理服务器将后端服务器的响应返回给客户端，客户端通常不直接与后端服务器交互。<br><img src="/images/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86.png"></li>
+</ul>
+<h2 id="三、正向代理配置"><a href="#三、正向代理配置" class="headerlink" title="三、正向代理配置"></a>三、正向代理配置</h2><p>&lt;1&gt; 软件：squid<br>&lt;2&gt; 主配置文件：&#x2F;etc&#x2F;squid&#x2F;squid.conf<br>&lt;3&gt;设备：Kylin-V10SP3 一台（代理服务器），Win10 一台（内网测试机）</p>
+<h4 id="3-1-网络配置"><a href="#3-1-网络配置" class="headerlink" title="3.1 网络配置"></a>3.1 网络配置</h4><p>在互联网中，一般内网使用仅主机模式，外网使用 NAT 模式。固为代理虚拟机添加两张网卡，外网使用 ens160 网卡，网络模式为 NAT；内网使用 ens224 网卡，网络模式为仅主机模式。测试机网卡使用仅主机模式。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ nmcli c</span><br><span class="line">NAME  UUID                                  TYPE      DEVICE</span><br><span class="line">WAN   2965720b-3805-4059-8cc3-5698a3104bef  ethernet  ens160</span><br><span class="line">LAN   f6bdfcdf-5fae-4dea-86f4-53a52c458495  ethernet  ens224</span><br><span class="line">[sziit@2303010148 ~]$ nmcli dev</span><br><span class="line">DEVICE  TYPE      STATE   CONNECTION</span><br><span class="line">ens160  ethernet  已连接  WAN</span><br><span class="line">ens224  ethernet  已连接  LAN</span><br><span class="line">lo      loopback  未托管  --</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-代理服务端配置和测试端配置"><a href="#3-2-代理服务端配置和测试端配置" class="headerlink" title="3.2 代理服务端配置和测试端配置"></a>3.2 代理服务端配置和测试端配置</h4><p>（1）在 linux 代理服务器虚拟机上安装 squid 服务，设置开机自动启动，查看配置文件中服务的端口信息，防火墙放行该端口 3128&#x2F;tcp 与服务，允许数据包从 3128 端口流入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> dnf install -y squid</span><br><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now squid</span><br><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/squid/squid.conf | grep http_port</span><br><span class="line">http_port 3128</span><br><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> firewall-cmd --add-port=3128/tcp --per</span><br><span class="line">success</span><br><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> firewall-cmd --add-service=squid --per</span><br><span class="line">success</span><br><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> firewall-cmd --reload</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
+<p>（2）在 windows 虚拟机上，关闭防火墙，设置 IpAddress 为 <code>10.10.48.10/24</code>，子网掩码为 <code>255.255.255.0</code>，与 linux 虚拟机的仅主机网卡 <code>10.10.48.254/24</code> 在 <em>同一个网段内</em> ，确保两个仅主机网卡之间可以相互 ping 通发送数据包。<br>（3）在 windows 虚拟机上，在控制面板对网络代理进行配置（控制面板-&gt;配置代理服务器-&gt;连接-&gt;局域网设置-&gt;代理服务器-&gt;地址端口：<code>10.10.48.254 : 3128</code>），设置代理地址为 linux 虚拟机中的仅主机网卡地址。<br>（4）windows 上发送的虚拟机通过 <code>10.10.48.10/24</code> 地址发送给 linux 虚拟机上的 <code>10.10.48.254/24</code> 地址，存储到该地址上后，使用 <code>192.168.48.100/24</code> 发送给实体机的 <code>192.168.48.10/24</code> 的 NET8 网卡，此时数据包可以由实体机进行对外网发送与访问。<br>（5）在 windows 端访问百度网站，实际由 linux 虚拟机进行访问，记录日志信息如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> <span class="built_in">tail</span> -f /var/log/squid/access.log</span><br><span class="line">1733278706.206    218 10.10.48.10 TCP_TUNNEL/200 130089 CONNECT www.baidu.com:443 - HIER_DIRECT/157.148.69.80 -</span><br></pre></td></tr></table></figure>
+<p>注意事项：<br>linux 的仅主机网卡，无需配置 DNS 与 gateway，因为仅主机网卡无法访问网络，只能在局域网内部通信使用<br>windows 仅主机网卡，不能配置 DNS 与 gateway，只能通过代理商进行输出访问</p>
+<h4 id="3-3-实现访问控制"><a href="#3-3-实现访问控制" class="headerlink" title="3.3 实现访问控制"></a>3.3 实现访问控制</h4><p><strong>（1）使用时间配置</strong><br>在 <code>/etc/squid/squid.conf</code> 添加自定义访问控制列表，设置工作时间在早上九点到下午五点之间，不可访问网络</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS</span></span><br><span class="line">acl WorkTime <span class="keyword">time</span> 9:00-17:00</span><br><span class="line">http_access deny WorkTime</span><br></pre></td></tr></table></figure>
+<p>重新加载 Squid 服务的配置文件，此时在当前时间 10:30 刚好为工作时间，在 windows 段则无法访问网络</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> systemctl reload squid</span><br></pre></td></tr></table></figure>
+<p>如果修改当前时间为下午六点，则非工作时间，windows 端可正常访问网络</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> <span class="built_in">date</span> -s 18:00</span><br><span class="line">2024年 12月 04日 星期三 18:00:00 CST</span><br><span class="line">[sziit@2303010148 ~]$ <span class="built_in">date</span></span><br><span class="line">2024年 12月 04日 星期三 18:00:05 CST</span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）使用域名控制</strong><br>添加自定义访问控制列表，设置禁止访问的域名列表为 &#x2F;etc&#x2F;squid&#x2F;WebSiteBlock.list，若访问这个列表中的域名，即拒绝访问，设置禁止访问域名列表如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/squid/WebSiteBlock.list</span><br><span class="line">.jd.com</span><br><span class="line">.taobao.com</span><br><span class="line">.tmall.com</span><br></pre></td></tr></table></figure>
+<p>添加 squid 配置，将时间配置关闭，否则发生拒绝冲突，时间配置关闭后观察由域名配置的变化</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS</span></span><br><span class="line">acl WorkTime <span class="keyword">time</span> 9:00-17:00</span><br><span class="line">acl WebSiteBlock dstdomain <span class="string">&quot;/etc/squid/WebSiteBlock.list&quot;</span></span><br><span class="line"></span><br><span class="line">http_access deny WebSiteBlock</span><br><span class="line"><span class="comment"># http_access deny WorkTime</span></span><br></pre></td></tr></table></figure>
+<p>重新加载服务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> systemctl reload squid</span><br></pre></td></tr></table></figure>
+<p>此时在 windows 端访问这些购物网站失败，访问普通网站类似百度等访问成功</p>
+<p><strong>（3）使用 IP 黑名单控制</strong><br>使用 src 关键字定义黑名单列表为 &#x2F;etc&#x2F;squid&#x2F;IPBlock.list</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS</span></span><br><span class="line">acl WorkTime <span class="keyword">time</span> 9:00-17:00</span><br><span class="line">acl WebSiteBlock dstdomain <span class="string">&quot;/etc/squid/WebSiteBlock.list&quot;</span></span><br><span class="line">acl IPBlock src <span class="string">&quot;/etc/squid/IPBlock.list&quot;</span></span><br><span class="line">http_access deny IPBlock</span><br><span class="line">http_access deny WebSiteBlock WorkTime</span><br><span class="line"><span class="comment"># http_access deny WebSiteBlock</span></span><br><span class="line"><span class="comment"># http_access deny WorkTime</span></span><br></pre></td></tr></table></figure>
+<p>黑名单列表如下，包含 Windows 端 IP 地址</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ <span class="built_in">cat</span> /etc/squid/IPBlock.list</span><br><span class="line">10.10.48.10</span><br></pre></td></tr></table></figure>
+<p>此时在 Windows 端（10.10.48.10）中无法正常上网，Squid 代理商拒绝代理该 IP 地址的请求</p>
+<p><strong>（4）联合控制</strong><br>实现：前台Ip在上班时间禁止访问购物网站，假设前台 IP 地址为：10.10.48.10，禁止访问的购物网站为：京东、淘宝、天猫，则实现相关配置如下，定义限制时间为早九晚五，定义限制域名为购物网站域名，定义限制的黑名单用户为前台IP，同时满足三者条件触发拒绝操作。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/squid/IPBlock.conf</span><br><span class="line">10.10.48.10</span><br><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/squid/WebSiteBlock.conf</span><br><span class="line">.jd.com</span><br><span class="line">.taobao.com</span><br><span class="line">.tmall.com</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS</span></span><br><span class="line">acl WorkTime <span class="keyword">time</span> 9:00-17:00</span><br><span class="line">acl WebSiteBlock dstdomain <span class="string">&quot;/etc/squid/WebSiteBlock.conf&quot;</span></span><br><span class="line">acl IPBlock src <span class="string">&quot;/etc/squid/IPBlock.conf&quot;</span></span><br><span class="line">http_access deny WorkTime WebSiteBlock IPBlock</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="3-4-squid-服务的日志统计"><a href="#3-4-squid-服务的日志统计" class="headerlink" title="3.4 squid 服务的日志统计"></a>3.4 squid 服务的日志统计</h4><p>在 Squid 服务的日志文件 &#x2F;var&#x2F;log&#x2F;squid&#x2F;access.log 中，每一行表示一次客户端请求</p>
+<blockquote>
+<p>[时间戳] [所处理的时间|ms] [客户端IP] [请求状态] [响应字节数] [HTTP方法和请求] [请求头] [缓存状态] [响应类型]</p>
+</blockquote>
+<p>使用 awk 过滤第四个字段：请求状态，使用 sort 进行分类，使用 uniq -c 计算每种状态码的数量，使用 sort -n 对状态码计数进行排序，后输出到 output.txt 文件中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ <span class="built_in">sudo</span> awk <span class="string">&#x27;&#123;print $4&#125;&#x27;</span> /var/log/squid/access.log | <span class="built_in">sort</span> | <span class="built_in">uniq</span> -c | <span class="built_in">sort</span> -n &gt; ~/output.txt                                                                                     </span><br><span class="line">[sziit@2303010148 ~]$ <span class="built_in">ls</span></span><br><span class="line">app  Changelog.md  config  data  discuz.zip  grade.sh  index.php  kodbox.1.54.zip  list.txt  output.txt  plugins  static  _tmp  wordpress.tar.gz</span><br><span class="line">[sziit@2303010148 ~]$ <span class="built_in">cat</span> output.txt</span><br><span class="line">      1 TCP_MISS/301</span><br><span class="line">      1 TCP_MISS/503</span><br><span class="line">      2 TCP_REFRESH_MODIFIED/200</span><br><span class="line">      3 TCP_REFRESH_UNMODIFIED/200</span><br><span class="line">      4 TCP_MISS/304</span><br><span class="line">      9 TCP_MEM_HIT/200</span><br><span class="line">     28 TCP_MISS/302</span><br><span class="line">     57 TCP_MISS/200</span><br><span class="line">     59 TCP_DENIED/403</span><br><span class="line">    190 TCP_TUNNEL_ABORTED/200</span><br><span class="line">    340 TCP_TUNNEL/200</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="四、透明代理"><a href="#四、透明代理" class="headerlink" title="四、透明代理"></a>四、透明代理</h2><p>（1）安装软件包，设置软件为开机自动启动</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y squid</span><br><span class="line">systemctl <span class="built_in">enable</span> --now squid</span><br></pre></td></tr></table></figure>
+<p>（2）编辑配置文件 &#x2F;etc&#x2F;squid&#x2F;squid.conf，编辑缓存目录大小，从 100 MB 改为 1000 MB<br>http_port 字段：监听的端口<br>cache_dir 字段：磁盘缓存设置，<code>ufs</code> 是缓存的存储类型，<code>/var/spool/squid</code> 是缓存目录的路径，<code>100</code> 是缓存目录的大小，单位MB，<code>16</code> 是指定存储子目录的数量，<code>256</code> 是每个子目录中的目录数量</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Squid normally listens to port 3128 </span></span><br><span class="line">http_port 3128 </span><br><span class="line"><span class="comment"># Uncomment and adjust the following to add a disk cache directory. </span></span><br><span class="line">cache_dir ufs /var/spool/squid 1000 16 256</span><br></pre></td></tr></table></figure>
+<p>（3）编辑配置文件 &#x2F;etc&#x2F;squid&#x2F;squid.conf，添加控制访问<br>acl 字段：用于限制操作</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS</span></span><br><span class="line">acl BlockWeb dstdomain <span class="string">&quot;/etc/squid/BlockWeb.list&quot;</span></span><br><span class="line">http_access deny BlockWeb</span><br></pre></td></tr></table></figure>
+<p>（4）开启 IP 转发</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward    </span><br></pre></td></tr></table></figure>
+<p>（5）配置防火墙规则<br>在 internal 内网区域中，开放接收 squid 服务的数据包，将发送到本机的 80 端口数据包，转发至本机 squid 服务的 3128 端口，进行代理服务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">firewall-cmd --add-service=squid --zone=internal --permanent</span><br><span class="line">firewall-cmd --add-forward-port=port=80:proto=tcp:toport=3128:toaddr=192.168.48.250 --per</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<p>（6）在测试机上验证<br>测试机的网关 gateway 指向该代理机，测试机的所有网络数据包发送到代理机的 80 端口进行端口转发，测试成功</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
   </entry>
 </search>
