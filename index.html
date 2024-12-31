@@ -115,7 +115,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -126,7 +126,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -154,6 +154,106 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://titizzz03.github.io/2024/12/30/Selinux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="titi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TitizzZ">
+      <meta itemprop="description" content="花开自有期">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | TitizzZ">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/12/30/Selinux/" class="post-title-link" itemprop="url">Selinux</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-12-30 22:31:55" itemprop="dateCreated datePublished" datetime="2024-12-30T22:31:55+08:00">2024-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-12-31 13:50:37" itemprop="dateModified" datetime="2024-12-31T13:50:37+08:00">2024-12-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>LINUX传统访问控制标准是DAC自主访问控制，这种情况下进程以一个UID或者一个SUID运行，拥有该角色的权限。而MAC强制访问控制中，策略和安全上下文决定了主体能够访问哪个对象。</p>
+<h3 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h3><p><code>Enforcing</code>：强制模式，基于策略规则拒绝主体对目标的访问。<br><code>Permissive</code>：宽容模式，属于旁观者状态，不会拒绝访问，但是会把信息记录到日志中。<br><code>Disabled</code>：关闭禁用selinux。</p>
+<h3 id="工作策略"><a href="#工作策略" class="headerlink" title="工作策略"></a>工作策略</h3><p><code>Targeted</code>：默认模式，对大部分网络服务进程进行管理<br><code>Minimum</code>：对选定的网络服务进行管理<br><code>Mls</code>：多级高级安全保护</p>
+<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p>&#x2F;etc&#x2F;selinux&#x2F;config</p>
+<h3 id="查询selinux状态"><a href="#查询selinux状态" class="headerlink" title="查询selinux状态"></a>查询selinux状态</h3><p><code>sestatus (-v)</code> -v显示详细内容<br><code>getenforce</code></p>
+<h3 id="设置selinux开关"><a href="#设置selinux开关" class="headerlink" title="设置selinux开关"></a>设置selinux开关</h3><ul>
+<li>临时开关：setenforce 1&#x2F;0 （1表示开启0表示关闭）</li>
+<li>永久修改：修改配置文件&#x2F;etc&#x2F;selinux&#x2F;config（重启系统生效）</li>
+</ul>
+<h3 id="安全上下文"><a href="#安全上下文" class="headerlink" title="安全上下文"></a>安全上下文</h3><p>Selinux为每个文件&#x2F;目录&#x2F;进程服务提供安全上下文信息，这些信息标签作为可否访问文件的依据</p>
+<p><strong>1. 查看</strong><br>文件&#x2F;目录查看安全上下文：<code>ls -Z</code><br>进程服务查看安全上下文：<code>ps -auxZ</code><br>显示内容：<code>[user] [role] [type] [degree] [file-name]</code><br>（其中Z选项都是查看安全上下文的子选项）<br>selinux进程访问时，会四配与日标文件的安全上下文中的类型type字段，匹配成功进行访问，匹配失败根据工作模式进行相对应操作</p>
+<p><strong>2. 临时性修改安全上下文信息chcon</strong><br>由于chcon是临时性操作，固常用于调试，重启后即失效<br>格式：<code>chcon [选项] [文件/目录]</code><br>常用选项：-R递归；-t指定类型；-u指定用户；-r指定角色</p>
+<p><strong>3. 永久性&#x2F;修改默认安全上下文信息 semanage</strong><br>semanage是一个管理selinux的主命令，其中包含一些子命令，每个子命令都有自己的选项和功能<br>通过man semanage查看关于semanage的使用手册说明，也可以通过semanage –help和semanage -h查看使用 说明的简短信息<br>修改类型标签：<code>semanage fcontext [选项] [路径(/.*)? ]</code><br>常用选项：-a添加&#x2F;-m修改&#x2F;-d删除&#x2F;-l查看&#x2F;-t指定类型</p>
+<p><strong>4. restorecon恢复安全上下文</strong><br>格式：<code>restorecon [选项] [文件/目录]</code><br>常用选项：-R递归；-v显示细节<br>在临时修改后，使用restorecon重置删除上下文<br>在永久修改后，使用restorecon保存上下文配置</p>
+<p><strong>5. 复制与移动对文件安全上下文的继承效果</strong><br>复制文件，文件安全上下文信息被更改，继承了新的目录的安全上下文<br>移动文件，保留了原有的安全上下文信息</p>
+<p><strong>6. 常用上下文</strong><br>WEB端用户家目录：<code>httpd_user_content_t</code><br>WEB端目录：<code>httpd_sys_content_t</code><br>WEB端可读目录：<code>httpd_sys_rw_content_t</code><br>SAMBA服务：<code>samba_share_t</code></p>
+<h3 id="安全策略"><a href="#安全策略" class="headerlink" title="安全策略"></a>安全策略</h3><p>Selinux策略辅助于selinux上下文匹配，二者结合对于进程访问主体做管控</p>
+<p><strong>1. 策略管理常用命令</strong><br>设置策略开关：<code>setsebool  (-P)  policy_name  on/off(1/0)</code> ，-P为永久设置，立即生效<br>![[Pasted image 20241230225400.png]]<br><strong>2. 常用策略</strong><br><code>httpd_enable_homedirs</code><br><code>samba_enable_home_dirs</code><br><code>samba_export_all_rw</code><br><code>httpd_unified</code></p>
+<h3 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h3><p>查看所有端口：<code>semanage port -l</code><br>添加端口：<code>semanage port -a -t &lt;type&gt; -p &lt;protocol&gt; &lt;port_number&gt;</code><br>删除端口：<code>semanage port -d -t &lt;type&gt; -p &lt;protocol&gt; &lt;port_number&gt;</code><br>常用端口上下文：<code>http_port_t</code> <code>ssh_port_t</code></p>
+<h3 id="日志追踪"><a href="#日志追踪" class="headerlink" title="日志追踪"></a>日志追踪</h3><p>selinux系统相关安全信息主要存放在<code>/var/log/audit/audit.log</code>下，有些分布在<code>/var/log/messages</code>公共目录下</p>
+<p>由于观察selinux拦截的系统信息时，查看不方便，多使用<code>sealert</code>，<code>audit2why</code>和<code>audit2allow</code>工具进行自动分析，后存放至一个文件下，需要查看时执行命令进行更新分析。</p>
+<p>格式：<br><code>sealert -a /var/log/audit/audit.log &gt; name.txt </code>（-a: analyse)<br><code>audit2why &lt; /var/log/audit/audit.log &gt; name.txt</code><br><code>audit2allow -a /var/log/audit/audit.log &gt; name.txt</code><br>下载工具包：yum install -y setroubleshoot* 和 yum install -y policycoreutils*</p>
+<h3 id="有关审计日志"><a href="#有关审计日志" class="headerlink" title="有关审计日志"></a>有关审计日志</h3><p>若audit审计工具在运行，selinux的拒绝信息被写入&#x2F;var&#x2F;log&#x2F;audit&#x2F;audit.log中<br>服务名：<code>auditd</code>；查看状态：systemctl status auditd 或 auditctl -s</p>
+<h3 id="常见报错"><a href="#常见报错" class="headerlink" title="常见报错"></a>常见报错</h3><p>NOT FOUND：文件路径找不到，路径错误<br>Forbidden：权限错误</p>
+<h3 id="访问出错排查"><a href="#访问出错排查" class="headerlink" title="访问出错排查"></a>访问出错排查</h3><p>1，网络是否通常（内网和虚拟机，虚拟机内网ping外网）<br>2，DAC权限是否可以操作<br>3，防火墙firewalld是否关闭<br>4，Apache&#x2F;samba&#x2F;auditd是否开启（关乎是否能上网，是否能window与linux远程登陆，是否记录审计日志）<br>5，进程与文件是否属于同一个域<br>6，策略方案getsebool -a | grep<br>7，http 端口</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
