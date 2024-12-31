@@ -26,11 +26,13 @@
 <meta property="og:site_name" content="TitizzZ">
 <meta property="og:description" content="定义LINUX传统访问控制标准是DAC自主访问控制，这种情况下进程以一个UID或者一个SUID运行，拥有该角色的权限。而MAC强制访问控制中，策略和安全上下文决定了主体能够访问哪个对象。 工作模式Enforcing：强制模式，基于策略规则拒绝主体对目标的访问。Permissive：宽容模式，属于旁观者状态，不会拒绝访问，但是会把信息记录到日志中。Disabled：关闭禁用selinux。 工作策略">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://titizzz03.github.io/images/SeBoolean.png">
 <meta property="article:published_time" content="2024-12-30T14:31:55.000Z">
-<meta property="article:modified_time" content="2024-12-31T05:50:37.437Z">
+<meta property="article:modified_time" content="2024-12-31T05:58:07.810Z">
 <meta property="article:author" content="titi">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://titizzz03.github.io/images/SeBoolean.png">
 
 
 <link rel="canonical" href="https://titizzz03.github.io/2024/12/30/Selinux/">
@@ -204,7 +206,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-12-31 13:50:37" itemprop="dateModified" datetime="2024-12-31T13:50:37+08:00">2024-12-31</time>
+      <time title="修改时间：2024-12-31 13:58:07" itemprop="dateModified" datetime="2024-12-31T13:58:07+08:00">2024-12-31</time>
     </span>
 
   
@@ -233,7 +235,7 @@
 <p><strong>5. 复制与移动对文件安全上下文的继承效果</strong><br>复制文件，文件安全上下文信息被更改，继承了新的目录的安全上下文<br>移动文件，保留了原有的安全上下文信息</p>
 <p><strong>6. 常用上下文</strong><br>WEB端用户家目录：<code>httpd_user_content_t</code><br>WEB端目录：<code>httpd_sys_content_t</code><br>WEB端可读目录：<code>httpd_sys_rw_content_t</code><br>SAMBA服务：<code>samba_share_t</code></p>
 <h3 id="安全策略"><a href="#安全策略" class="headerlink" title="安全策略"></a>安全策略</h3><p>Selinux策略辅助于selinux上下文匹配，二者结合对于进程访问主体做管控</p>
-<p><strong>1. 策略管理常用命令</strong><br>设置策略开关：<code>setsebool  (-P)  policy_name  on/off(1/0)</code> ，-P为永久设置，立即生效<br>![[Pasted image 20241230225400.png]]<br><strong>2. 常用策略</strong><br><code>httpd_enable_homedirs</code><br><code>samba_enable_home_dirs</code><br><code>samba_export_all_rw</code><br><code>httpd_unified</code></p>
+<p><strong>1. 策略管理常用命令</strong><br>设置策略开关：<code>setsebool  (-P)  policy_name  on/off(1/0)</code> ，-P为永久设置，立即生效<br><img src="/images/SeBoolean.png" alt="图片"><br><strong>2. 常用策略</strong><br><code>httpd_enable_homedirs</code><br><code>samba_enable_home_dirs</code><br><code>samba_export_all_rw</code><br><code>httpd_unified</code></p>
 <h3 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h3><p>查看所有端口：<code>semanage port -l</code><br>添加端口：<code>semanage port -a -t &lt;type&gt; -p &lt;protocol&gt; &lt;port_number&gt;</code><br>删除端口：<code>semanage port -d -t &lt;type&gt; -p &lt;protocol&gt; &lt;port_number&gt;</code><br>常用端口上下文：<code>http_port_t</code> <code>ssh_port_t</code></p>
 <h3 id="日志追踪"><a href="#日志追踪" class="headerlink" title="日志追踪"></a>日志追踪</h3><p>selinux系统相关安全信息主要存放在<code>/var/log/audit/audit.log</code>下，有些分布在<code>/var/log/messages</code>公共目录下</p>
 <p>由于观察selinux拦截的系统信息时，查看不方便，多使用<code>sealert</code>，<code>audit2why</code>和<code>audit2allow</code>工具进行自动分析，后存放至一个文件下，需要查看时执行命令进行更新分析。</p>
