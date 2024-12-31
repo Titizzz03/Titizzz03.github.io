@@ -79,28 +79,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FTP</title>
-    <url>/2024/12/31/FTP/</url>
-    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
-<li>File Transport File，提供文件上传和下载服务</li>
-<li>服务名：vsftpd</li>
-<li>端口：21&#x2F;tcp</li>
-<li>配置文件：<code>/etc/vsftpd/vsftpd.conf</code></li>
-<li>配置文件常见字段：<br>（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录<br>（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式<br>（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录</li>
-<li>安全上下文策略：<code>ftpd_full_access</code></li>
-<li>防火墙名称：vsftpd</li>
-</ul>
-<hr>
-<p>@ <a href="https://zybuluo.com/2303010148/note/2563425">基于 DNS + httpd + ftpd 服务的个人主页发布系统</a><br>@ <a href="https://zybuluo.com/mdeditor#2564002-full-reader">shell 脚本批量创建个人主页系统</a></p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mail</title>
     <url>/2024/12/31/Mail/</url>
     <content><![CDATA[<p><img src="/images/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8.png"></p>
@@ -149,6 +127,28 @@
       </tags>
   </entry>
   <entry>
+    <title>FTP</title>
+    <url>/2024/12/31/FTP/</url>
+    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
+<li>File Transport File，提供文件上传和下载服务</li>
+<li>服务名：vsftpd</li>
+<li>端口：21&#x2F;tcp</li>
+<li>配置文件：<code>/etc/vsftpd/vsftpd.conf</code></li>
+<li>配置文件常见字段：<br>（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录<br>（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式<br>（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录</li>
+<li>安全上下文策略：<code>ftpd_full_access</code></li>
+<li>防火墙名称：vsftpd</li>
+</ul>
+<hr>
+<p>@ <a href="https://zybuluo.com/2303010148/note/2563425">基于 DNS + httpd + ftpd 服务的个人主页发布系统</a><br>@ <a href="https://zybuluo.com/mdeditor#2564002-full-reader">shell 脚本批量创建个人主页系统</a></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Selinux</title>
     <url>/2024/12/30/Selinux/</url>
     <content><![CDATA[<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>LINUX传统访问控制标准是DAC自主访问控制，这种情况下进程以一个UID或者一个SUID运行，拥有该角色的权限。而MAC强制访问控制中，策略和安全上下文决定了主体能够访问哪个对象。</p>
@@ -185,6 +185,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2024/12/29/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>VPN</title>
     <url>/2024/12/31/VPN/</url>
     <content><![CDATA[<h2 id="一、-PPTP-协议"><a href="#一、-PPTP-协议" class="headerlink" title="一、 PPTP 协议"></a>一、 PPTP 协议</h2><p>点对点隧道协议，Point-to-Point Tunneling Protocol，是实现<a href="https://zh.wikipedia.org/wiki/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91" title="虚拟专用网">虚拟专用网</a>（VPN）的一种方式。<br>PPTP 使用<a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE" title="传输控制协议">传输控制协议</a>（TCP）建立控制通道以发送控制命令，并利用<a href="https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E8%B7%AF%E7%94%B1%E5%B0%81%E8%A3%85" title="通用路由封装">通用路由封装</a>（GRE）通道封装<a href="https://zh.wikipedia.org/wiki/%E7%82%B9%E5%AF%B9%E7%82%B9%E5%8D%8F%E8%AE%AE" title="点对点协议">点对点协议</a>（PPP）数据包以发送数据。</p>
@@ -206,24 +224,6 @@
       <tags>
         <tag>Linux</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/12/29/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>代理</title>
