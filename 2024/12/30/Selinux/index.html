@@ -26,13 +26,15 @@
 <meta property="og:site_name" content="TitizzZ">
 <meta property="og:description" content="一、定义LINUX传统访问控制标准是DAC自主访问控制，这种情况下进程以一个UID或者一个SUID运行，拥有该角色的权限。而MAC强制访问控制中，策略和安全上下文决定了主体能够访问哪个对象。 二、工作模式Enforcing：强制模式，基于策略规则拒绝主体对目标的访问。Permissive：宽容模式，属于旁观者状态，不会拒绝访问，但是会把信息记录到日志中。Disabled：关闭禁用selinux。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://titizzz03.github.io/images/selinux1.png">
 <meta property="og:image" content="https://titizzz03.github.io/images/SeBoolean.png">
+<meta property="og:image" content="https://titizzz03.github.io/images/selinux2.png">
 <meta property="article:published_time" content="2024-12-30T14:31:55.000Z">
-<meta property="article:modified_time" content="2025-01-01T06:28:23.606Z">
+<meta property="article:modified_time" content="2025-01-01T08:04:27.571Z">
 <meta property="article:author" content="titi">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://titizzz03.github.io/images/SeBoolean.png">
+<meta name="twitter:image" content="https://titizzz03.github.io/images/selinux1.png">
 
 
 <link rel="canonical" href="https://titizzz03.github.io/2024/12/30/Selinux/">
@@ -121,7 +123,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -209,7 +211,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-01-01 14:28:23" itemprop="dateModified" datetime="2025-01-01T14:28:23+08:00">2025-01-01</time>
+      <time title="修改时间：2025-01-01 16:04:27" itemprop="dateModified" datetime="2025-01-01T16:04:27+08:00">2025-01-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -230,7 +232,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h3 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h3><p>LINUX传统访问控制标准是DAC自主访问控制，这种情况下进程以一个UID或者一个SUID运行，拥有该角色的权限。而MAC强制访问控制中，策略和安全上下文决定了主体能够访问哪个对象。</p>
+    <div class="post-body" itemprop="articleBody"><h3 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h3><p>LINUX传统访问控制标准是DAC自主访问控制，这种情况下进程以一个UID或者一个SUID运行，拥有该角色的权限。而MAC强制访问控制中，策略和安全上下文决定了主体能够访问哪个对象。<br><img src="/images/selinux1.png"></p>
 <h3 id="二、工作模式"><a href="#二、工作模式" class="headerlink" title="二、工作模式"></a>二、工作模式</h3><p><code>Enforcing</code>：强制模式，基于策略规则拒绝主体对目标的访问。<br><code>Permissive</code>：宽容模式，属于旁观者状态，不会拒绝访问，但是会把信息记录到日志中。<br><code>Disabled</code>：关闭禁用selinux。</p>
 <h3 id="三、工作策略"><a href="#三、工作策略" class="headerlink" title="三、工作策略"></a>三、工作策略</h3><p><code>Targeted</code>：默认模式，对大部分网络服务进程进行管理<br><code>Minimum</code>：对选定的网络服务进行管理<br><code>Mls</code>：多级高级安全保护</p>
 <h3 id="四、配置文件："><a href="#四、配置文件：" class="headerlink" title="四、配置文件："></a>四、配置文件：</h3><p>&#x2F;etc&#x2F;selinux&#x2F;config</p>
@@ -245,7 +247,11 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 递归更改目录的selinux类型</span></span><br><span class="line"><span class="built_in">chcon</span> -R -t httpd_sys_content_t /var/www/html/</span><br><span class="line"><span class="comment"># 更改文件的selinux用户</span></span><br><span class="line"><span class="built_in">chcon</span> -u user /filename</span><br><span class="line"><span class="comment"># 恢复文件的默认selinux类型</span></span><br><span class="line"><span class="built_in">chcon</span> -l /var/www/html/index.html</span><br><span class="line"><span class="comment"># 查看文件的安全上下文</span></span><br><span class="line"><span class="built_in">chcon</span> -Z /var/www/html/index.html</span><br></pre></td></tr></table></figure>
 
 <p><strong>3. 永久性&#x2F;修改默认安全上下文信息 semanage</strong><br>semanage是一个管理selinux的主命令，其中包含一些子命令，每个子命令都有自己的选项和功能<br>通过man semanage查看关于semanage的使用手册说明，也可以通过semanage –help和semanage -h查看使用 说明的简短信息<br>修改类型标签：<code>semanage fcontext [选项] [路径(/.*)? ]</code><br>常用选项：-a添加&#x2F;-m修改&#x2F;-d删除&#x2F;-l查看&#x2F;-t指定类型</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 持久修改目录及其子文件上下文类型</span></span><br><span class="line">semanage fcontext -a -t httpd_sys_content_t <span class="string">&#x27;/var/www/html(/.*)?&#x27;</span></span><br><span class="line"><span class="comment"># 查看所有文件的上下文规则</span></span><br><span class="line">semanage fcontext -l</span><br></pre></td></tr></table></figure>
+
 <p><strong>4. restorecon恢复安全上下文</strong><br>格式：<code>restorecon [选项] [文件/目录]</code><br>常用选项：-R递归；-v显示细节<br>在临时修改后，使用restorecon重置删除上下文<br>在永久修改后，使用restorecon保存上下文配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 应用更改</span></span><br><span class="line">restorecon -R /var/www/html/</span><br></pre></td></tr></table></figure>
+
 <p><strong>5. 复制与移动对文件安全上下文的继承效果</strong><br>复制文件，文件安全上下文信息被更改，继承了新的目录的安全上下文<br>移动文件，保留了原有的安全上下文信息</p>
 <p><strong>6. 常用上下文</strong><br>WEB端用户家目录：<code>httpd_user_content_t</code><br>WEB端目录：<code>httpd_sys_content_t</code><br>WEB端可读目录：<code>httpd_sys_rw_content_t</code><br>SAMBA服务：<code>samba_share_t</code></p>
 <h3 id="八、安全策略"><a href="#八、安全策略" class="headerlink" title="八、安全策略"></a>八、安全策略</h3><p>Selinux策略辅助于selinux上下文匹配，二者结合对于进程访问主体做管控</p>
@@ -259,8 +265,7 @@
 
 <h3 id="十、用户"><a href="#十、用户" class="headerlink" title="十、用户"></a>十、用户</h3><p><code>semanage login</code> 用于管理系统用户关联的 selinux 用户</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将系统用户titi映射到selinux用户user_u</span></span><br><span class="line">semanage login -a -s user_u titi</span><br><span class="line"><span class="comment"># 列出所有用户映射</span></span><br><span class="line">semanage login -l</span><br></pre></td></tr></table></figure>
-
-
+<p><img src="/images/selinux2.png"></p>
 <h3 id="十一、日志追踪"><a href="#十一、日志追踪" class="headerlink" title="十一、日志追踪"></a>十一、日志追踪</h3><p>selinux系统相关安全信息主要存放在<code>/var/log/audit/audit.log</code>下，有些分布在<code>/var/log/messages</code>公共目录下</p>
 <p>由于观察selinux拦截的系统信息时，查看不方便，多使用<code>sealert</code>，<code>audit2why</code>和<code>audit2allow</code>工具进行自动分析，后存放至一个文件下，需要查看时执行命令进行更新分析。</p>
 <p>格式：<br><code>sealert -a /var/log/audit/audit.log &gt; name.txt </code>（-a: analyse)<br><code>audit2why &lt; /var/log/audit/audit.log &gt; name.txt</code><br><code>audit2allow -a /var/log/audit/audit.log &gt; name.txt</code><br>下载工具包：yum install -y setroubleshoot* 和 yum install -y policycoreutils*</p>
