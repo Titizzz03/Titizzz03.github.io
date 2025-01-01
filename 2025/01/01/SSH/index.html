@@ -19,27 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"titizzz03.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="介绍 File Transport File，提供文件上传和下载服务 服务名：vsftpd 端口：21&#x2F;tcp 配置文件：&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf 配置文件常见字段：（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式（3）chroot_l">
+    <meta name="description" content="介绍：SSH(Secure Shell)是一个网络安全协议，用于多操作系统间的远程登录与服务，相对与Telnet明文传输而言，SSH是**对传输内容进行了压缩**，后在**加密传送**，**非明文传送**，更加安全可靠，提高传输速度 ![](&#x2F;images&#x2F;ssh1.png) ![](&#x2F;images&#x2F;ssh2.png)  软件名：sshd  配置文件：服务端程序：&#96;&#x2F;usr&#x2F;bin&#x2F;sshd&#96;，服">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FTP">
-<meta property="og:url" content="https://titizzz03.github.io/2024/12/31/FTP/index.html">
+<meta property="og:title" content="SSH">
+<meta property="og:url" content="https://titizzz03.github.io/2025/01/01/SSH/index.html">
 <meta property="og:site_name" content="TitizzZ">
-<meta property="og:description" content="介绍 File Transport File，提供文件上传和下载服务 服务名：vsftpd 端口：21&#x2F;tcp 配置文件：&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd.conf 配置文件常见字段：（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式（3）chroot_l">
+<meta property="og:description" content="介绍：SSH(Secure Shell)是一个网络安全协议，用于多操作系统间的远程登录与服务，相对与Telnet明文传输而言，SSH是**对传输内容进行了压缩**，后在**加密传送**，**非明文传送**，更加安全可靠，提高传输速度 ![](&#x2F;images&#x2F;ssh1.png) ![](&#x2F;images&#x2F;ssh2.png)  软件名：sshd  配置文件：服务端程序：&#96;&#x2F;usr&#x2F;bin&#x2F;sshd&#96;，服">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-12-31T08:37:54.000Z">
-<meta property="article:modified_time" content="2024-12-31T08:40:02.632Z">
+<meta property="article:published_time" content="2025-01-01T05:33:06.000Z">
+<meta property="article:modified_time" content="2025-01-01T07:39:40.768Z">
 <meta property="article:author" content="titi">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://titizzz03.github.io/2024/12/31/FTP/">
+<link rel="canonical" href="https://titizzz03.github.io/2025/01/01/SSH/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://titizzz03.github.io/2024/12/31/FTP/","path":"2024/12/31/FTP/","title":"FTP"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://titizzz03.github.io/2025/01/01/SSH/","path":"2025/01/01/SSH/","title":"SSH"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>FTP | TitizzZ</title>
+<title>SSH | TitizzZ</title>
   
 
 
@@ -104,7 +104,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%90%8D%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">软件名：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">配置文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-ssh-sshd-config-%E4%B8%BB%E8%A6%81%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="nav-number">5.</span> <span class="nav-text">其他文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">6.</span> <span class="nav-text">相关命令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%EF%BC%9A"><span class="nav-number">7.</span> <span class="nav-text">其他：</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -171,7 +171,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://titizzz03.github.io/2024/12/31/FTP/">
+    <link itemprop="mainEntityOfPage" href="https://titizzz03.github.io/2025/01/01/SSH/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -184,12 +184,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="FTP | TitizzZ">
+      <meta itemprop="name" content="SSH | TitizzZ">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          FTP
+          SSH
         </h1>
 
         <div class="post-meta-container">
@@ -201,7 +201,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2024-12-31 16:37:54 / 修改时间：16:40:02" itemprop="dateCreated datePublished" datetime="2024-12-31T16:37:54+08:00">2024-12-31</time>
+      <time title="创建时间：2025-01-01 13:33:06 / 修改时间：15:39:40" itemprop="dateCreated datePublished" datetime="2025-01-01T13:33:06+08:00">2025-01-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -222,17 +222,37 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
-<li>File Transport File，提供文件上传和下载服务</li>
-<li>服务名：vsftpd</li>
-<li>端口：21&#x2F;tcp</li>
-<li>配置文件：<code>/etc/vsftpd/vsftpd.conf</code></li>
-<li>配置文件常见字段：<br>（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录<br>（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式<br>（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录</li>
-<li>安全上下文策略：<code>ftpd_full_access</code></li>
-<li>防火墙名称：vsftpd</li>
+    <div class="post-body" itemprop="articleBody"><h3 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h3><pre><code>SSH(Secure Shell)是一个网络安全协议，用于多操作系统间的远程登录与服务，相对与Telnet明文传输而言，SSH是**对传输内容进行了压缩**，后在**加密传送**，**非明文传送**，更加安全可靠，提高传输速度
+![](/images/ssh1.png)
+![](/images/ssh2.png)
+</code></pre>
+<h3 id="软件名："><a href="#软件名：" class="headerlink" title="软件名："></a>软件名：</h3><pre><code>sshd
+</code></pre>
+<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><pre><code>服务端程序：`/usr/bin/sshd`，服务端配置文件：`/etc/ssh/sshd_config`
+客户端程序：`/usr/bin/ssh`， 客户端配置文件：`/etc/ssh/ssh_config`
+</code></pre>
+<h3 id="etc-ssh-sshd-config-主要配置字段："><a href="#etc-ssh-sshd-config-主要配置字段：" class="headerlink" title="&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段："></a>&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段：</h3><pre><code>`PermitRootLogin no` 是否允许root登录
+`PasswordAuthentication yes` 是否允许密码登录
+`PubkeyAuthentication yes` 是否允许公钥登录
+`AllowUsers`，`AllowGroups` 白名单
+`DenyUsers`，`DenyGroups` 黑名单
+</code></pre>
+<h3 id="其他文件："><a href="#其他文件：" class="headerlink" title="其他文件："></a>其他文件：</h3><pre><code>Client机私钥文件：`~/.ssh/id_rsa`
+Client机公钥文件：`~/.ssh/id_rsa.pub`
+Client机信任主机文件：`~/.ssh/known_hosts`
+Server机接收的公钥文件：`~/.ssh/authorized_keys`
+</code></pre>
+<h3 id="相关命令："><a href="#相关命令：" class="headerlink" title="相关命令："></a>相关命令：</h3><pre><code>生成密钥对：`ssh-keygen`
+发送公钥：`ssh-copy-id  username@ip_address
+密码登录：`ssh username@IpAddress`， `ssh -l username IpAddress`
+</code></pre>
+<h3 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h3><ul>
+<li>client已经对server设置了ssh免密登录，如何再次使用密码登录？<br>禁止免密登录，即使用密码登录：<code>ssh -o PubkeyAuthentication=no user@IpAddress</code><br>选择登录方式为密码登录：<code>ssh -o PreferredAuthentications=password user@IpAddress</code></li>
+<li>ssh远程执行命令<br><code>ssh user@IpAddress [command]</code></li>
+<li>如何对ssh配置文件进行备份？<br>复制 <code>.bak</code> 备份文件在同一目录下：<code>cp /etc/ssh/sshd_config&#123;,.bak&#125;</code></li>
+<li><code>~/.ssh</code> 目录文件权限必须为 700，除了自己，其他人没有任何权限，否则 ssh 服务器拒绝登录</li>
+<li>服务器上的 <code>~/.ssh/authorized_keys</code> 权限必须为 600</li>
 </ul>
-<hr>
-<p>@ <a target="_blank" rel="noopener" href="https://zybuluo.com/2303010148/note/2563425">基于 DNS + httpd + ftpd 服务的个人主页发布系统</a><br>@ <a target="_blank" rel="noopener" href="https://zybuluo.com/mdeditor#2564002-full-reader">shell 脚本批量创建个人主页系统</a></p>
 
     </div>
 
@@ -249,14 +269,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/12/31/%E4%BB%A3%E7%90%86/" rel="prev" title="代理">
-                  <i class="fa fa-angle-left"></i> 代理
+                <a href="/2024/12/31/VPN/" rel="prev" title="VPN">
+                  <i class="fa fa-angle-left"></i> VPN
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/12/31/VPN/" rel="next" title="VPN">
-                  VPN <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
