@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>User-And-Group | 花开自有期，绽放义有时</title><meta name="author" content="titi"><meta name="copyright" content="titi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、预备知识1. 配置文件、UID与shell用户配置文件：&#x2F;etc&#x2F;passwd   其影子文件：&#x2F;etc&#x2F;shadow组配置文件：&#x2F;etc&#x2F;group   其影子文件：&#x2F;etc&#x2F;gshadowUID 分配：其中root的UID默认为0，系统用户UID为1-999，普通用户UID以1000开始命名shell 选择：普通用户 &#x2F;bin&#x2F;bash，系统用户不可登录控制台 &#x2F;sbin&#x2F;nologin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="User-And-Group">
+<meta property="og:url" content="https://titizzz03.github.io/2025/01/04/User-And-Group/index.html">
+<meta property="og:site_name" content="花开自有期，绽放义有时">
+<meta property="og:description" content="一、预备知识1. 配置文件、UID与shell用户配置文件：&#x2F;etc&#x2F;passwd   其影子文件：&#x2F;etc&#x2F;shadow组配置文件：&#x2F;etc&#x2F;group   其影子文件：&#x2F;etc&#x2F;gshadowUID 分配：其中root的UID默认为0，系统用户UID为1-999，普通用户UID以1000开始命名shell 选择：普通用户 &#x2F;bin&#x2F;bash，系统用户不可登录控制台 &#x2F;sbin&#x2F;nologin">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://titizzz03.github.io/uploads/avatar.jpg">
+<meta property="article:published_time" content="2025-01-04T11:16:35.000Z">
+<meta property="article:modified_time" content="2025-01-04T11:19:17.206Z">
+<meta property="article:author" content="titi">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://titizzz03.github.io/uploads/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://titizzz03.github.io/2025/01/04/User-And-Group/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'User-And-Group',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/uploads/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-handshake-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-id-card"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">花开自有期，绽放义有时</span></a><a class="nav-page-title" href="/"><span class="site-name">User-And-Group</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-handshake-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-id-card"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">User-And-Group</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-04T11:16:35.000Z" title="发表于 2025-01-04 19:16:35">2025-01-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-04T11:19:17.206Z" title="更新于 2025-01-04 19:19:17">2025-01-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="一、预备知识"><a href="#一、预备知识" class="headerlink" title="一、预备知识"></a>一、预备知识</h2><h3 id="1-配置文件、UID与shell"><a href="#1-配置文件、UID与shell" class="headerlink" title="1. 配置文件、UID与shell"></a>1. 配置文件、UID与shell</h3><p>用户配置文件：<code>/etc/passwd</code>   其影子文件：<code>/etc/shadow</code><br>组配置文件：<code>/etc/group</code>   其影子文件：<code>/etc/gshadow</code><br>UID 分配：其中root的UID默认为0，系统用户UID为1-999，普通用户UID以1000开始命名<br>shell 选择：普通用户 <code>/bin/bash</code>，系统用户不可登录控制台 <code>/sbin/nologin</code></p>
+<h3 id="2-相关命令与权限"><a href="#2-相关命令与权限" class="headerlink" title="2. 相关命令与权限"></a>2. 相关命令与权限</h3><p>&lt;1&gt; <code>su - 用户名称</code>，切换用户，加 - 表示整个 shell 环境一起切换，保留权限等信息， su 用户，不加 - 表示开启新的 shell 环境<br>&lt;2&gt; &#x2F;etc&#x2F;passwd 存放用户信息，密码加密，真正的密码放于影子文件中，&#x2F;etc&#x2F;shadow 是&#x2F;etc&#x2F;passwd的影子文件用于存放密码<br>&lt;3&gt; 普通用户无法查看影子文件</p>
+<h2 id="二、用户相关配置文件与命令"><a href="#二、用户相关配置文件与命令" class="headerlink" title="二、用户相关配置文件与命令"></a>二、用户相关配置文件与命令</h2><h3 id="1-etc-passwd"><a href="#1-etc-passwd" class="headerlink" title="1. &#x2F;etc&#x2F;passwd"></a>1. &#x2F;etc&#x2F;passwd</h3><p>用户名：加密密码：UID：GID：描述说明信息：主目录：命令解释器shell信息</p>
+<h3 id="2-etc-shadow"><a href="#2-etc-shadow" class="headerlink" title="2. &#x2F;etc&#x2F;shadow"></a>2. &#x2F;etc&#x2F;shadow</h3><p>用户名：经过算法加密后的口令：从1970.1.1到现在最近一次修改密码的时间：用更改密码后至少需要多少天才能第二次修改：用更改密码后至少需要多少天必须修改密码否则过期：密码过期几天后被禁用：被禁用的具体日期：其他</p>
+<h3 id="3-创建用户"><a href="#3-创建用户" class="headerlink" title="3. 创建用户"></a>3. 创建用户</h3><p><strong>创建添加用户</strong>：   <code>useradd 用户名</code><br><strong>创建用户并修改其UID标识码</strong>：  <code>useradd -u UID 用户名</code><br><strong>创建用户并修改其GID标识码即是主组</strong>：  <code>useradd -g GID 用户名</code><br><strong>创建用户并修改创建附加组</strong>：  <code>useradd -G 自定义附加组名 用户名</code><br><strong>创建用户并转移主目录 不放于默认目录home</strong>： <code> useradd -d 目标目录 用户名</code><br><strong>设置密码</strong>：<br>a.交互式（不回显式）：<code>passwd 用户名</code><br>确认后需要输入两次密码进行确认：New password: 和Retype new password:<br>若没有加用户名直接执行passwd命令，则默认对当下用户进行修改密码操作<br>root是超级用户，有权限可以任意修改密码，普通用户修改密码需要遵守linux密码规则，例如包含大小写、数字字符等<br>b.免交互式（回显式）：<code>echo 新密码 | passwd --stdin 用户</code><br>（stdin表示数据重定向-输入重定向和输出重定向）<br>示例：使用免交互式将lisi02密码设置为lywlyw20050923：      echo lywlyw20050923 | passwd –stdin lisi02<br>echo可以输出内容至屏幕上，|管道符将密码输出到用户上，–stdin接收密码<br>好处：可以看到密码以免输错   坏处：安全度不高 公共场合不适用 history可以查到<br>c.查看用户是否设置密码：<code>passwd -S 用户</code><br>已设置密码：password set<br>未设置密码：password locked</p>
+<h3 id="4-修改用户"><a href="#4-修改用户" class="headerlink" title="4. 修改用户"></a>4. 修改用户</h3><p><strong>修改用户的主组</strong>：  <code>usermod -g 更改的新主组 用户名</code><br><strong>修改用户的UID标识码</strong>：  <code>usermod -u 更新的UID码 用户名</code><br><strong>修改其用户名&#x2F;登录名</strong>：  <code>usermod -l 新的用户名称 原本的用户名称（处理的对象）</code><br><strong>用户有效期</strong>：<br>查看用户有效期： <code>chage -l 用户名</code><br>设置用户有效期(方法一)：<code>usermod -e 时间 用户名</code>（时间年月日用-分隔）<br>设置用户有效期(方法二)：<code>chage -E 时间 用户名</code>（时间年月日用-分隔）<br>把有效期改为永久有效永不失效(方法一)：<code>usermod -e -1 用户名</code><br>把有效期改为永久有效永不失效(方法二)：<code>chage -E -1 用户名</code></p>
+<h3 id="5-查看和删除用户"><a href="#5-查看和删除用户" class="headerlink" title="5. 查看和删除用户"></a>5. 查看和删除用户</h3><p><strong>查看用户信息</strong>： <code>id 用户名</code><br><strong>删除用户</strong>： <code>userdel 用户名</code>（-r 删除用户目录）<br><strong>封禁账号</strong>：<br>a.更改shell命令解释器：<code>usermod -s /sbin/nologin 用户名</code><br>b.使用passwd进行用户锁定：<code>passwd -l 用户</code><br>c.使用usermod进行用户锁定：<code>usermod -L 用户</code><br>d.对所有普通用户进行封禁：<code>touch /etc/nologin</code></p>
+<h2 id="三、组相关配置文件与命令"><a href="#三、组相关配置文件与命令" class="headerlink" title="三、组相关配置文件与命令"></a>三、组相关配置文件与命令</h2><h3 id="1-创建组"><a href="#1-创建组" class="headerlink" title="1. 创建组"></a>1. 创建组</h3><p><strong>创建组指定GID</strong>：  <code>groupadd -g 指定的GID 组名</code></p>
+<h3 id="2-修改组"><a href="#2-修改组" class="headerlink" title="2. 修改组"></a>2. 修改组</h3><p><strong>修改组名并修改组GID</strong>：   <code>groupmod -g 新GID -n 新组名 组名</code><br><strong>设置组密码</strong>：   <code>gpasswd 组名</code><br><strong>给组设置管理员</strong>：   <code>gpasswd -A 管理员 组名</code><br><strong>给组添加成员</strong>：   <code>gpasswd -a 用户 组名</code><br><strong>批量添加用户</strong>：  <code>gpasswd -M 组用户 组名</code>（组用户间用逗号隔开）</p>
+<h3 id="3-查看和删除"><a href="#3-查看和删除" class="headerlink" title="3. 查看和删除"></a>3. 查看和删除</h3><p><strong>查询用户属于哪个组，有多少个组</strong>：   <code>groups 用户</code><br><strong>切换组</strong>：   <code>newgrp 组名</code><br><strong>查看当前所在(生效)的组</strong>：   <code>id -gn</code><br><strong>删除组密码</strong>：   <code>gpasswd -r 组名</code><br><strong>删除组用户</strong>：   <code>gpasswd -d 组用户 组名</code><br><strong>删除组</strong>：   <code>groupdel 组名</code><br><strong>强删主组</strong>：   <code>groupdel -f 组名</code></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://titizzz03.github.io">titi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://titizzz03.github.io/2025/01/04/User-And-Group/">https://titizzz03.github.io/2025/01/04/User-And-Group/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://titizzz03.github.io" target="_blank">花开自有期，绽放义有时</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><div class="post-share"><div class="social-share" data-image="/uploads/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/01/04/power/" title="power"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">power</div></div><div class="info-2"><div class="info-item-1">一、一般权限1. chmod修改权限—chown修改所有者—chgrp修改所属组2. 权限位-硬链接数-属主-属组-大小-最后修改时间-文件或目录名称 3. 文件权限的四种状态读权限read：允许用户读取文件内容，查看文件的属性内容信息—【r】写权限write：允许用户对文件进行创建&#x2F;修改&#x2F;移动&#x2F;重命名等操作—【w】执行权限execute：允许用户运行文件，执行脚本—【x】—对于文件属于执行模式 对于目录属于访问模式无权限：用户对此文件目录无任何权限—【-】权限只限制普通用户，限制不了超级用户root 4. 文件的归属关系所有者user：拥有此文件&#x2F;目录的用户【u】所属组group：拥有此文件&#x2F;目录的用户组【g】其他用户other：除去所有者和所属组之外的第三方用户【o】所有用户all：包含以上三种用户【a】优先级别：所有者 &gt; 所属组 &gt; 其他用户 5....</div></div></div></a><a class="pagination-related" href="/2025/01/04/File-Operate/" title="File-Operate"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">File-Operate</div></div><div class="info-2"><div class="info-item-1">一、文件基础操作命令进入主目录 ： cd查看当前目录： pwd查看当前目录下的文件： ls，ls -l，ls -a， ls -ld 创建文件&#x2F;文件夹&#x2F;目录： touch 命令创建文件，mkdir 命令创建文件夹创建目录输出内容到文件中： echo 命令    echo 内容 &gt;/&gt;&gt; 文件，&gt;直接覆盖内容，&gt;&gt;表示追加定向 显示查看文件内容： cat+文件名查看大型文件01： more+文件名cat比较适合打开小型文件，一次性全显示出来，more适合查看打开大型文件，从头开始展示文件，以分屏展示，百分比进行显示内容调节，直接从顶部开始分页显示，左下角是显示进度百分比，可向后浏览，按enter进行一行一行翻，按空格进行一页一页翻，按Q退出此界面查看大型文件02： less+文件名按键盘上下箭头上下拖动浏览，前后均可浏览，按Q键退出查看文件默认前十行： head，head -5 查看前五行查看文件默认后十行： tail，tail -5 查看后五行 在系统内查找文件路径： find 寻找地址 -name...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/12/30/Docker/" title="Docker"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-30</div><div class="info-item-2">Docker</div></div><div class="info-2"><div class="info-item-1">一、基础介绍 镜像docker镜像类似于一个安装包，类比mysql，内部可以有mysql安装依赖部署等，docker可以拉取镜像到本地虚拟机中，并忽略不同操作系统之间的差异，拉取后可以直接使用 容器镜像拉取到本地后，会在本地开辟一个隔离空间来运行，称之为容器，一个镜像可以开辟多个不同的容器，且之间不会有干扰，实现多开效果，注意，一个容器是运行在虚拟机内部，完全隔离外界的，拥有自己的ip地址等，但是无法与外界进行通信，类似自己一个小主机，只能和宿主机实现通信效果  二、常见选项和操作 常见子选项-d 容器在后台运行，不加-d会占用前台-name 为容器取名，唯一-p [localhost-port]:[docker-port] 设置端口映射，将宿主机的port和docker的内部port做一个端口映射，使其能和外界做通信，一个宿主机的端口只能分配给一个docker做映射，一个docker相当于一个宿主机的进程-e [KEY]=[VALUE] 设置环境变量，由镜像决定[repository]:[tag]...</div></div></div></a><a class="pagination-related" href="/2025/01/04/File-Operate/" title="File-Operate"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-04</div><div class="info-item-2">File-Operate</div></div><div class="info-2"><div class="info-item-1">一、文件基础操作命令进入主目录 ： cd查看当前目录： pwd查看当前目录下的文件： ls，ls -l，ls -a， ls -ld 创建文件&#x2F;文件夹&#x2F;目录： touch 命令创建文件，mkdir 命令创建文件夹创建目录输出内容到文件中： echo 命令    echo 内容 &gt;/&gt;&gt; 文件，&gt;直接覆盖内容，&gt;&gt;表示追加定向 显示查看文件内容： cat+文件名查看大型文件01： more+文件名cat比较适合打开小型文件，一次性全显示出来，more适合查看打开大型文件，从头开始展示文件，以分屏展示，百分比进行显示内容调节，直接从顶部开始分页显示，左下角是显示进度百分比，可向后浏览，按enter进行一行一行翻，按空格进行一页一页翻，按Q退出此界面查看大型文件02： less+文件名按键盘上下箭头上下拖动浏览，前后均可浏览，按Q键退出查看文件默认前十行： head，head -5 查看前五行查看文件默认后十行： tail，tail -5 查看后五行 在系统内查找文件路径： find 寻找地址 -name...</div></div></div></a><a class="pagination-related" href="/2025/01/01/SSH/" title="SSH"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-01</div><div class="info-item-2">SSH</div></div><div class="info-2"><div class="info-item-1">介绍：SSH(Secure Shell)是一个网络安全协议，用于多操作系统间的远程登录与服务，相对与Telnet明文传输而言，SSH是对传输内容进行了压缩，后在加密传送，非明文传送，更加安全可靠，提高传输速度 软件名：sshd 配置文件：服务端程序：/usr/bin/sshd，服务端配置文件：/etc/ssh/sshd_config客户端程序：/usr/bin/ssh， 客户端配置文件：/etc/ssh/ssh_config &#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段：PermitRootLogin no 是否允许root登录PasswordAuthentication yes 是否允许密码登录PubkeyAuthentication yes 是否允许公钥登录AllowUsers，AllowGroups 白名单DenyUsers，DenyGroups...</div></div></div></a><a class="pagination-related" href="/2024/12/31/FTP/" title="FTP"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-31</div><div class="info-item-2">FTP</div></div><div class="info-2"><div class="info-item-1">介绍 File Transport File，提供文件上传和下载服务 服务名：vsftpd 端口：21&#x2F;tcp 配置文件：/etc/vsftpd/vsftpd.conf 配置文件常见字段：（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录 安全上下文策略：ftpd_full_access 防火墙名称：vsftpd   @ 基于 DNS + httpd + ftpd 服务的个人主页发布系统@ shell 脚本批量创建个人主页系统 </div></div></div></a><a class="pagination-related" href="/2024/12/31/Mail/" title="Mail"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-31</div><div class="info-item-2">Mail</div></div><div class="info-2"><div class="info-item-1">  邮件传输代理MTA-Mail Transport Agent，负责将邮件在服务器之间传输。常用协议：SMTP。常见代理商软件：postfix，sendmail，Exim 邮件用户代理MUA-Mail User Agent，负责发送和接收邮件。常用协议：IMAP，POP3，POP3S。常见代理商软件：Dovecot，常见Web端：openwebmail，roundcubemail。 邮件投递代理MDA-Mail Delivery Agent，负责将邮件存储到接收方的邮箱中。  一、Postfix 配置安装 postfix 软件包，对主配置文件 /et/postfix/main.cf 文件进行配置，并重启服务 12345678[titi@localhost ~]$ sudo dnf install -y postfix[titi@localhost ~]$ sudo vim /etc/postfix/main.cfmyhostname = mail.titi.cn    # 主机名mydomain = titi.cn           # 域名myorigin =...</div></div></div></a><a class="pagination-related" href="/2024/12/30/Selinux/" title="Selinux"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-30</div><div class="info-item-2">Selinux</div></div><div class="info-2"><div class="info-item-1">一、定义LINUX传统访问控制标准是DAC自主访问控制，这种情况下进程以一个UID或者一个SUID运行，拥有该角色的权限。而MAC强制访问控制中，策略和安全上下文决定了主体能够访问哪个对象。 二、工作模式Enforcing：强制模式，基于策略规则拒绝主体对目标的访问。Permissive：宽容模式，属于旁观者状态，不会拒绝访问，但是会把信息记录到日志中。Disabled：关闭禁用selinux。 三、工作策略Targeted：默认模式，对大部分网络服务进程进行管理Minimum：对选定的网络服务进行管理Mls：多级高级安全保护 四、配置文件：&#x2F;etc&#x2F;selinux&#x2F;config 五、查询selinux状态sestatus (-v) -v显示详细内容getenforce  六、设置selinux开关 临时开关：setenforce...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/uploads/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">titi</div><div class="author-info-description">花开自有期</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Titizzz03"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Titizzz03" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://leetcode.cn/u/thirsty-6aloismqk/" target="_blank" title="LeetCode"><i class="fa fa-bookmark"></i></a><a class="social-icon" href="mailto:3136552132@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/YDxuan?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-edit"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog ( ˙˘˙ )</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">一、预备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E3%80%81UID%E4%B8%8Eshell"><span class="toc-number">1.1.</span> <span class="toc-text">1. 配置文件、UID与shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%9D%83%E9%99%90"><span class="toc-number">1.2.</span> <span class="toc-text">2. 相关命令与权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8%E6%88%B7%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%8E%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">二、用户相关配置文件与命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-etc-passwd"><span class="toc-number">2.1.</span> <span class="toc-text">1. &#x2F;etc&#x2F;passwd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-etc-shadow"><span class="toc-number">2.2.</span> <span class="toc-text">2. &#x2F;etc&#x2F;shadow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7"><span class="toc-number">2.3.</span> <span class="toc-text">3. 创建用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7"><span class="toc-number">2.4.</span> <span class="toc-text">4. 修改用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7"><span class="toc-number">2.5.</span> <span class="toc-text">5. 查看和删除用户</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%BB%84%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%8E%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">三、组相关配置文件与命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E7%BB%84"><span class="toc-number">3.1.</span> <span class="toc-text">1. 创建组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9%E7%BB%84"><span class="toc-number">3.2.</span> <span class="toc-text">2. 修改组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-number">3.3.</span> <span class="toc-text">3. 查看和删除</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/04/power/" title="power">power</a><time datetime="2025-01-04T11:20:10.000Z" title="发表于 2025-01-04 19:20:10">2025-01-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/04/User-And-Group/" title="User-And-Group">User-And-Group</a><time datetime="2025-01-04T11:16:35.000Z" title="发表于 2025-01-04 19:16:35">2025-01-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/04/File-Operate/" title="File-Operate">File-Operate</a><time datetime="2025-01-04T10:59:19.000Z" title="发表于 2025-01-04 18:59:19">2025-01-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/01/SAMBA/" title="SAMBA">SAMBA</a><time datetime="2025-01-01T07:45:28.000Z" title="发表于 2025-01-01 15:45:28">2025-01-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/01/SSH/" title="SSH">SSH</a><time datetime="2025-01-01T05:33:06.000Z" title="发表于 2025-01-01 13:33:06">2025-01-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By titi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '5fa7b7e123816c1843ada61547050c30'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Valine' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
