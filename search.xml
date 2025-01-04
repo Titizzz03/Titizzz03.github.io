@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>FTP</title>
+    <url>/2024/12/31/FTP/</url>
+    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
+<li>File Transport File，提供文件上传和下载服务</li>
+<li>服务名：vsftpd</li>
+<li>端口：21&#x2F;tcp</li>
+<li>配置文件：<code>/etc/vsftpd/vsftpd.conf</code></li>
+<li>配置文件常见字段：<br>（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录<br>（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式<br>（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录</li>
+<li>安全上下文策略：<code>ftpd_full_access</code></li>
+<li>防火墙名称：vsftpd</li>
+</ul>
+<hr>
+<p>@ <a href="https://zybuluo.com/2303010148/note/2563425">基于 DNS + httpd + ftpd 服务的个人主页发布系统</a><br>@ <a href="https://zybuluo.com/mdeditor#2564002-full-reader">shell 脚本批量创建个人主页系统</a></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker</title>
     <url>/2024/12/30/Docker/</url>
     <content><![CDATA[<h3 id="一、基础介绍"><a href="#一、基础介绍" class="headerlink" title="一、基础介绍"></a>一、基础介绍</h3><ul>
@@ -79,46 +101,21 @@
       </tags>
   </entry>
   <entry>
-    <title>File-Operate</title>
-    <url>/2025/01/04/File-Operate/</url>
-    <content><![CDATA[<h3 id="一、文件基础操作命令"><a href="#一、文件基础操作命令" class="headerlink" title="一、文件基础操作命令"></a>一、文件基础操作命令</h3><p><strong>进入主目录</strong> ： <code>cd</code><br><strong>查看当前目录</strong>： <code>pwd</code><br><strong>查看当前目录下的文件</strong>： <code>ls</code>，<code>ls -l</code>，<code>ls -a</code>， <code>ls -ld</code></p>
-<p><strong>创建文件&#x2F;文件夹&#x2F;目录</strong>： <code>touch</code> 命令创建文件，<code>mkdir</code> 命令创建文件夹创建目录<br><strong>输出内容到文件中</strong>： <code>echo</code> 命令   <code> echo 内容 &gt;/&gt;&gt; 文件</code>，&gt;直接覆盖内容，&gt;&gt;表示追加定向</p>
-<p><strong>显示查看文件内容</strong>： <code>cat+文件名</code><br><strong>查看大型文件01</strong>： <code>more+文件名</code><br>cat比较适合打开小型文件，一次性全显示出来，more适合查看打开大型文件，从头开始展示文件，以分屏展示，百分比进行显示内容调节，直接从顶部开始分页显示，左下角是显示进度百分比，可向后浏览，按enter进行一行一行翻，按空格进行一页一页翻，按Q退出此界面<br><strong>查看大型文件02</strong>： <code>less+文件名</code><br>按键盘上下箭头上下拖动浏览，前后均可浏览，按Q键退出<br><strong>查看文件默认前十行</strong>： <code>head</code>，<code>head -5</code> 查看前五行<br><strong>查看文件默认后十行</strong>： <code>tail</code>，<code>tail -5</code> 查看后五行</p>
-<p><strong>在系统内查找文件路径</strong>： <code>find 寻找地址 -name 文件名</code><br><strong>在文件中搜索有无此关键词</strong>： <code>grep+关键词词条+目标路径</code></p>
-<p><strong>复制</strong>： <code>cp+源头地址+目标地址 </code>（-r 递归<br><strong>移动</strong>： <code>mv+源头地址+目标地址</code></p>
-<p><strong>切换目录</strong>：  <code>cd+目录</code><br><strong>返回上层目录</strong>： <code>cd ..</code><br><strong>返回当前目录</strong>： <code>cd .</code><br><strong>返回家目录</strong>： <code>cd+空格</code> 或者 <code>cd ~</code></p>
-<p><strong>删除</strong>： （没有强制删除的话会提醒是否删除该文件？输入yes即可）<br>删除文件：<code>rm 文件名</code><br>强制删除文件：<code>rm -f 文件名</code><br>删除文件夹：<code>rm -r 文件夹</code><br>强制删除文件夹：<code>rm -rf 文件夹</code></p>
-<p><strong>创建递归文件</strong>：<br>创建文件夹：<code>mkdir</code><br>创建递归文件：<code>mkdir -p</code>（此处p表示parent，父子关系的多层文件）<br>递归查看opt文件：<code>ls -R /opt</code><br><strong>创建链接文件</strong>： <code>In -s</code> 源头链接 目标地址<br><strong>同时创建多个目录</strong>： 使用<code>mkdir</code>命令，中间用 <em>空格</em> 隔开即可</p>
-<p><strong>命令别名</strong>：<code>alias+别名=”命令名”</code><br>输入alias查看别名列表</p>
-<p><strong>统计文件大小</strong>： <code>du+选项+文件路径</code><br>s显示该目录总大小，h表示显示单位</p>
-<p><strong>通配符</strong>：<br>代表一个字符：<code>?</code><br>代表两个字符：<code>??</code><br>代表任意个字符：<code>*</code><br>匹配范围内的字符：<code>[]</code>中括号内用<code>-</code>相连，示例：<code>[1-3]</code><br>匹配字符集合：<code>&#123;&#125;</code>大括号内用 <code>,</code> 隔开，示例：<code>&#123;1,4&#125;</code></p>
-<h3 id="二、文件查找和压缩"><a href="#二、文件查找和压缩" class="headerlink" title="二、文件查找和压缩"></a>二、文件查找和压缩</h3><h4 id="1-find"><a href="#1-find" class="headerlink" title="1. find"></a>1. find</h4><p>格式：<code>find 路径 选项 内容</code><br><img src="/images/find.png"><br><strong>A 基础操作</strong><br>使用通配符搭配-name选项进行查找：<code>find / -name grub??</code><br>查找在&#x2F;etc下五天内被访问过的文件：<code>find /etc -atime -5</code><br>查找&#x2F;etc下所有大小为10M的文件：<code>find /etc -size +10</code><br>查找&#x2F;home 下yhx用户的所有文件：<code>find /home -user yhx</code><br>文件名不分大小查找：<code>find / -iname abc</code><br><strong>B 查找并操作</strong><br>格式： <code>find 路径 选项 (-print) -exec (-ok) 命令 &#123;&#125; \;</code><br>作用： -exec 的作用类似于管道符，把前面用find命令找出来的所有文件传递到后面做操作<br>其中{}代表占位符，指前面搜索到的文件 \；是结尾符<br>注意： 结尾符 ; 前面一定要有空格与前面内容隔开<br>注意：删除文件时，为避免程序出错等问题，删除时最好使用具有交互性指令，更加安全保险，两种方式如下：<br>【find -ok】ok选项和exec选项雷同，ok选项具有交互性：<code>find /home -name &#39;data*&#39; -ok rm -rf &#123;&#125; \;</code><br>【find -exec rm -i】rm -i选项在删除时也会弹出提示文本：<code>find /home -name &#39;data*&#39; -exec rm -i &#123;&#125; \;</code></p>
-<h4 id="2-grep"><a href="#2-grep" class="headerlink" title="2. grep"></a>2. grep</h4><p>格式：<code>grep 选项 关键词 目标文件</code><br>选项：<br><code>-i</code> 查找时忽略大小<br><code>-c</code> 返回这个关键词出现的次数（一行多个只有效一个）<br><code>-n</code> 输出时一并输出行号<br><code>-v</code> 反选-返回没有这个关键词的行<br>特殊通配符： <code>^</code>字符——返回以这个字符开头的    字符<code>$</code>返回以这个字符结尾的</p>
-<h4 id="3-wc"><a href="#3-wc" class="headerlink" title="3. wc"></a>3. wc</h4><p>格式：<code>wc [选项] 路径</code><br>选项：<br>-l 只显示此路径的行数（lines）<br>-w 只显示这个文件有多少单词&#x2F;字符串（words）<br>-c 只显示这个文件有多少字节（bytes）<br>-m 只显示这个文件有多少字符（chars）</p>
-<h4 id="4-tar"><a href="#4-tar" class="headerlink" title="4. tar"></a>4. tar</h4><p>格式：<code>[tar] [选项] [打包/压缩/解压后的文件名] [被打包的文件]</code><br>常用搭配：<br>（1）使用gzip 工具，<code>tar -czvf /压缩后的文件 /被打包压缩的文件</code><br>（2）使用 bzip2 工具，<code>tar -cjvf /压缩后的文件 /被打包压缩的文件</code><br>注意：压缩时，如果有多个目录，用空格隔开<br>压缩时性能对比：压缩速度 gzip &gt; bzip2<br>压缩时间 bzip2 &gt; gzip<br><img src="/images/tar.png"></p>
-<h4 id="5-zip"><a href="#5-zip" class="headerlink" title="5. zip"></a>5. zip</h4><p>压缩格式：<code>zip 压缩后名称 文件</code><br>常用命令：<br><code>zip -r</code> 递归压缩，同时压缩目录<br><code>zip -d</code> 指定解压路径<br>解压格式：<code>unzip 文件 (-d) 解压路径</code></p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FTP</title>
-    <url>/2024/12/31/FTP/</url>
-    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
-<li>File Transport File，提供文件上传和下载服务</li>
-<li>服务名：vsftpd</li>
-<li>端口：21&#x2F;tcp</li>
-<li>配置文件：<code>/etc/vsftpd/vsftpd.conf</code></li>
-<li>配置文件常见字段：<br>（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录<br>（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式<br>（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录</li>
-<li>安全上下文策略：<code>ftpd_full_access</code></li>
-<li>防火墙名称：vsftpd</li>
+    <title>SSH</title>
+    <url>/2025/01/01/SSH/</url>
+    <content><![CDATA[<h3 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h3><p>SSH(Secure Shell)是一个网络安全协议，用于多操作系统间的远程登录与服务，相对与Telnet明文传输而言，SSH是<strong>对传输内容进行了压缩</strong>，后在<strong>加密传送</strong>，<strong>非明文传送</strong>，更加安全可靠，提高传输速度<br><img src="/images/ssh1.png"><br><img src="/images/ssh2.png"></p>
+<h3 id="软件名："><a href="#软件名：" class="headerlink" title="软件名："></a>软件名：</h3><p>sshd</p>
+<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p>服务端程序：<code>/usr/bin/sshd</code>，服务端配置文件：<code>/etc/ssh/sshd_config</code><br>客户端程序：<code>/usr/bin/ssh</code>， 客户端配置文件：<code>/etc/ssh/ssh_config</code></p>
+<h3 id="etc-ssh-sshd-config-主要配置字段："><a href="#etc-ssh-sshd-config-主要配置字段：" class="headerlink" title="&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段："></a>&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段：</h3><p><code>PermitRootLogin no</code> 是否允许root登录<br><code>PasswordAuthentication yes</code> 是否允许密码登录<br><code>PubkeyAuthentication yes</code> 是否允许公钥登录<br><code>AllowUsers</code>，<code>AllowGroups</code> 白名单<br><code>DenyUsers</code>，<code>DenyGroups</code> 黑名单</p>
+<h3 id="其他文件："><a href="#其他文件：" class="headerlink" title="其他文件："></a>其他文件：</h3><p>Client机私钥文件：<code>~/.ssh/id_rsa</code><br>Client机公钥文件：<code>~/.ssh/id_rsa.pub</code><br>Client机信任主机文件：<code>~/.ssh/known_hosts</code><br>Server机接收的公钥文件：<code>~/.ssh/authorized_keys</code></p>
+<h3 id="相关命令："><a href="#相关命令：" class="headerlink" title="相关命令："></a>相关命令：</h3><p>生成密钥对：<code>ssh-keygen</code><br>发送公钥：<code>ssh-copy-id  username@ip_address 密码登录：</code>ssh username@IpAddress<code>， </code>ssh -l username IpAddress&#96;</p>
+<h3 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h3><ul>
+<li>client已经对server设置了ssh免密登录，如何再次使用密码登录？<br>禁止免密登录，即使用密码登录：<code>ssh -o PubkeyAuthentication=no user@IpAddress</code><br>选择登录方式为密码登录：<code>ssh -o PreferredAuthentications=password user@IpAddress</code></li>
+<li>ssh远程执行命令<br><code>ssh user@IpAddress [command]</code></li>
+<li>如何对ssh配置文件进行备份？<br>复制 <code>.bak</code> 备份文件在同一目录下：<code>cp /etc/ssh/sshd_config&#123;,.bak&#125;</code></li>
+<li><code>~/.ssh</code> 目录文件权限必须为 700，除了自己，其他人没有任何权限，否则 ssh 服务器拒绝登录</li>
+<li>服务器上的 <code>~/.ssh/authorized_keys</code> 权限必须为 600</li>
 </ul>
-<hr>
-<p>@ <a href="https://zybuluo.com/2303010148/note/2563425">基于 DNS + httpd + ftpd 服务的个人主页发布系统</a><br>@ <a href="https://zybuluo.com/mdeditor#2564002-full-reader">shell 脚本批量创建个人主页系统</a></p>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -176,21 +173,42 @@
       </tags>
   </entry>
   <entry>
-    <title>SSH</title>
-    <url>/2025/01/01/SSH/</url>
-    <content><![CDATA[<h3 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h3><p>SSH(Secure Shell)是一个网络安全协议，用于多操作系统间的远程登录与服务，相对与Telnet明文传输而言，SSH是<strong>对传输内容进行了压缩</strong>，后在<strong>加密传送</strong>，<strong>非明文传送</strong>，更加安全可靠，提高传输速度<br><img src="/images/ssh1.png"><br><img src="/images/ssh2.png"></p>
-<h3 id="软件名："><a href="#软件名：" class="headerlink" title="软件名："></a>软件名：</h3><p>sshd</p>
-<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p>服务端程序：<code>/usr/bin/sshd</code>，服务端配置文件：<code>/etc/ssh/sshd_config</code><br>客户端程序：<code>/usr/bin/ssh</code>， 客户端配置文件：<code>/etc/ssh/ssh_config</code></p>
-<h3 id="etc-ssh-sshd-config-主要配置字段："><a href="#etc-ssh-sshd-config-主要配置字段：" class="headerlink" title="&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段："></a>&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段：</h3><p><code>PermitRootLogin no</code> 是否允许root登录<br><code>PasswordAuthentication yes</code> 是否允许密码登录<br><code>PubkeyAuthentication yes</code> 是否允许公钥登录<br><code>AllowUsers</code>，<code>AllowGroups</code> 白名单<br><code>DenyUsers</code>，<code>DenyGroups</code> 黑名单</p>
-<h3 id="其他文件："><a href="#其他文件：" class="headerlink" title="其他文件："></a>其他文件：</h3><p>Client机私钥文件：<code>~/.ssh/id_rsa</code><br>Client机公钥文件：<code>~/.ssh/id_rsa.pub</code><br>Client机信任主机文件：<code>~/.ssh/known_hosts</code><br>Server机接收的公钥文件：<code>~/.ssh/authorized_keys</code></p>
-<h3 id="相关命令："><a href="#相关命令：" class="headerlink" title="相关命令："></a>相关命令：</h3><p>生成密钥对：<code>ssh-keygen</code><br>发送公钥：<code>ssh-copy-id  username@ip_address 密码登录：</code>ssh username@IpAddress<code>， </code>ssh -l username IpAddress&#96;</p>
-<h3 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h3><ul>
-<li>client已经对server设置了ssh免密登录，如何再次使用密码登录？<br>禁止免密登录，即使用密码登录：<code>ssh -o PubkeyAuthentication=no user@IpAddress</code><br>选择登录方式为密码登录：<code>ssh -o PreferredAuthentications=password user@IpAddress</code></li>
-<li>ssh远程执行命令<br><code>ssh user@IpAddress [command]</code></li>
-<li>如何对ssh配置文件进行备份？<br>复制 <code>.bak</code> 备份文件在同一目录下：<code>cp /etc/ssh/sshd_config&#123;,.bak&#125;</code></li>
-<li><code>~/.ssh</code> 目录文件权限必须为 700，除了自己，其他人没有任何权限，否则 ssh 服务器拒绝登录</li>
-<li>服务器上的 <code>~/.ssh/authorized_keys</code> 权限必须为 600</li>
-</ul>
+    <title>Hello World</title>
+    <url>/2024/12/29/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>SAMBA</title>
+    <url>/2025/01/01/SAMBA/</url>
+    <content><![CDATA[<h3 id="一、安装samba工具"><a href="#一、安装samba工具" class="headerlink" title="一、安装samba工具"></a>一、安装samba工具</h3><p>1. 确保虚拟机有连接光盘（光盘存放真正软件源，yum包起链接作用）<br>2. 挂载光盘： mount &#x2F;dev&#x2F;sr0 &#x2F;mnt<br>3. 切换目录： cd &#x2F;etc&#x2F;yum.repos.d<br>4. 检查内部是否正常：ls &#x2F;etc&#x2F;yum.repos.d    cat &#x2F;etc&#x2F;yum.repos.d&#x2F;cdrom.repo    yum repolist -v.<br>5. 开始下载： yum install samba -y<br>6. 下载完成： which smbpasswd（查找有无此命令，有即工具已下载）<br> rpm -qa | grep samba（查找有无samba工具）<br><img src="/images/samba.png"></p>
+<h3 id="二、介绍"><a href="#二、介绍" class="headerlink" title="二、介绍"></a>二、介绍</h3><p>工具名：samba<br>命令名：smbpasswd<br>服务名：smb</p>
+<h3 id="三、命令"><a href="#三、命令" class="headerlink" title="三、命令"></a>三、命令</h3><h4 id="3-1-smbpasswd"><a href="#3-1-smbpasswd" class="headerlink" title="3.1 smbpasswd"></a>3.1 smbpasswd</h4><p>将 linux 用户添加为 samba 用户：<code>smbpasswd -a username</code><br>显式添加samba用户：<code>echo -e &quot;123\n123&quot; | smbpasswd -a username</code><br>删除samba用户：<code>smbpasswd -x username</code></p>
+<h4 id="3-2-smbclient"><a href="#3-2-smbclient" class="headerlink" title="3.2 smbclient"></a>3.2 smbclient</h4><p>查看该主机下有什么共享目录：<code>smbclient -L [ipAddress]</code><br>使用samba用户查看share目录：<code>smbclient //ipAddress/share -U [username]%[password] -L</code><br>连接到共享：<code>smbclient //ipAddress/share -U [username]%[password]</code><br>连接后操作：<code>smbclient //ipAddress/share -U [username]%[password] -c [command]</code><br>上传文件到共享：<code>smbclient //ipAddress/share -U [username]%[password] -c &quot;put localfile remotefile&quot;</code><br>从共享中下载文件：<code>smbclient //ipAddress/share -U [username]%[password] -c &quot;get remotefile localfile&quot;</code></p>
+<h4 id="3-3-smbmount"><a href="#3-3-smbmount" class="headerlink" title="3.3 smbmount"></a>3.3 smbmount</h4><p>从 samba 挂载到本地：<code>smbmount //ipAddress/share /mnt -o username=?,password=?</code><br>使用 mount.cifs 挂载：<code>mount.cifs //ipAddress/share /mnt -o username=?,password=?</code></p>
+<h4 id="3-4-others"><a href="#3-4-others" class="headerlink" title="3.4 others"></a>3.4 others</h4><p>验证配置文件是否出错：<code>testparm [configuration file]</code><br>查看 samba 用户列表：<code>pdbedit -L</code><br>查看登录状态：<code>smbstatus</code></p>
+<h3 id="四、配置文件-etc-samba-smb-conf"><a href="#四、配置文件-etc-samba-smb-conf" class="headerlink" title="四、配置文件 &#x2F;etc&#x2F;samba&#x2F;smb.conf"></a>四、配置文件 &#x2F;etc&#x2F;samba&#x2F;smb.conf</h3><p><code>[]</code>&#x3D;共享文件名<br><code>comment</code>&#x3D;说明<br><code>path</code>&#x3D;实际共享路径<br><code>public</code>&#x3D;yes&#x2F;no，是否公开<br><code>write list</code>&#x3D;user&#x2F;@group，可写用户列表，组要加@符号<br><code>read list</code>&#x3D;user&#x2F;@group可读用户列表<br><code>valid user</code>&#x3D;user&#x2F;@group有效用户<br><code>writable</code>&#x3D;yes&#x2F;no，是否全部可写<br><code>host allow</code>&#x3D;ip，白名单<br><code>host deny</code>&#x3D;ip，黑名单</p>
+<h3 id="五、Samba与Selinux"><a href="#五、Samba与Selinux" class="headerlink" title="五、Samba与Selinux"></a>五、Samba与Selinux</h3><p>Selinux安全策略：<code>samba_enable_home_dirs</code><br>Selinux安全上下文：<code>samba_share_t</code></p>
+<h3 id="六、断开连接："><a href="#六、断开连接：" class="headerlink" title="六、断开连接："></a>六、断开连接：</h3><p>访问方式：在文件资源系统中，打开：<code>\\ipAddress</code>，跳转登录界面<br><code>net use * /del</code> 断开连接<br><code>smbstatus</code> 查看服务状态<br><code>samba -x</code> 删除特定用户连接</p>
+<h3 id="七、特殊配置"><a href="#七、特殊配置" class="headerlink" title="七、特殊配置"></a>七、特殊配置</h3><p>若在 windows 中连接不了 samba，无法打开登录对话框，在主配置文件的全局配置中，手动指定 samba 相互通信的协议版本，指定 NT1 可以兼容 Windows XP 系统之后的所有系统，编辑后重启 samba 服务即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">client min protocol = NT1</span><br><span class="line">server min protocol = NT1</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>其他：<br>@：&#x2F;etc&#x2F;samba&#x2F;smb.conf中writable&#x3D;yes与write list是相冲突的，writable开启属于全部人可读，而write list是部分用户可读，固writable会覆盖write list<br>@：useradd -M创建系统用户且不设置默认家目录，无法登录，windows下无法查看自己的家目录<br>@：mount -o guest 使用选项guest常常挂载共享文件<br>@：配置完配置文件后，可以使用testparm命令对&#x2F;etc&#x2F;samba&#x2F;smb.conf文件检查语法，按enter确认<br>@：用户认证文件：&#x2F;var&#x2F;lib&#x2F;samba&#x2F;private&#x2F;passdb.tdb，存放samba用户与linux用户的映射关系，passdb.tdb是一个数据库文件；<br>@：TDB（Trivial Database）是 Samba 中常用的数据库格式之一，用于存储用户凭据、共享信息、锁定信息等。</p>
+<hr>
+<p>@：<a href="https://zybuluo.com/2303010148/note/2564937">部门级samba服务器</a><br>@：<a href="https://zybuluo.com/2303010148/note/2565072">企业级samba服务器</a></p>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -251,51 +269,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SAMBA</title>
-    <url>/2025/01/01/SAMBA/</url>
-    <content><![CDATA[<h3 id="一、安装samba工具"><a href="#一、安装samba工具" class="headerlink" title="一、安装samba工具"></a>一、安装samba工具</h3><p>1. 确保虚拟机有连接光盘（光盘存放真正软件源，yum包起链接作用）<br>2. 挂载光盘： mount &#x2F;dev&#x2F;sr0 &#x2F;mnt<br>3. 切换目录： cd &#x2F;etc&#x2F;yum.repos.d<br>4. 检查内部是否正常：ls &#x2F;etc&#x2F;yum.repos.d    cat &#x2F;etc&#x2F;yum.repos.d&#x2F;cdrom.repo    yum repolist -v.<br>5. 开始下载： yum install samba -y<br>6. 下载完成： which smbpasswd（查找有无此命令，有即工具已下载）<br> rpm -qa | grep samba（查找有无samba工具）<br><img src="/images/samba.png"></p>
-<h3 id="二、介绍"><a href="#二、介绍" class="headerlink" title="二、介绍"></a>二、介绍</h3><p>工具名：samba<br>命令名：smbpasswd<br>服务名：smb</p>
-<h3 id="三、命令"><a href="#三、命令" class="headerlink" title="三、命令"></a>三、命令</h3><h4 id="3-1-smbpasswd"><a href="#3-1-smbpasswd" class="headerlink" title="3.1 smbpasswd"></a>3.1 smbpasswd</h4><p>将 linux 用户添加为 samba 用户：<code>smbpasswd -a username</code><br>显式添加samba用户：<code>echo -e &quot;123\n123&quot; | smbpasswd -a username</code><br>删除samba用户：<code>smbpasswd -x username</code></p>
-<h4 id="3-2-smbclient"><a href="#3-2-smbclient" class="headerlink" title="3.2 smbclient"></a>3.2 smbclient</h4><p>查看该主机下有什么共享目录：<code>smbclient -L [ipAddress]</code><br>使用samba用户查看share目录：<code>smbclient //ipAddress/share -U [username]%[password] -L</code><br>连接到共享：<code>smbclient //ipAddress/share -U [username]%[password]</code><br>连接后操作：<code>smbclient //ipAddress/share -U [username]%[password] -c [command]</code><br>上传文件到共享：<code>smbclient //ipAddress/share -U [username]%[password] -c &quot;put localfile remotefile&quot;</code><br>从共享中下载文件：<code>smbclient //ipAddress/share -U [username]%[password] -c &quot;get remotefile localfile&quot;</code></p>
-<h4 id="3-3-smbmount"><a href="#3-3-smbmount" class="headerlink" title="3.3 smbmount"></a>3.3 smbmount</h4><p>从 samba 挂载到本地：<code>smbmount //ipAddress/share /mnt -o username=?,password=?</code><br>使用 mount.cifs 挂载：<code>mount.cifs //ipAddress/share /mnt -o username=?,password=?</code></p>
-<h4 id="3-4-others"><a href="#3-4-others" class="headerlink" title="3.4 others"></a>3.4 others</h4><p>验证配置文件是否出错：<code>testparm [configuration file]</code><br>查看 samba 用户列表：<code>pdbedit -L</code><br>查看登录状态：<code>smbstatus</code></p>
-<h3 id="四、配置文件-etc-samba-smb-conf"><a href="#四、配置文件-etc-samba-smb-conf" class="headerlink" title="四、配置文件 &#x2F;etc&#x2F;samba&#x2F;smb.conf"></a>四、配置文件 &#x2F;etc&#x2F;samba&#x2F;smb.conf</h3><p><code>[]</code>&#x3D;共享文件名<br><code>comment</code>&#x3D;说明<br><code>path</code>&#x3D;实际共享路径<br><code>public</code>&#x3D;yes&#x2F;no，是否公开<br><code>write list</code>&#x3D;user&#x2F;@group，可写用户列表，组要加@符号<br><code>read list</code>&#x3D;user&#x2F;@group可读用户列表<br><code>valid user</code>&#x3D;user&#x2F;@group有效用户<br><code>writable</code>&#x3D;yes&#x2F;no，是否全部可写<br><code>host allow</code>&#x3D;ip，白名单<br><code>host deny</code>&#x3D;ip，黑名单</p>
-<h3 id="五、Samba与Selinux"><a href="#五、Samba与Selinux" class="headerlink" title="五、Samba与Selinux"></a>五、Samba与Selinux</h3><p>Selinux安全策略：<code>samba_enable_home_dirs</code><br>Selinux安全上下文：<code>samba_share_t</code></p>
-<h3 id="六、断开连接："><a href="#六、断开连接：" class="headerlink" title="六、断开连接："></a>六、断开连接：</h3><p>访问方式：在文件资源系统中，打开：<code>\\ipAddress</code>，跳转登录界面<br><code>net use * /del</code> 断开连接<br><code>smbstatus</code> 查看服务状态<br><code>samba -x</code> 删除特定用户连接</p>
-<h3 id="七、特殊配置"><a href="#七、特殊配置" class="headerlink" title="七、特殊配置"></a>七、特殊配置</h3><p>若在 windows 中连接不了 samba，无法打开登录对话框，在主配置文件的全局配置中，手动指定 samba 相互通信的协议版本，指定 NT1 可以兼容 Windows XP 系统之后的所有系统，编辑后重启 samba 服务即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">client min protocol = NT1</span><br><span class="line">server min protocol = NT1</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>其他：<br>@：&#x2F;etc&#x2F;samba&#x2F;smb.conf中writable&#x3D;yes与write list是相冲突的，writable开启属于全部人可读，而write list是部分用户可读，固writable会覆盖write list<br>@：useradd -M创建系统用户且不设置默认家目录，无法登录，windows下无法查看自己的家目录<br>@：mount -o guest 使用选项guest常常挂载共享文件<br>@：配置完配置文件后，可以使用testparm命令对&#x2F;etc&#x2F;samba&#x2F;smb.conf文件检查语法，按enter确认<br>@：用户认证文件：&#x2F;var&#x2F;lib&#x2F;samba&#x2F;private&#x2F;passdb.tdb，存放samba用户与linux用户的映射关系，passdb.tdb是一个数据库文件；<br>@：TDB（Trivial Database）是 Samba 中常用的数据库格式之一，用于存储用户凭据、共享信息、锁定信息等。</p>
-<hr>
-<p>@：<a href="https://zybuluo.com/2303010148/note/2564937">部门级samba服务器</a><br>@：<a href="https://zybuluo.com/2303010148/note/2565072">企业级samba服务器</a></p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/12/29/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>VPN</title>
     <url>/2024/12/31/VPN/</url>
     <content><![CDATA[<h2 id="一、-PPTP-协议"><a href="#一、-PPTP-协议" class="headerlink" title="一、 PPTP 协议"></a>一、 PPTP 协议</h2><p>点对点隧道协议，Point-to-Point Tunneling Protocol，是实现<a href="https://zh.wikipedia.org/wiki/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91" title="虚拟专用网">虚拟专用网</a>（VPN）的一种方式。<br>PPTP 使用<a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE" title="传输控制协议">传输控制协议</a>（TCP）建立控制通道以发送控制命令，并利用<a href="https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E8%B7%AF%E7%94%B1%E5%B0%81%E8%A3%85" title="通用路由封装">通用路由封装</a>（GRE）通道封装<a href="https://zh.wikipedia.org/wiki/%E7%82%B9%E5%AF%B9%E7%82%B9%E5%8D%8F%E8%AE%AE" title="点对点协议">点对点协议</a>（PPP）数据包以发送数据。</p>
@@ -311,6 +284,33 @@
 <h4 id="2-6-开启-PPTP-的穿透功能"><a href="#2-6-开启-PPTP-的穿透功能" class="headerlink" title="2.6 开启 PPTP 的穿透功能"></a>2.6 开启 PPTP 的穿透功能</h4><p>这个命令用于加载 ip_nat_pptp 内核模块，以支持PPTP的网络地址转换（NAT）。<br>PPTP协议本身需要特殊的NAT处理来正确地转发PPTP通信中的控制和数据流量</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe ip_nat_pptp</span><br><span class="line">lsmod | grep pptp</span><br></pre></td></tr></table></figure>
 <h4 id="2-7-添加-pptp-服务的-xml-文件"><a href="#2-7-添加-pptp-服务的-xml-文件" class="headerlink" title="2.7 添加 pptp 服务的 xml 文件"></a>2.7 添加 pptp 服务的 xml 文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/lib/firewalld/services</span><br><span class="line"><span class="built_in">cp</span> -p http.xml pptp.xml</span><br><span class="line">vim pptp.xml</span><br><span class="line">&lt;service&gt;</span><br><span class="line">	...</span><br><span class="line">	&lt;port protocol=<span class="string">&quot;tcp&quot;</span> port=<span class="string">&quot;1723&quot;</span> /&gt;</span><br><span class="line">&lt;/service&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件操作</title>
+    <url>/2025/01/04/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="一、文件基础操作命令"><a href="#一、文件基础操作命令" class="headerlink" title="一、文件基础操作命令"></a>一、文件基础操作命令</h3><p><strong>进入主目录</strong> ： <code>cd</code><br><strong>查看当前目录</strong>： <code>pwd</code><br><strong>查看当前目录下的文件</strong>： <code>ls</code>，<code>ls -l</code>，<code>ls -a</code>， <code>ls -ld</code></p>
+<p><strong>创建文件&#x2F;文件夹&#x2F;目录</strong>： <code>touch</code> 命令创建文件，<code>mkdir</code> 命令创建文件夹创建目录<br><strong>输出内容到文件中</strong>： <code>echo</code> 命令   <code> echo 内容 &gt;/&gt;&gt; 文件</code>，&gt;直接覆盖内容，&gt;&gt;表示追加定向</p>
+<p><strong>显示查看文件内容</strong>： <code>cat+文件名</code><br><strong>查看大型文件01</strong>： <code>more+文件名</code><br>cat比较适合打开小型文件，一次性全显示出来，more适合查看打开大型文件，从头开始展示文件，以分屏展示，百分比进行显示内容调节，直接从顶部开始分页显示，左下角是显示进度百分比，可向后浏览，按enter进行一行一行翻，按空格进行一页一页翻，按Q退出此界面<br><strong>查看大型文件02</strong>： <code>less+文件名</code><br>按键盘上下箭头上下拖动浏览，前后均可浏览，按Q键退出<br><strong>查看文件默认前十行</strong>： <code>head</code>，<code>head -5</code> 查看前五行<br><strong>查看文件默认后十行</strong>： <code>tail</code>，<code>tail -5</code> 查看后五行</p>
+<p><strong>在系统内查找文件路径</strong>： <code>find 寻找地址 -name 文件名</code><br><strong>在文件中搜索有无此关键词</strong>： <code>grep+关键词词条+目标路径</code></p>
+<p><strong>复制</strong>： <code>cp+源头地址+目标地址 </code>（-r 递归<br><strong>移动</strong>： <code>mv+源头地址+目标地址</code></p>
+<p><strong>切换目录</strong>：  <code>cd+目录</code><br><strong>返回上层目录</strong>： <code>cd ..</code><br><strong>返回当前目录</strong>： <code>cd .</code><br><strong>返回家目录</strong>： <code>cd+空格</code> 或者 <code>cd ~</code></p>
+<p><strong>删除</strong>： （没有强制删除的话会提醒是否删除该文件？输入yes即可）<br>删除文件：<code>rm 文件名</code><br>强制删除文件：<code>rm -f 文件名</code><br>删除文件夹：<code>rm -r 文件夹</code><br>强制删除文件夹：<code>rm -rf 文件夹</code></p>
+<p><strong>创建递归文件</strong>：<br>创建文件夹：<code>mkdir</code><br>创建递归文件：<code>mkdir -p</code>（此处p表示parent，父子关系的多层文件）<br>递归查看opt文件：<code>ls -R /opt</code><br><strong>创建链接文件</strong>： <code>In -s</code> 源头链接 目标地址<br><strong>同时创建多个目录</strong>： 使用<code>mkdir</code>命令，中间用 <em>空格</em> 隔开即可</p>
+<p><strong>命令别名</strong>：<code>alias+别名=”命令名”</code><br>输入alias查看别名列表</p>
+<p><strong>统计文件大小</strong>： <code>du+选项+文件路径</code><br>s显示该目录总大小，h表示显示单位</p>
+<p><strong>通配符</strong>：<br>代表一个字符：<code>?</code><br>代表两个字符：<code>??</code><br>代表任意个字符：<code>*</code><br>匹配范围内的字符：<code>[]</code>中括号内用<code>-</code>相连，示例：<code>[1-3]</code><br>匹配字符集合：<code>&#123;&#125;</code>大括号内用 <code>,</code> 隔开，示例：<code>&#123;1,4&#125;</code></p>
+<h3 id="二、文件查找和压缩"><a href="#二、文件查找和压缩" class="headerlink" title="二、文件查找和压缩"></a>二、文件查找和压缩</h3><h4 id="1-find"><a href="#1-find" class="headerlink" title="1. find"></a>1. find</h4><p>格式：<code>find 路径 选项 内容</code><br><img src="/images/find.png"><br><strong>A 基础操作</strong><br>使用通配符搭配-name选项进行查找：<code>find / -name grub??</code><br>查找在&#x2F;etc下五天内被访问过的文件：<code>find /etc -atime -5</code><br>查找&#x2F;etc下所有大小为10M的文件：<code>find /etc -size +10</code><br>查找&#x2F;home 下yhx用户的所有文件：<code>find /home -user yhx</code><br>文件名不分大小查找：<code>find / -iname abc</code><br><strong>B 查找并操作</strong><br>格式： <code>find 路径 选项 (-print) -exec (-ok) 命令 &#123;&#125; \;</code><br>作用： -exec 的作用类似于管道符，把前面用find命令找出来的所有文件传递到后面做操作<br>其中{}代表占位符，指前面搜索到的文件 \；是结尾符<br>注意： 结尾符 ; 前面一定要有空格与前面内容隔开<br>注意：删除文件时，为避免程序出错等问题，删除时最好使用具有交互性指令，更加安全保险，两种方式如下：<br>【find -ok】ok选项和exec选项雷同，ok选项具有交互性：<code>find /home -name &#39;data*&#39; -ok rm -rf &#123;&#125; \;</code><br>【find -exec rm -i】rm -i选项在删除时也会弹出提示文本：<code>find /home -name &#39;data*&#39; -exec rm -i &#123;&#125; \;</code></p>
+<h4 id="2-grep"><a href="#2-grep" class="headerlink" title="2. grep"></a>2. grep</h4><p>格式：<code>grep 选项 关键词 目标文件</code><br>选项：<br><code>-i</code> 查找时忽略大小<br><code>-c</code> 返回这个关键词出现的次数（一行多个只有效一个）<br><code>-n</code> 输出时一并输出行号<br><code>-v</code> 反选-返回没有这个关键词的行<br>特殊通配符： <code>^</code>字符——返回以这个字符开头的    字符<code>$</code>返回以这个字符结尾的</p>
+<h4 id="3-wc"><a href="#3-wc" class="headerlink" title="3. wc"></a>3. wc</h4><p>格式：<code>wc [选项] 路径</code><br>选项：<br>-l 只显示此路径的行数（lines）<br>-w 只显示这个文件有多少单词&#x2F;字符串（words）<br>-c 只显示这个文件有多少字节（bytes）<br>-m 只显示这个文件有多少字符（chars）</p>
+<h4 id="4-tar"><a href="#4-tar" class="headerlink" title="4. tar"></a>4. tar</h4><p>格式：<code>[tar] [选项] [打包/压缩/解压后的文件名] [被打包的文件]</code><br>常用搭配：<br>（1）使用gzip 工具，<code>tar -czvf /压缩后的文件 /被打包压缩的文件</code><br>（2）使用 bzip2 工具，<code>tar -cjvf /压缩后的文件 /被打包压缩的文件</code><br>注意：压缩时，如果有多个目录，用空格隔开<br>压缩时性能对比：压缩速度 gzip &gt; bzip2<br>压缩时间 bzip2 &gt; gzip<br><img src="/images/tar.png"></p>
+<h4 id="5-zip"><a href="#5-zip" class="headerlink" title="5. zip"></a>5. zip</h4><p>压缩格式：<code>zip 压缩后名称 文件</code><br>常用命令：<br><code>zip -r</code> 递归压缩，同时压缩目录<br><code>zip -d</code> 指定解压路径<br>解压格式：<code>unzip 文件 (-d) 解压路径</code></p>
+]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -425,8 +425,8 @@
       </tags>
   </entry>
   <entry>
-    <title>power</title>
-    <url>/2025/01/04/power/</url>
+    <title>权限</title>
+    <url>/2025/01/04/%E6%9D%83%E9%99%90/</url>
     <content><![CDATA[<h2 id="一、一般权限"><a href="#一、一般权限" class="headerlink" title="一、一般权限"></a>一、一般权限</h2><p><strong>1. chmod修改权限—chown修改所有者—chgrp修改所属组</strong><br><strong>2. 权限位-硬链接数-属主-属组-大小-最后修改时间-文件或目录名称</strong></p>
 <p><strong>3. 文件权限的四种状态</strong><br>读权限<code>read</code>：允许用户读取文件内容，查看文件的属性内容信息—【<code>r</code>】<br>写权限<code>write</code>：允许用户对文件进行创建&#x2F;修改&#x2F;移动&#x2F;重命名等操作—【<code>w</code>】<br>执行权限<code>execute</code>：允许用户运行文件，执行脚本—【<code>x</code>】—对于文件属于执行模式 对于目录属于访问模式<br>无权限：用户对此文件目录无任何权限—【<code>-</code>】<br>权限只限制普通用户，限制不了超级用户root</p>
 <p><strong>4. 文件的归属关系</strong><br>所有者<code>user</code>：拥有此文件&#x2F;目录的用户【<code>u</code>】<br>所属组<code>group</code>：拥有此文件&#x2F;目录的用户组【<code>g</code>】<br>其他用户<code>other</code>：除去所有者和所属组之外的第三方用户【<code>o</code>】<br>所有用户<code>all</code>：包含以上三种用户【<code>a</code>】<br>优先级别：所有者 &gt; 所属组 &gt; 其他用户</p>
