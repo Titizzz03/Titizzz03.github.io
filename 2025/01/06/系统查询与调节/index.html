@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>系统查询与调节 | 花开自有期，绽放义有时</title><meta name="author" content="titi"><meta name="copyright" content="titi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、系统方面1. 查看硬盘分区管理信息fdisk -l 1234567891011[root@2303010148 ~]# fdisk -lDisk &#x2F;dev&#x2F;nvme0n1：20 GiB，21474836480 字节，41943040 个扇区磁盘型号：VMware Virtual NVMe Disk单元：扇区 &#x2F; 1 * 512 &#x3D; 512 字节扇区大小(逻辑&#x2F;物理)：512 字节 &#x2F; 512">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统查询与调节">
+<meta property="og:url" content="https://titizzz03.github.io/2025/01/06/%E7%B3%BB%E7%BB%9F%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%B0%83%E8%8A%82/index.html">
+<meta property="og:site_name" content="花开自有期，绽放义有时">
+<meta property="og:description" content="一、系统方面1. 查看硬盘分区管理信息fdisk -l 1234567891011[root@2303010148 ~]# fdisk -lDisk &#x2F;dev&#x2F;nvme0n1：20 GiB，21474836480 字节，41943040 个扇区磁盘型号：VMware Virtual NVMe Disk单元：扇区 &#x2F; 1 * 512 &#x3D; 512 字节扇区大小(逻辑&#x2F;物理)：512 字节 &#x2F; 512">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://titizzz03.github.io/uploads/avatar.jpg">
+<meta property="article:published_time" content="2025-01-06T12:19:44.000Z">
+<meta property="article:modified_time" content="2025-01-06T12:23:44.265Z">
+<meta property="article:author" content="titi">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://titizzz03.github.io/uploads/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://titizzz03.github.io/2025/01/06/%E7%B3%BB%E7%BB%9F%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%B0%83%E8%8A%82/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '系统查询与调节',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/uploads/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-handshake-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-id-card"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">花开自有期，绽放义有时</span></a><a class="nav-page-title" href="/"><span class="site-name">系统查询与调节</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-handshake-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-id-card"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">系统查询与调节</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-06T12:19:44.000Z" title="发表于 2025-01-06 20:19:44">2025-01-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-06T12:23:44.265Z" title="更新于 2025-01-06 20:23:44">2025-01-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="一、系统方面"><a href="#一、系统方面" class="headerlink" title="一、系统方面"></a>一、系统方面</h2><h4 id="1-查看硬盘分区管理信息"><a href="#1-查看硬盘分区管理信息" class="headerlink" title="1. 查看硬盘分区管理信息"></a>1. 查看硬盘分区管理信息</h4><p>fdisk -l</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@2303010148 ~]# fdisk -l</span><br><span class="line">Disk /dev/nvme0n1：20 GiB，21474836480 字节，41943040 个扇区</span><br><span class="line">磁盘型号：VMware Virtual NVMe Disk</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：dos</span><br><span class="line">磁盘标识符：0x1354d7aa</span><br><span class="line">设备           启动    起点     末尾     扇区 大小 Id 类型</span><br><span class="line">/dev/nvme0n1p1 *       2048  2099199  2097152   1G 83 Linux</span><br><span class="line">/dev/nvme0n1p2      2099200 41943039 39843840  19G 8e Linux LVM</span><br></pre></td></tr></table></figure>
+<h4 id="2-查看开机自动挂载信息"><a href="#2-查看开机自动挂载信息" class="headerlink" title="2. 查看开机自动挂载信息"></a>2. 查看开机自动挂载信息</h4><p>cat &#x2F;etc&#x2F;fstab </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@2303010148 ~]# cat /etc/fstab</span><br><span class="line">/dev/mapper/klas-root   /                       xfs     defaults        0 0</span><br><span class="line">UUID=1aa10ebb-84dc-4732-ac41-f339df31c68a /boot                   xfs     defaults        0 0</span><br><span class="line">/dev/mapper/klas-home   /home                   xfs     defaults        0 0</span><br><span class="line">/dev/mapper/klas-swap   none                    swap    defaults        0 0</span><br></pre></td></tr></table></figure>
+<h4 id="3-显示磁盘空间使用情况"><a href="#3-显示磁盘空间使用情况" class="headerlink" title="3. 显示磁盘空间使用情况"></a>3. 显示磁盘空间使用情况</h4><p>df -Th</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@2303010148 ~]# df -Th</span><br><span class="line">文件系统              类型      容量  已用  可用 已用% 挂载点</span><br><span class="line">devtmpfs              devtmpfs  451M     0  451M    0% /dev</span><br><span class="line">tmpfs                 tmpfs     467M   12K  467M    1% /dev/shm</span><br><span class="line">tmpfs                 tmpfs     467M   13M  454M    3% /run</span><br><span class="line">tmpfs                 tmpfs     467M     0  467M    0% /sys/fs/cgroup</span><br></pre></td></tr></table></figure>
+<h4 id="4-查看-CPU-信息："><a href="#4-查看-CPU-信息：" class="headerlink" title="4. 查看 CPU 信息："></a>4. 查看 CPU 信息：</h4><p>lscpu<br>cat &#x2F;proc&#x2F;cpuinfo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@2303010148 ~]# lscpu</span><br><span class="line">架构：                           x86_64</span><br><span class="line">CPU 运行模式：                   32-bit, 64-bit</span><br><span class="line">字节序：                         Little Endian</span><br><span class="line">Address sizes:                   45 bits physical, 48 bits virtual</span><br><span class="line">CPU:                             1</span><br><span class="line">在线 CPU 列表：                  0</span><br><span class="line">每个核的线程数：                 1</span><br></pre></td></tr></table></figure>
+<h4 id="5-查看内存信息："><a href="#5-查看内存信息：" class="headerlink" title="5. 查看内存信息："></a>5. 查看内存信息：</h4><p>free -h<br>cat &#x2F;proc&#x2F;meminfo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@2303010148 ~]# free -h</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:          932Mi       519Mi        94Mi        12Mi       317Mi       258Mi</span><br><span class="line">Swap:         2.0Gi       4.0Mi       2.0Gi</span><br><span class="line">[root@2303010148 ~]# cat /proc/meminfo</span><br><span class="line">MemTotal:         954496 kB</span><br><span class="line">MemFree:           96400 kB</span><br><span class="line">MemAvailable:     263656 kB</span><br><span class="line">Buffers:            2080 kB</span><br></pre></td></tr></table></figure>
+<h4 id="6-查看系统版本："><a href="#6-查看系统版本：" class="headerlink" title="6. 查看系统版本："></a>6. 查看系统版本：</h4><p>cat &#x2F;etc&#x2F;os-release<br>cat &#x2F;etc&#x2F;redhat-release</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@2303010148 ~]# cat /etc/os-release</span><br><span class="line">NAME=&quot;Kylin Linux Advanced Server&quot;</span><br><span class="line">VERSION=&quot;V10 (Lance)&quot;</span><br><span class="line">ID=&quot;kylin&quot;</span><br><span class="line">VERSION_ID=&quot;V10&quot;</span><br><span class="line">PRETTY_NAME=&quot;Kylin Linux Advanced Server V10 (Lance)&quot;</span><br><span class="line">ANSI_COLOR=&quot;0;31&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="7-查看内核版本："><a href="#7-查看内核版本：" class="headerlink" title="7. 查看内核版本："></a>7. 查看内核版本：</h4><p>uname -a</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@2303010148 ~]# uname -a</span><br><span class="line">Linux 2303010148 4.19.90-52.22.v2207.ky10.x86_64 #1 SMP Tue Mar 14 12:19:10 CST 2023 x86_64 x86_64 x86_64 GNU/Linux</span><br></pre></td></tr></table></figure>
+<h4 id="8-关机"><a href="#8-关机" class="headerlink" title="8. 关机"></a>8. 关机</h4><p>reboot<br>shutdown -r ?minute</p>
+<h4 id="9-切换默认用户界面"><a href="#9-切换默认用户界面" class="headerlink" title="9. 切换默认用户界面"></a>9. 切换默认用户界面</h4><p>systemctl isolate graphical.target&#x2F;multi-user.target</p>
+<h2 id="二、进程"><a href="#二、进程" class="headerlink" title="二、进程"></a>二、进程</h2><h3 id="1-静态查看进程-ps"><a href="#1-静态查看进程-ps" class="headerlink" title="1. 静态查看进程 ps"></a>1. 静态查看进程 ps</h3><p>定义与对进程的理解：在这一个时间片之前所有进程的一个快照，不论进程状态死活，统一做一个大汇报<br>使用搭配：pipe管道+ more分页查看，pipe管道+ grep过滤查找</p>
+<p><strong>常用命令：</strong><br>（1）<strong>查看cpu内存使用占用情况</strong>：<code>ps -aux</code>【a-all；u-user；x-不区分终端】<br>（2）<strong>查看父进程ID信息</strong>：<code>ps -ef</code>  【e-展示使用的环境变量；f-全格式显示】</p>
+<p>@：使用ps命令时，TTY一列表示终端，分类一：伪终端PTS，由操作系统模拟创建，常用于进程间通信，例如网络连接，远程登陆等；分类二：控制台终端TTY，选择范围在1-6，可使用alt键加f？进行切换，示例：ALT+F1切换一号终端；分类三：？使用问号表示，是一个后台程序，无占用终端<br>@：使用ps命令时：TIME表示的是cpu的使用时间，注意这里可能是多线程的一种进程</p>
+<h4 id="ps-aux"><a href="#ps-aux" class="headerlink" title="ps -aux"></a>ps -aux</h4><blockquote>
+<p>[USER]  [PID]  [%CPU]  [%MEM]  [VSZ]  [RSS]  [TTY]  [STAT]  [START]  [TIME]  [COMMAND]<br>用户名，  进程号，  CPU占比，  内存占比，  虚拟占用内存，  实际占用内存，  终端，  进程状态，  进程开始时间，  cpu使用时间，  创建进程的命令<br><img src="/images/%E7%B3%BB%E7%BB%9F1.png"><br>虚拟内存大小：VSZ——[visual set size]<br>实际专用内存：RSS——[resident set size]</p>
+</blockquote>
+<h4 id="ps-ef"><a href="#ps-ef" class="headerlink" title="ps -ef"></a>ps -ef</h4><blockquote>
+<p>[UID]  [PID]  [PPID]  [C]  [STIME]  [TTY]  [TIME]  [CMD]<br>用户名， 进程号， 父进程， CPU累积使用时间， 进程启动时间， 终端， CPU占用时间， 创建进程的命令<br><img src="/images/%E7%B3%BB%E7%BB%9F2.png"></p>
+</blockquote>
+<h3 id="2-动态查看进程-top"><a href="#2-动态查看进程-top" class="headerlink" title="2. 动态查看进程 top"></a>2. 动态查看进程 top</h3><p><strong>常用命令：</strong><br>（1）大写P：对进程进行CPU排序<br>（2）大写M：对内存memory进行排序<br>（3）小写c：对command命令行做具体查看，显示其命令路径<br>（4）小写h：对top的一个信息汇总<br>（5）小写q：退出动态监控</p>
+<p><strong>常用搭配查看系统信息：</strong><br>（1）w：当前登录用户<br>（2）uptime：显示系统总共运行了多长时间和系统的平均负载<br>（3）lscpu：cpu的详细使用信息<br>（4）lsmem：内存的详细使用信息<br>（5）free：查看内存使用情况</p>
+<blockquote>
+<p>[PID]  [USER]  [PR]  [NI]  [VIRT]  [RES]  [SHR]  [S]  [%CPU]  [%MEM]  [TIME+]  [COMMAND]<br>进程号，  用户名，  优先级，  nice值，  虚拟占用内存，  实际占用内存，  共享内存，  进程状态，  cpu占用比，  内存占用比，  CPU使用时间，  创建进程的命令，</p>
+</blockquote>
+<p><img src="/images/%E7%B3%BB%E7%BB%9F3.png"></p>
+<h3 id="3-kill-杀死进程"><a href="#3-kill-杀死进程" class="headerlink" title="3. kill 杀死进程"></a>3. kill 杀死进程</h3><p>（1）<code>kill</code>：以“进程号”“作业号”杀死进程<br>（2）<code>killall</code>：以 “进程名字” + “精确匹配” 杀死进程<br>若使用 <code>killall -9 vi</code>，则精确匹配杀掉所有进程中使用 vi 命令开展的进程，而不会影响到 vim 命令开展的进程<br>（3）<code>pkill</code>：以 “进程名字” + “模糊查找” 杀死进程<br>若使用 <code>pkill -9 vi</code>，则磨合匹配所有 vi 和 vim 开展的进程并杀死<br>@：-9 向进程发送一个 SIGKILL 信号，用于强制终止目标进程。例如，进程可能被某些资源锁死，或正在处理无法中断的操作，这时发送 <code>SIGKILL</code> 可以强制结束进程。-9 只是一个信号编号，示例 <code>kill -15</code>（SIGTERM）信号，它会优雅地要求进程终止，并给进程时间进行资源清理。</p>
+<h3 id="4-前后台切换"><a href="#4-前后台切换" class="headerlink" title="4. 前后台切换"></a>4. 前后台切换</h3><ul>
+<li><p><strong>进程从前台转后台运行</strong><br>方法一：<code>command &amp;</code><br>方法二：<code>command</code>-&gt;<code>ctrl+z</code>-&gt;<code>bg %作业号</code> （bg %作业号，可以将该作业进程转到后台执行）</p>
+</li>
+<li><p><strong>进程从后台转到前台暂停</strong><br>方法一：<code>fg  %作业号</code></p>
+</li>
+<li><p><strong>jobs 命令</strong><br>查看任务汇总，只能查看用户层面的自定义提交进程，无法查看到系统层面的任务。<br>常使用搭配：<code>jobs -l</code>任务列表；<code>jobs -r</code>正在running的任务；<code>jobs -s</code> [stopped]</p>
+</li>
+<li><p><strong>bg &#x2F; fg 命令</strong><br>分别代表background和frontground前台和后台，<br>命令使用格式：转前台：<code>fg [%作业号]</code> ；转后台：<code>bg [%作业号]</code><br>@：在使用bg或者fg命令将进程进行前后台转换时，可以缺省作业号前面的%百分号，但是在使用作业号kill进程时，不可省略%，这样会混淆PID与作业号，若想删除%1，后缺省%，删除了PID为1的总父进程systemd，则系统重启。</p>
+</li>
+<li><p><strong>python 命令</strong><br>命令格式：<code>python [python脚本]</code><br>相当于一个python解释器，在输入python命令后，后接一个python脚本文件，自动打开解释器进行执行。否则使用相对路径或者加入环境变量还需要配置它的执行权限。</p>
+</li>
+</ul>
+<hr>
+<h2 id="三、crontab-定时操作"><a href="#三、crontab-定时操作" class="headerlink" title="三、crontab 定时操作"></a>三、crontab 定时操作</h2><p>作用：定时操作，周期计划表<br>守护进程：<strong>crond</strong><br>配置文件：（1）用户层面：**&#x2F;var&#x2F;spool&#x2F;cron&#x2F;user_name**     （2）系统层面：**&#x2F;etc&#x2F;crontab**    （3）系统子配置文件：**&#x2F;etc&#x2F;cron.d&#x2F;crontab脚本文件**<br>常用选项：<code>-l</code>查看定时任务列表；<code>-e</code>编辑定时任务列表；<code>-u</code>指定用户；<code>-r</code>删除清空任务列表<br>@：使用 <code>crontab -e</code> 命令等于编辑 <code>/var/spool/cron/user_name</code> 文件进行配置，crontab -e 就是打开该用户的 crontab 文件</p>
+<p>配置文件内部，每一行表示一个定时任务，具体配置如下：</p>
+<blockquote>
+<p>[分钟]  [小时]  [几号]  [月份]  [周几]  [命令]<br>[0-59]  [0-23]  [1-31]  [1-12]  [0-7]  [command]</p>
+</blockquote>
+<p>可以使用通配符进行匹配：<br><code>[*]</code>：星号表示所有<br><code>[,]</code>：逗号表示不连续范围<br><code>[-]</code>：短横线表示连续范围<br><code>[/]</code>：斜杠表示频率，每隔多久做某事</p>
+<p>示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">30    21    *    *    *    systemctl restart network        <span class="comment"># 每晚的21:30重启network。</span></span><br><span class="line">45    4    1,10,22    *    *    systemctl restart network   <span class="comment"># 每月1、10、22日的4:45重启network。</span></span><br><span class="line">10    1    *    *    6,7    systemctl restart network       <span class="comment"># 每周六、周日的1:10重启network。</span></span><br><span class="line">*/30    18-23    *    *    *    systemctl restart network   <span class="comment"># 每天18:00至23:00之间每隔30分钟重启network。</span></span><br><span class="line">00    23    *    *    6    systemctl restart network        <span class="comment"># 每星期六晚上的23:00 pm重启network。</span></span><br><span class="line">00    */1    *    *    *    systemctl restart network       <span class="comment"># 每一小时重启network。</span></span><br><span class="line">00    0-7,23    *    *    *    systemctl restart network    <span class="comment"># 晚上11点到早上7点之间，每隔一小时重启network。</span></span><br><span class="line">00    11    4    *    1-3    systemctl restart network      <span class="comment"># 每月的4号与每周一到周三的11点重启network。</span></span><br></pre></td></tr></table></figure>
+
+
+<p>@ 版本问题：<br>在redhat版本中，超级管理员root和普通用户都有权利编辑自己的crontab文件；但是在OpenEuler中，<strong>默认仅允许root可以编辑crontab文件</strong>，普通用户无权编辑自己的crontab文件，使用crontab -e提示“you(username) are not allowed to use this program(crontab)”，也默认无法进入**&#x2F;var&#x2F;spool&#x2F;cron（默认权限700）<strong>中，修改目录权限进入后，使用vi编辑也出现提示信息“Permission Denied”，固得知OpenEuler系统对此方面要求严格，若想让普通用户也有权利编辑自己的crontab文件，可以使用root用户编辑crond服务的白名单文件</strong>&#x2F;etc&#x2F;cron.allow<strong>，</strong>一行表明一个用户**，将普通用户增加到白名单中，即可让普通用户拥有权力</p>
+<p>@ 易错点：<br>（1）在配置跨天的时间<br>示例晚上11点到隔天早上7点，请勿写成23-7，这种跨时间域的方式crontab无法识别，需要将其“分开写”+“按顺序写”，改写成0-7，23即可<br>（2）在配置每隔？小时执行一次时候<br>配置字段前两部分需要写成：<code>00  */?次数</code>，而不是 <code>*  */?次数</code>，这样设置后面的小时就无意义了，主要还是依靠前头的每分钟一次做决定，这样就变成每分钟执行一次</p>
+<hr>
+<h2 id="四、优先级"><a href="#四、优先级" class="headerlink" title="四、优先级"></a>四、优先级</h2><p><strong>定义：</strong><br>进程的优先级直接影响到 CPU 资源的分配。当多个进程具有相同优先级时，CPU 资源通常会被平均分配。若系统负载较轻且 CPU 资源充足，调度器可能会公平地为所有进程分配时间片，而不考虑优先级的差异。这种机制确保了在资源富裕的情况下，每个进程都有机会获得 CPU 的处理时间。<br>@：相关命令 &lt;查看cpu信息&gt; ：lscpu, cat &#x2F;proc&#x2F;cpuinfo<br>@：总核数 &#x3D; 物理CPU个数 x 每颗物理CPU的核数<br>@：逻辑CPU个数 &#x3D; 物理CPU个数 x 每颗物理CPU的核数 x 超线程数</p>
+<p><strong>基础介绍：</strong><br>1. 对于PR（priority值）和NI（nice值）来说，<strong>若数值越大，优先级越低，数值越小，优先级越高</strong><br>2. <strong>NICE值取值范围在 [ -20, +19 ] 之间，映射到priority优先级的“100 - 139”级别做静态优先级字段</strong><br>3. PR值一般是内核动态调整的，NI值影响内核分配给进程的CPU时间片，%nice影响cpu占用百分比，PRI（新）&#x3D;PRI（旧）+NI值</p>
+<p><img src="/images/%E7%B3%BB%E7%BB%9F4.png"></p>
+<p><strong>命令：</strong><br><strong>1.</strong> <strong>提交命令转后台时 设置优先级：</strong> <code>nice -n [优先级] [命令]</code><br><strong>2. 将已经提交的命令优先级进行二次设置：</strong><code>renice -n &lt;nice优先级&gt; -p &lt;PID&gt; -g &lt;PGID&gt; -u &lt;user&gt;</code><br><strong>3. 使用top二级命令：</strong> <code>top -&gt; r键 -&gt; 输入PID -&gt; 输入优先级</code><br><strong>4. 设置进程的调度策略和优先级PR值字段：</strong> <code>chrt -p &lt;priority&gt; &lt;PID&gt;</code></p>
+<p><strong>注意事项：</strong><br>@：不使用nice命令直接将命令运行到后台，默认优先级为0<br>@：使用nice命令缺省 [-n 优先级] 字段，则默认优先级为10<br>@：普通用户无法提高自己的优先级，只能对自己的优先级进行降低行为，也可以kill掉自己的进程<br>@：在实际运用中，多使用-u调节用户进程优先级，少用-p指定PID，进程过多，操作不现实</p>
+<hr>
+<h2 id="五、tuned-系统调优"><a href="#五、tuned-系统调优" class="headerlink" title="五、tuned 系统调优"></a>五、tuned 系统调优</h2><p><strong>定义：自动调节调优linux系统性能的工具，服务在后台运行，时刻监控进程状态进行调优，使用系统预设的或是用户自定义的配置文件来调节系统参数，来满足性能需求</strong><br><strong>服务</strong>：tuned.service<br><strong>命令</strong>：tuned-adm<br><strong>主配置文件</strong>：&#x2F;etc&#x2F;tuned<br><strong>子配置文件集：</strong>&#x2F;usr&#x2F;lib&#x2F;tuned&#x2F;[方案名]&#x2F;tuned.conf<br><strong>日志文件</strong>：&#x2F;var&#x2F;log&#x2F;tuned&#x2F;tuned.log</p>
+<p><img src="/images/%E7%B3%BB%E7%BB%9F5.png"><br><img src="/images/%E7%B3%BB%E7%BB%9F6.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://titizzz03.github.io">titi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://titizzz03.github.io/2025/01/06/%E7%B3%BB%E7%BB%9F%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%B0%83%E8%8A%82/">https://titizzz03.github.io/2025/01/06/%E7%B3%BB%E7%BB%9F%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%B0%83%E8%8A%82/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://titizzz03.github.io" target="_blank">花开自有期，绽放义有时</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><div class="post-share"><div class="social-share" data-image="/uploads/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/01/06/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/" title="文本处理三剑客"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">文本处理三剑客</div></div><div class="info-2"><div class="info-item-1">一、sedSED（stream editor）命令是一种流编辑器，适用于大量的文本处理，批量处理，无需打开文本，默认不修改源文本，输入修改到临时缓冲区，需要时保存 SED语法：sed [option] [line command] [file] 示例：菜鸟教程 sed拖字符与 sed 的匹配使用 12sed -n &#x27;/^the/p&#x27; filesed -n &#x27;/[1-9]$/p&#x27; file 拖字符与 sed 的替换使用 12sed &#x27;s/^/#/g&#x27; file    # 开头换成 [#]sed &#x27;s/$/!/g&#x27; file    # 结尾换成 [!] 取反操作，取没带 the 的行 1sed -n &#x27;/the/!p&#x27; file 使用 -e 参数或者逗号 ，来连接表达式 12sed -e &#x27;10s/root/titi/g&#x27; -e &#x27;s/sbin/shell/g&#x27; mypasswd | head -11sed...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/12/31/FTP/" title="FTP"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-31</div><div class="info-item-2">FTP</div></div><div class="info-2"><div class="info-item-1">介绍 File Transport File，提供文件上传和下载服务 服务名：vsftpd 端口：21&#x2F;tcp 配置文件：/etc/vsftpd/vsftpd.conf 配置文件常见字段：（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录 安全上下文策略：ftpd_full_access 防火墙名称：vsftpd   @ 基于 DNS + httpd + ftpd 服务的个人主页发布系统@ shell 脚本批量创建个人主页系统 </div></div></div></a><a class="pagination-related" href="/2024/12/30/Docker/" title="Docker"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-30</div><div class="info-item-2">Docker</div></div><div class="info-2"><div class="info-item-1">一、基础介绍 镜像docker镜像类似于一个安装包，类比mysql，内部可以有mysql安装依赖部署等，docker可以拉取镜像到本地虚拟机中，并忽略不同操作系统之间的差异，拉取后可以直接使用 容器镜像拉取到本地后，会在本地开辟一个隔离空间来运行，称之为容器，一个镜像可以开辟多个不同的容器，且之间不会有干扰，实现多开效果，注意，一个容器是运行在虚拟机内部，完全隔离外界的，拥有自己的ip地址等，但是无法与外界进行通信，类似自己一个小主机，只能和宿主机实现通信效果  二、常见选项和操作 常见子选项-d 容器在后台运行，不加-d会占用前台-name 为容器取名，唯一-p [localhost-port]:[docker-port] 设置端口映射，将宿主机的port和docker的内部port做一个端口映射，使其能和外界做通信，一个宿主机的端口只能分配给一个docker做映射，一个docker相当于一个宿主机的进程-e [KEY]=[VALUE] 设置环境变量，由镜像决定[repository]:[tag]...</div></div></div></a><a class="pagination-related" href="/2024/12/31/Mail/" title="Mail"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-31</div><div class="info-item-2">Mail</div></div><div class="info-2"><div class="info-item-1">  邮件传输代理MTA-Mail Transport Agent，负责将邮件在服务器之间传输。常用协议：SMTP。常见代理商软件：postfix，sendmail，Exim 邮件用户代理MUA-Mail User Agent，负责发送和接收邮件。常用协议：IMAP，POP3，POP3S。常见代理商软件：Dovecot，常见Web端：openwebmail，roundcubemail。 邮件投递代理MDA-Mail Delivery Agent，负责将邮件存储到接收方的邮箱中。  一、Postfix 配置安装 postfix 软件包，对主配置文件 /et/postfix/main.cf 文件进行配置，并重启服务 12345678[titi@localhost ~]$ sudo dnf install -y postfix[titi@localhost ~]$ sudo vim /etc/postfix/main.cfmyhostname = mail.titi.cn    # 主机名mydomain = titi.cn           # 域名myorigin =...</div></div></div></a><a class="pagination-related" href="/2025/01/05/NFS%E7%BD%91%E7%BB%9C%E5%AD%98%E5%82%A8%E4%B8%8Eautofs%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD/" title="NFS网络存储与autofs自动挂载"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-05</div><div class="info-item-2">NFS网络存储与autofs自动挂载</div></div><div class="info-2"><div class="info-item-1">一、引言：Linux存储分类1. DAS直连附加存储：存储设备通过专用接口(SCSI, SATA, USB…)直接连接到服务器2. NAS网络连接存储：具有单独的存储操作系统，通过TCP&#x2F;IP协议访数据，支持(FTP, NFS,...</div></div></div></a><a class="pagination-related" href="/2025/01/01/SAMBA/" title="SAMBA"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-01</div><div class="info-item-2">SAMBA</div></div><div class="info-2"><div class="info-item-1">一、安装samba工具1. 确保虚拟机有连接光盘（光盘存放真正软件源，yum包起链接作用）2. 挂载光盘： mount &#x2F;dev&#x2F;sr0 &#x2F;mnt3. 切换目录： cd &#x2F;etc&#x2F;yum.repos.d4. 检查内部是否正常：ls &#x2F;etc&#x2F;yum.repos.d    cat &#x2F;etc&#x2F;yum.repos.d&#x2F;cdrom.repo    yum repolist -v.5. 开始下载： yum install samba -y6. 下载完成： which smbpasswd（查找有无此命令，有即工具已下载） rpm -qa | grep samba（查找有无samba工具） 二、介绍工具名：samba命令名：smbpasswd服务名：smb 三、命令3.1 smbpasswd将 linux 用户添加为 samba 用户：smbpasswd -a username显式添加samba用户：echo -e &quot;123\n123&quot; | smbpasswd -a...</div></div></div></a><a class="pagination-related" href="/2025/01/06/RAID-LVM-VDO-%E7%A3%81%E7%9B%98%E4%BC%98%E5%8C%96/" title="RAID-LVM-VDO-磁盘优化"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-06</div><div class="info-item-2">RAID-LVM-VDO-磁盘优化</div></div><div class="info-2"><div class="info-item-1">一、RAID介绍：RAID 基维百科条带化 – 一种基于其片段在阵列组件之间的分布的数据组织技术。并行读取&#x2F;写入，速度快，但是数据分布在两个硬盘上，容错率不高，在 RAID 0 中使用。镜像 – 一种基于将信息复制到单独组件上的数据组织技术。镜像会创建一个组件的完整副本，并使用另一个组件来存储此副本。提高容错率，在 RAID 1 中使用。奇偶校验 – 一种数据组织技术，写入同时校验数据，教研结果存放到其他成员磁盘中，若数据丢失，可以通过校验数据反校验重建丢失的数据，速度快，在 RAID 5 中使用。 常见 RAID 等级： RAID 0（条带化，Striping）  特点：数据被分割成多个块，分别写入到不同的硬盘中。没有冗余，也就是说，如果一个硬盘损坏，所有数据将丢失。 优点：提升读取和写入性能。 缺点：没有数据冗余，数据丢失风险高。 适用场景：对性能要求高，但对数据安全性要求不高的应用。   RAID...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/uploads/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">titi</div><div class="author-info-description">花开自有期</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Titizzz03"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Titizzz03" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://leetcode.cn/u/thirsty-6aloismqk/" target="_blank" title="LeetCode"><i class="fa fa-bookmark"></i></a><a class="social-icon" href="mailto:3136552132@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/YDxuan?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-edit"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog ( ˙˘˙ )</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%B3%BB%E7%BB%9F%E6%96%B9%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">一、系统方面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF"><span class="toc-number">1.0.1.</span> <span class="toc-text">1. 查看硬盘分区管理信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9F%A5%E7%9C%8B%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD%E4%BF%A1%E6%81%AF"><span class="toc-number">1.0.2.</span> <span class="toc-text">2. 查看开机自动挂载信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%98%BE%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="toc-number">1.0.3.</span> <span class="toc-text">3. 显示磁盘空间使用情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8B-CPU-%E4%BF%A1%E6%81%AF%EF%BC%9A"><span class="toc-number">1.0.4.</span> <span class="toc-text">4. 查看 CPU 信息：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98%E4%BF%A1%E6%81%AF%EF%BC%9A"><span class="toc-number">1.0.5.</span> <span class="toc-text">5. 查看内存信息：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC%EF%BC%9A"><span class="toc-number">1.0.6.</span> <span class="toc-text">6. 查看系统版本：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E6%9F%A5%E7%9C%8B%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC%EF%BC%9A"><span class="toc-number">1.0.7.</span> <span class="toc-text">7. 查看内核版本：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E5%85%B3%E6%9C%BA"><span class="toc-number">1.0.8.</span> <span class="toc-text">8. 关机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E5%88%87%E6%8D%A2%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2"><span class="toc-number">1.0.9.</span> <span class="toc-text">9. 切换默认用户界面</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">二、进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%9D%99%E6%80%81%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B-ps"><span class="toc-number">2.1.</span> <span class="toc-text">1. 静态查看进程 ps</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ps-aux"><span class="toc-number">2.1.1.</span> <span class="toc-text">ps -aux</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ps-ef"><span class="toc-number">2.1.2.</span> <span class="toc-text">ps -ef</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8A%A8%E6%80%81%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B-top"><span class="toc-number">2.2.</span> <span class="toc-text">2. 动态查看进程 top</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-kill-%E6%9D%80%E6%AD%BB%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.3.</span> <span class="toc-text">3. kill 杀死进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%89%8D%E5%90%8E%E5%8F%B0%E5%88%87%E6%8D%A2"><span class="toc-number">2.4.</span> <span class="toc-text">4. 前后台切换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81crontab-%E5%AE%9A%E6%97%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">三、crontab 定时操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">4.</span> <span class="toc-text">四、优先级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81tuned-%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98"><span class="toc-number">5.</span> <span class="toc-text">五、tuned 系统调优</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/06/%E7%B3%BB%E7%BB%9F%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%B0%83%E8%8A%82/" title="系统查询与调节">系统查询与调节</a><time datetime="2025-01-06T12:19:44.000Z" title="发表于 2025-01-06 20:19:44">2025-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/06/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/" title="文本处理三剑客">文本处理三剑客</a><time datetime="2025-01-06T08:12:27.000Z" title="发表于 2025-01-06 16:12:27">2025-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/06/RAID-LVM-VDO-%E7%A3%81%E7%9B%98%E4%BC%98%E5%8C%96/" title="RAID-LVM-VDO-磁盘优化">RAID-LVM-VDO-磁盘优化</a><time datetime="2025-01-06T06:14:40.000Z" title="发表于 2025-01-06 14:14:40">2025-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/05/%E7%A3%81%E7%9B%98%E9%85%8D%E7%BD%AE/" title="磁盘配置">磁盘配置</a><time datetime="2025-01-05T08:01:27.000Z" title="发表于 2025-01-05 16:01:27">2025-01-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/05/NFS%E7%BD%91%E7%BB%9C%E5%AD%98%E5%82%A8%E4%B8%8Eautofs%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD/" title="NFS网络存储与autofs自动挂载">NFS网络存储与autofs自动挂载</a><time datetime="2025-01-04T16:23:16.000Z" title="发表于 2025-01-05 00:23:16">2025-01-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By titi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '0fe1bf9c77b18711feb620b767a9d627'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Valine' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

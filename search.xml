@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>FTP</title>
+    <url>/2024/12/31/FTP/</url>
+    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
+<li>File Transport File，提供文件上传和下载服务</li>
+<li>服务名：vsftpd</li>
+<li>端口：21&#x2F;tcp</li>
+<li>配置文件：<code>/etc/vsftpd/vsftpd.conf</code></li>
+<li>配置文件常见字段：<br>（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录<br>（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式<br>（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录</li>
+<li>安全上下文策略：<code>ftpd_full_access</code></li>
+<li>防火墙名称：vsftpd</li>
+</ul>
+<hr>
+<p>@ <a href="https://zybuluo.com/2303010148/note/2563425">基于 DNS + httpd + ftpd 服务的个人主页发布系统</a><br>@ <a href="https://zybuluo.com/mdeditor#2564002-full-reader">shell 脚本批量创建个人主页系统</a></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker</title>
     <url>/2024/12/30/Docker/</url>
     <content><![CDATA[<h3 id="一、基础介绍"><a href="#一、基础介绍" class="headerlink" title="一、基础介绍"></a>一、基础介绍</h3><ul>
@@ -79,28 +101,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FTP</title>
-    <url>/2024/12/31/FTP/</url>
-    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
-<li>File Transport File，提供文件上传和下载服务</li>
-<li>服务名：vsftpd</li>
-<li>端口：21&#x2F;tcp</li>
-<li>配置文件：<code>/etc/vsftpd/vsftpd.conf</code></li>
-<li>配置文件常见字段：<br>（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录<br>（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式<br>（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录</li>
-<li>安全上下文策略：<code>ftpd_full_access</code></li>
-<li>防火墙名称：vsftpd</li>
-</ul>
-<hr>
-<p>@ <a href="https://zybuluo.com/2303010148/note/2563425">基于 DNS + httpd + ftpd 服务的个人主页发布系统</a><br>@ <a href="https://zybuluo.com/mdeditor#2564002-full-reader">shell 脚本批量创建个人主页系统</a></p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mail</title>
     <url>/2024/12/31/Mail/</url>
     <content><![CDATA[<p><img src="/images/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8.png"></p>
@@ -140,71 +140,6 @@
 <p>（5）修改 <code>/var/www/mail/&#123;temp,logs&#125;</code> 文件权限，添加 <code>w</code> 写权限<br>（6）在浏览器输入：<code>http://mail.titi.cn/installer</code> 进行一步步配置（本虚拟机的 DNS 配置中，指定 mail.titi.cn 网址指向 &#x2F;var&#x2F;www&#x2F;mail 目录），not OK 问题需要修复，not available 问题可以忽略，若打不开网站，可以尝试重启 httpd 服务，mariadb 或 named 服务<br>（7）在 web 端的安装引导页面，第三页中，生成 <code>config.inc.php</code> 文件，复制到 <code>/var/www/mail/config/</code> 目录下，然后在第三页中点击 <code>initialize database</code> 初始化数据库，最后可以使用 <code>Test IMAP config</code> 进行邮件收发测试<br>（8）最终验证：打开 <code>http://mail.titi.cn</code> 可以登录账号，账号需要在虚拟机中进行创建，加入附加组 mail 组即可<br>（9）其他：本次测试基于 redhat9.2 发行版实施，</p>
 <hr>
 <p>@ <a href="https://zybuluo.com/2303010148/note/2566257">支持邮件客户端的邮件服务器</a></p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RAID-LVM-VDO-磁盘优化</title>
-    <url>/2025/01/06/RAID-LVM-VDO-%E7%A3%81%E7%9B%98%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h2 id="一、RAID"><a href="#一、RAID" class="headerlink" title="一、RAID"></a>一、RAID</h2><h3 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h3><p><a href="https://en.wikipedia.org/wiki/Standard_RAID_levels">RAID 基维百科</a><br><strong>条带化</strong> – 一种基于其片段在阵列组件之间的分布的数据组织技术。并行读取&#x2F;写入，速度快，但是数据分布在两个硬盘上，容错率不高，在 RAID 0 中使用。<br><strong>镜像</strong> – 一种基于将信息复制到单独组件上的数据组织技术。镜像会创建一个组件的完整副本，并使用另一个组件来存储此副本。提高容错率，在 RAID 1 中使用。<br><strong>奇偶校验</strong> – 一种数据组织技术，写入同时校验数据，教研结果存放到其他成员磁盘中，若数据丢失，可以通过校验数据反校验重建丢失的数据，速度快，在 RAID 5 中使用。<br><img src="/images/RAID.png"></p>
-<h3 id="常见-RAID-等级："><a href="#常见-RAID-等级：" class="headerlink" title="常见 RAID 等级："></a>常见 RAID 等级：</h3><ol>
-<li><p><strong>RAID 0（条带化，Striping）</strong></p>
-<ul>
-<li><strong>特点</strong>：数据被分割成多个块，分别写入到不同的硬盘中。没有冗余，也就是说，如果一个硬盘损坏，所有数据将丢失。</li>
-<li><strong>优点</strong>：提升读取和写入性能。</li>
-<li><strong>缺点</strong>：没有数据冗余，数据丢失风险高。</li>
-<li><strong>适用场景</strong>：对性能要求高，但对数据安全性要求不高的应用。</li>
-</ul>
-</li>
-<li><p><strong>RAID 1（镜像，Mirroring）</strong></p>
-<ul>
-<li><strong>特点</strong>：将数据完全镜像到两块或多块硬盘上，即每个硬盘都保存相同的数据。</li>
-<li><strong>优点</strong>：提供数据冗余，一块硬盘损坏时，数据仍然可以从另一块硬盘中恢复。</li>
-<li><strong>缺点</strong>：存储效率低，因为所有数据都会被复制一份，至少需要两块硬盘。</li>
-<li><strong>适用场景</strong>：对数据安全性要求较高的应用，尤其是小型企业和个人使用。</li>
-</ul>
-</li>
-<li><p><strong>RAID 5（带奇偶校验的条带化，Striping with Parity）</strong></p>
-<ul>
-<li><strong>特点</strong>：数据和奇偶校验信息被分散存储在多个硬盘中，通常至少需要三块硬盘。</li>
-<li><strong>优点</strong>：提供数据冗余，允许一个硬盘故障而不丢失数据，同时性能较好。</li>
-<li><strong>缺点</strong>：写入操作较慢，因为需要计算奇偶校验。</li>
-<li><strong>适用场景</strong>：企业级存储，既需要性能又需要数据安全。</li>
-</ul>
-</li>
-<li><p><strong>RAID 10（RAID 1+0，镜像与条带化的组合）</strong></p>
-<ul>
-<li><strong>特点</strong>：结合RAID 1和RAID 0的特点。数据首先在两个硬盘之间进行镜像（RAID 1），然后再在两个镜像对之间进行条带化（RAID 0）。</li>
-<li><strong>优点</strong>：提供良好的冗余和性能，能够容忍一个硬盘故障。</li>
-<li><strong>缺点</strong>：需要至少四块硬盘，存储效率较低。</li>
-<li><strong>适用场景</strong>：对性能和数据安全要求都很高的应用。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="二、LVM-逻辑卷"><a href="#二、LVM-逻辑卷" class="headerlink" title="二、LVM 逻辑卷"></a>二、LVM 逻辑卷</h2><h3 id="什么是逻辑卷？为什么需要逻辑卷？"><a href="#什么是逻辑卷？为什么需要逻辑卷？" class="headerlink" title="什么是逻辑卷？为什么需要逻辑卷？"></a>什么是逻辑卷？为什么需要逻辑卷？</h3><p>系统中磁盘分区一旦分配成功，若出现分区空间不够的情况，只能添加磁盘解决，数据无法跨盘或者跨分区，各磁盘和分区大小固定，重新调整较为麻烦；为实现数据存储空间弹性管理，动态逻辑卷提供更优解决方案</p>
-<h3 id="关于LVM逻辑卷的基础概念："><a href="#关于LVM逻辑卷的基础概念：" class="headerlink" title="关于LVM逻辑卷的基础概念："></a>关于LVM逻辑卷的基础概念：</h3><p><strong>PV物理卷[physical volumn]</strong> ：直接从物理介质上划分，真正提供存储容量介质<br><strong>VG卷组[volumn group]</strong> ：由多个物理卷组成，将所有物理卷空间存放在一起的资源存储池<br><strong>LV逻辑卷[logical volumn]</strong> ：基于卷组上定义，是一种物理分区集合上的信息集合，在硬件磁盘和文件系统之间添加的一个逻辑中间层<br><strong>FS文件系统[file system]</strong> ：建立于逻辑卷之上<br><strong>PE</strong>：逻辑卷的基本单元，默认大小1PE&#x3D;4MB，可在创建逻辑卷时使用-s选项指定PE大小，第一次设定后不可再次修改<br><img src="/images/LVM1.png"></p>
-<h3 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h3><p><strong>创建逻辑卷</strong> ：磁盘 &#x2F; 分区 —— <code>pvcreate</code> 创建物理卷 —— <code>vgcreate</code> 创建卷组 —— <code>lvcreate</code> 创建逻辑卷<br><strong>卸载逻辑卷</strong> ：<code>umount</code> 卸载文件系统 —— <code>lvremove</code> 删除逻辑卷 —— <code>vgremove</code> 删除卷组 —— pvremove删除物理卷<br><strong>缩容逻辑卷</strong> ：<code>umount</code> 卸载文件系统 —— <code>e2fsck -pf</code> 检查文件系统 —— <code>resize2fs</code> &#x2F; <code>xfs_growfs</code> 缩小文件系统 —— <code>lvreduce</code> 缩小逻辑卷 —— <code>mount</code> 挂载文件系统</p>
-<h3 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h3><p><img src="/images/LVM2.png"></p>
-<p>@：LVM逻辑卷写入方式<br> 1、线性方式（linear）：一次将数据写入磁盘多个磁盘，只有在前一个磁盘容量用完后才开始写入随后的磁盘。<br> 2、交错模式（triped）：指的是将数据拆分成两部分，分别写到底层不同的磁盘中。 </p>
-<hr>
-<h2 id="三、VDO-优化磁盘空间"><a href="#三、VDO-优化磁盘空间" class="headerlink" title="三、VDO 优化磁盘空间"></a>三、VDO 优化磁盘空间</h2><h3 id="一、VDO-介绍"><a href="#一、VDO-介绍" class="headerlink" title="一、VDO 介绍"></a>一、VDO 介绍</h3><ul>
-<li>VDO(virtual data optimizer)虚拟数据优化器，VDO本身为一种虚拟技术，工具占据一定空间量，工具内核模块主要提供了<strong>重复数据块删除、压缩和精简配置来优化磁盘空间</strong>。</li>
-<li>VDO的处理过程主要有三个部分：<br>1. <strong>一是零区块的清除，在初始化阶段，VDO会对仅包含0的数据块进行过滤消除，来提高 I&#x2F;0 性能；</strong><br>2. <strong>二是UDS模块在数据写入之前判断是否为冗余数据，删除重复数据块的副本，减少资源消耗，指向原数据块的过程；</strong><br>3. <strong>三是kvdo模块对数据使用LZ4压缩算法进行压缩，它把数据压缩为数据块，放在物理块上，一个物理块可以包含多个压缩块，所以提高了读取性能。</strong></li>
-</ul>
-<h3 id="二、VDO-相关命令"><a href="#二、VDO-相关命令" class="headerlink" title="二、VDO 相关命令"></a>二、VDO 相关命令</h3><p>服务名称：vdo</p>
-<h4 id="创建和修改"><a href="#创建和修改" class="headerlink" title="创建和修改"></a>创建和修改</h4><p>&lt;1&gt; 创建一块vdo：<code>vdo create --name=? --device=/dev/? --vdoLogicalSize=?G</code><br>@：VDO 创建成功后，保存在 &#x2F;dev&#x2F;mapper 下，该机制为 Device Mapper 从逻辑设备到物理设备的映射框架， dmsetup info 可以查看具体映射情况，可以对 &#x2F;dev&#x2F;mapper 下的 dm-xx 进行格式化、挂载等操作，当成常规块设备使用即可。<br>&lt;2&gt; 扩容逻辑大小：<code>vdo growLogical --name=? --vdoLogicalSize=?</code>  (扩容逻辑大小需要指定新的逻辑大小；创建VDO时不指定虚拟大小，则按照物理大小进行1:1创建)<br>&lt;3&gt; 扩容物理大小：<code>vdo growPhysical --name=?</code>  (扩容物理大小无法设置具体值，一般在物理设备扩容后使用该命令扩容和下一层物理设备一样大小)</p>
-<h4 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h4><p><strong>&lt;1&gt; 查看 vdo 列表</strong> ：<code>vdo list</code> （若vdo关闭，则该vdo不会出现在vdo列表中）<br><strong>&lt;2&gt; 关闭所有 vdo，关闭某个 vdo</strong> ：<code>vdo stop --all</code>   <code>vdo stop --name=?</code><br><strong>&lt;3&gt; 开启所有 vdo，开启某个 vdo</strong> ：<code>vdo start --all</code>  <code>vdo start --name=?</code></p>
-<p><strong>&lt;4&gt; 查看 vdo 状态</strong> ：<code>vdo status</code>  <code>vdo status --name=?</code><br>@：VDO去重和压缩主要因为VDO卷中 Compression 和 Deduplication 两个工具，使用时使用 <code>vdo status</code> 确保为开启状态</p>
-<p><strong>&lt;5&gt; 查看 vdo 的压缩功能是否正常开启</strong> ：<code>vdo status | grep Compression</code><br><strong>&lt;6&gt; 查看 vdo 的去重功能是否正常开启</strong> ：<code>vdo status | grep Deduplication</code></p>
-<p><strong>&lt;7&gt; 查看 vdo 真实大小</strong> ：<code>vdostats --hu</code>  <code>vdostats --si</code><br>@：VDO有虚拟逻辑大小和真实物理大小之分，逻辑大小可以使用 <code>lsblk</code> &#x2F; <code>df -Th</code> &#x2F; <code>du -h</code> 等方式进行查看，而物理大小仅可使用 <code>vdostats</code> 进行查看；对于VDO卷而言，一般逻辑大小会比实际大小大很多，甚至远超磁盘大小；若一个VDO卷里存在多份重复文件，则从逻辑大小看来，使用量&#x2F;使用占比不断增高，而从物理大小看来，因为底部UDS去重模块会删除重复块副本，引用原始块，所以使用量只占一份，重复文件越多，节省空间占比越大。</p>
-<h4 id="格式化和开机自动启动"><a href="#格式化和开机自动启动" class="headerlink" title="格式化和开机自动启动"></a>格式化和开机自动启动</h4><p><strong>&lt;1&gt; VDO卷格式化：</strong><br>1. 对于xfs文件系统格式化：<code>mkfs.xfs -K [VDO路径]</code><br>2. 对于ext文件系统格式化：<code>mkfs.ext? -E nodiscard [VDO路径]</code><br>@：在创建格式化文件系统时，默认丢弃块，设备丢弃块对于精简配置很有用，加快文件系统初始化；但是对于新的VDO卷，设置不丢弃可以不花费时间发送请求，他对未分配的块无影响，设置不立即丢弃块反而增快了命令的返回速度<br><strong>&lt;2&gt; &#x2F;etc&#x2F;fstab 文件开机自动开启 vdo</strong><br>当VDO设置开机自动挂载将信息写入&#x2F;etc&#x2F;fstab时，需要告诉系统在读取挂载文件的前一步需要开启VDO服务，否则若VDO服务无开启，则挂载失败导致启动异常，相关操作：添加字段组成  <code>[defaults,x-systemd.requires=vdo.service]</code></p>
-<h3 id="三、LVM与VDO的关系"><a href="#三、LVM与VDO的关系" class="headerlink" title="三、LVM与VDO的关系"></a>三、LVM与VDO的关系</h3><p>当 LVM 与 VDO 结合，既能够动态调整空间大小，又能对空间进行压缩去重操作。当准备好所有磁盘分布情况后，只需要格式化最近一层的文件系统即可，如下图只需要格式化 VDO 的文件系统即可。<br><img src="/images/VDO1.png"><br><img src="/images/VDO2.png"></p>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -315,6 +250,94 @@
       </tags>
   </entry>
   <entry>
+    <title>RAID-LVM-VDO-磁盘优化</title>
+    <url>/2025/01/06/RAID-LVM-VDO-%E7%A3%81%E7%9B%98%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="一、RAID"><a href="#一、RAID" class="headerlink" title="一、RAID"></a>一、RAID</h2><h3 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h3><p><a href="https://en.wikipedia.org/wiki/Standard_RAID_levels">RAID 基维百科</a><br><strong>条带化</strong> – 一种基于其片段在阵列组件之间的分布的数据组织技术。并行读取&#x2F;写入，速度快，但是数据分布在两个硬盘上，容错率不高，在 RAID 0 中使用。<br><strong>镜像</strong> – 一种基于将信息复制到单独组件上的数据组织技术。镜像会创建一个组件的完整副本，并使用另一个组件来存储此副本。提高容错率，在 RAID 1 中使用。<br><strong>奇偶校验</strong> – 一种数据组织技术，写入同时校验数据，教研结果存放到其他成员磁盘中，若数据丢失，可以通过校验数据反校验重建丢失的数据，速度快，在 RAID 5 中使用。<br><img src="/images/RAID.png"></p>
+<h3 id="常见-RAID-等级："><a href="#常见-RAID-等级：" class="headerlink" title="常见 RAID 等级："></a>常见 RAID 等级：</h3><ol>
+<li><p><strong>RAID 0（条带化，Striping）</strong></p>
+<ul>
+<li><strong>特点</strong>：数据被分割成多个块，分别写入到不同的硬盘中。没有冗余，也就是说，如果一个硬盘损坏，所有数据将丢失。</li>
+<li><strong>优点</strong>：提升读取和写入性能。</li>
+<li><strong>缺点</strong>：没有数据冗余，数据丢失风险高。</li>
+<li><strong>适用场景</strong>：对性能要求高，但对数据安全性要求不高的应用。</li>
+</ul>
+</li>
+<li><p><strong>RAID 1（镜像，Mirroring）</strong></p>
+<ul>
+<li><strong>特点</strong>：将数据完全镜像到两块或多块硬盘上，即每个硬盘都保存相同的数据。</li>
+<li><strong>优点</strong>：提供数据冗余，一块硬盘损坏时，数据仍然可以从另一块硬盘中恢复。</li>
+<li><strong>缺点</strong>：存储效率低，因为所有数据都会被复制一份，至少需要两块硬盘。</li>
+<li><strong>适用场景</strong>：对数据安全性要求较高的应用，尤其是小型企业和个人使用。</li>
+</ul>
+</li>
+<li><p><strong>RAID 5（带奇偶校验的条带化，Striping with Parity）</strong></p>
+<ul>
+<li><strong>特点</strong>：数据和奇偶校验信息被分散存储在多个硬盘中，通常至少需要三块硬盘。</li>
+<li><strong>优点</strong>：提供数据冗余，允许一个硬盘故障而不丢失数据，同时性能较好。</li>
+<li><strong>缺点</strong>：写入操作较慢，因为需要计算奇偶校验。</li>
+<li><strong>适用场景</strong>：企业级存储，既需要性能又需要数据安全。</li>
+</ul>
+</li>
+<li><p><strong>RAID 10（RAID 1+0，镜像与条带化的组合）</strong></p>
+<ul>
+<li><strong>特点</strong>：结合RAID 1和RAID 0的特点。数据首先在两个硬盘之间进行镜像（RAID 1），然后再在两个镜像对之间进行条带化（RAID 0）。</li>
+<li><strong>优点</strong>：提供良好的冗余和性能，能够容忍一个硬盘故障。</li>
+<li><strong>缺点</strong>：需要至少四块硬盘，存储效率较低。</li>
+<li><strong>适用场景</strong>：对性能和数据安全要求都很高的应用。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="二、LVM-逻辑卷"><a href="#二、LVM-逻辑卷" class="headerlink" title="二、LVM 逻辑卷"></a>二、LVM 逻辑卷</h2><h3 id="什么是逻辑卷？为什么需要逻辑卷？"><a href="#什么是逻辑卷？为什么需要逻辑卷？" class="headerlink" title="什么是逻辑卷？为什么需要逻辑卷？"></a>什么是逻辑卷？为什么需要逻辑卷？</h3><p>系统中磁盘分区一旦分配成功，若出现分区空间不够的情况，只能添加磁盘解决，数据无法跨盘或者跨分区，各磁盘和分区大小固定，重新调整较为麻烦；为实现数据存储空间弹性管理，动态逻辑卷提供更优解决方案</p>
+<h3 id="关于LVM逻辑卷的基础概念："><a href="#关于LVM逻辑卷的基础概念：" class="headerlink" title="关于LVM逻辑卷的基础概念："></a>关于LVM逻辑卷的基础概念：</h3><p><strong>PV物理卷[physical volumn]</strong> ：直接从物理介质上划分，真正提供存储容量介质<br><strong>VG卷组[volumn group]</strong> ：由多个物理卷组成，将所有物理卷空间存放在一起的资源存储池<br><strong>LV逻辑卷[logical volumn]</strong> ：基于卷组上定义，是一种物理分区集合上的信息集合，在硬件磁盘和文件系统之间添加的一个逻辑中间层<br><strong>FS文件系统[file system]</strong> ：建立于逻辑卷之上<br><strong>PE</strong>：逻辑卷的基本单元，默认大小1PE&#x3D;4MB，可在创建逻辑卷时使用-s选项指定PE大小，第一次设定后不可再次修改<br><img src="/images/LVM1.png"></p>
+<h3 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h3><p><strong>创建逻辑卷</strong> ：磁盘 &#x2F; 分区 —— <code>pvcreate</code> 创建物理卷 —— <code>vgcreate</code> 创建卷组 —— <code>lvcreate</code> 创建逻辑卷<br><strong>卸载逻辑卷</strong> ：<code>umount</code> 卸载文件系统 —— <code>lvremove</code> 删除逻辑卷 —— <code>vgremove</code> 删除卷组 —— pvremove删除物理卷<br><strong>缩容逻辑卷</strong> ：<code>umount</code> 卸载文件系统 —— <code>e2fsck -pf</code> 检查文件系统 —— <code>resize2fs</code> &#x2F; <code>xfs_growfs</code> 缩小文件系统 —— <code>lvreduce</code> 缩小逻辑卷 —— <code>mount</code> 挂载文件系统</p>
+<h3 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h3><p><img src="/images/LVM2.png"></p>
+<p>@：LVM逻辑卷写入方式<br> 1、线性方式（linear）：一次将数据写入磁盘多个磁盘，只有在前一个磁盘容量用完后才开始写入随后的磁盘。<br> 2、交错模式（triped）：指的是将数据拆分成两部分，分别写到底层不同的磁盘中。 </p>
+<hr>
+<h2 id="三、VDO-优化磁盘空间"><a href="#三、VDO-优化磁盘空间" class="headerlink" title="三、VDO 优化磁盘空间"></a>三、VDO 优化磁盘空间</h2><h3 id="一、VDO-介绍"><a href="#一、VDO-介绍" class="headerlink" title="一、VDO 介绍"></a>一、VDO 介绍</h3><ul>
+<li>VDO(virtual data optimizer)虚拟数据优化器，VDO本身为一种虚拟技术，工具占据一定空间量，工具内核模块主要提供了<strong>重复数据块删除、压缩和精简配置来优化磁盘空间</strong>。</li>
+<li>VDO的处理过程主要有三个部分：<br>1. <strong>一是零区块的清除，在初始化阶段，VDO会对仅包含0的数据块进行过滤消除，来提高 I&#x2F;0 性能；</strong><br>2. <strong>二是UDS模块在数据写入之前判断是否为冗余数据，删除重复数据块的副本，减少资源消耗，指向原数据块的过程；</strong><br>3. <strong>三是kvdo模块对数据使用LZ4压缩算法进行压缩，它把数据压缩为数据块，放在物理块上，一个物理块可以包含多个压缩块，所以提高了读取性能。</strong></li>
+</ul>
+<h3 id="二、VDO-相关命令"><a href="#二、VDO-相关命令" class="headerlink" title="二、VDO 相关命令"></a>二、VDO 相关命令</h3><p>服务名称：vdo</p>
+<h4 id="创建和修改"><a href="#创建和修改" class="headerlink" title="创建和修改"></a>创建和修改</h4><p>&lt;1&gt; 创建一块vdo：<code>vdo create --name=? --device=/dev/? --vdoLogicalSize=?G</code><br>@：VDO 创建成功后，保存在 &#x2F;dev&#x2F;mapper 下，该机制为 Device Mapper 从逻辑设备到物理设备的映射框架， dmsetup info 可以查看具体映射情况，可以对 &#x2F;dev&#x2F;mapper 下的 dm-xx 进行格式化、挂载等操作，当成常规块设备使用即可。<br>&lt;2&gt; 扩容逻辑大小：<code>vdo growLogical --name=? --vdoLogicalSize=?</code>  (扩容逻辑大小需要指定新的逻辑大小；创建VDO时不指定虚拟大小，则按照物理大小进行1:1创建)<br>&lt;3&gt; 扩容物理大小：<code>vdo growPhysical --name=?</code>  (扩容物理大小无法设置具体值，一般在物理设备扩容后使用该命令扩容和下一层物理设备一样大小)</p>
+<h4 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h4><p><strong>&lt;1&gt; 查看 vdo 列表</strong> ：<code>vdo list</code> （若vdo关闭，则该vdo不会出现在vdo列表中）<br><strong>&lt;2&gt; 关闭所有 vdo，关闭某个 vdo</strong> ：<code>vdo stop --all</code>   <code>vdo stop --name=?</code><br><strong>&lt;3&gt; 开启所有 vdo，开启某个 vdo</strong> ：<code>vdo start --all</code>  <code>vdo start --name=?</code></p>
+<p><strong>&lt;4&gt; 查看 vdo 状态</strong> ：<code>vdo status</code>  <code>vdo status --name=?</code><br>@：VDO去重和压缩主要因为VDO卷中 Compression 和 Deduplication 两个工具，使用时使用 <code>vdo status</code> 确保为开启状态</p>
+<p><strong>&lt;5&gt; 查看 vdo 的压缩功能是否正常开启</strong> ：<code>vdo status | grep Compression</code><br><strong>&lt;6&gt; 查看 vdo 的去重功能是否正常开启</strong> ：<code>vdo status | grep Deduplication</code></p>
+<p><strong>&lt;7&gt; 查看 vdo 真实大小</strong> ：<code>vdostats --hu</code>  <code>vdostats --si</code><br>@：VDO有虚拟逻辑大小和真实物理大小之分，逻辑大小可以使用 <code>lsblk</code> &#x2F; <code>df -Th</code> &#x2F; <code>du -h</code> 等方式进行查看，而物理大小仅可使用 <code>vdostats</code> 进行查看；对于VDO卷而言，一般逻辑大小会比实际大小大很多，甚至远超磁盘大小；若一个VDO卷里存在多份重复文件，则从逻辑大小看来，使用量&#x2F;使用占比不断增高，而从物理大小看来，因为底部UDS去重模块会删除重复块副本，引用原始块，所以使用量只占一份，重复文件越多，节省空间占比越大。</p>
+<h4 id="格式化和开机自动启动"><a href="#格式化和开机自动启动" class="headerlink" title="格式化和开机自动启动"></a>格式化和开机自动启动</h4><p><strong>&lt;1&gt; VDO卷格式化：</strong><br>1. 对于xfs文件系统格式化：<code>mkfs.xfs -K [VDO路径]</code><br>2. 对于ext文件系统格式化：<code>mkfs.ext? -E nodiscard [VDO路径]</code><br>@：在创建格式化文件系统时，默认丢弃块，设备丢弃块对于精简配置很有用，加快文件系统初始化；但是对于新的VDO卷，设置不丢弃可以不花费时间发送请求，他对未分配的块无影响，设置不立即丢弃块反而增快了命令的返回速度<br><strong>&lt;2&gt; &#x2F;etc&#x2F;fstab 文件开机自动开启 vdo</strong><br>当VDO设置开机自动挂载将信息写入&#x2F;etc&#x2F;fstab时，需要告诉系统在读取挂载文件的前一步需要开启VDO服务，否则若VDO服务无开启，则挂载失败导致启动异常，相关操作：添加字段组成  <code>[defaults,x-systemd.requires=vdo.service]</code></p>
+<h3 id="三、LVM与VDO的关系"><a href="#三、LVM与VDO的关系" class="headerlink" title="三、LVM与VDO的关系"></a>三、LVM与VDO的关系</h3><p>当 LVM 与 VDO 结合，既能够动态调整空间大小，又能对空间进行压缩去重操作。当准备好所有磁盘分布情况后，只需要格式化最近一层的文件系统即可，如下图只需要格式化 VDO 的文件系统即可。<br><img src="/images/VDO1.png"><br><img src="/images/VDO2.png"></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VPN</title>
+    <url>/2024/12/31/VPN/</url>
+    <content><![CDATA[<h2 id="一、-PPTP-协议"><a href="#一、-PPTP-协议" class="headerlink" title="一、 PPTP 协议"></a>一、 PPTP 协议</h2><p>点对点隧道协议，Point-to-Point Tunneling Protocol，是实现<a href="https://zh.wikipedia.org/wiki/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91" title="虚拟专用网">虚拟专用网</a>（VPN）的一种方式。<br>PPTP 使用<a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE" title="传输控制协议">传输控制协议</a>（TCP）建立控制通道以发送控制命令，并利用<a href="https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E8%B7%AF%E7%94%B1%E5%B0%81%E8%A3%85" title="通用路由封装">通用路由封装</a>（GRE）通道封装<a href="https://zh.wikipedia.org/wiki/%E7%82%B9%E5%AF%B9%E7%82%B9%E5%8D%8F%E8%AE%AE" title="点对点协议">点对点协议</a>（PPP）数据包以发送数据。</p>
+<h2 id="二、-PPTP-服务"><a href="#二、-PPTP-服务" class="headerlink" title="二、 PPTP 服务"></a>二、 PPTP 服务</h2><h4 id="2-1-基础信息："><a href="#2-1-基础信息：" class="headerlink" title="2.1 基础信息："></a>2.1 基础信息：</h4><p>下载安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y ppp </span><br><span class="line">wget http://dl.fedoraproject.org/pub/archive/epel/7/x86_64/Packages/p/pptpd-1.4.0-2.el7.x86_64.rpm</span><br><span class="line">yum install -y pptpd-1.4.0-2.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p>端口：1723&#x2F;tcp</p>
+<h4 id="2-2-防火墙"><a href="#2-2-防火墙" class="headerlink" title="2.2 防火墙"></a>2.2 防火墙</h4><p><code>--add-port=1723/tcp</code>，<code>--add-protocol=gre</code>，<code>--add-service=pptp</code>，<code>--zone=trusted --add-interface=ppp+</code>（该命令的作用是将所有以 ppp 开头的接口，例如 ppp0、ppp1 等添加到 trusted 区域，- –add-interface 用来将一个特定的网络接口添加到指定的区域中。ppp+ 是一个接口的名称。这里的 ppp+ 是一个匹配模式，ppp 通常是点对点协议 PPP 接口的名称，常见于拨号连接、VPN、拨号调制解调器等）</p>
+<h4 id="2-3-主配置文件：-etc-pptpd-conf"><a href="#2-3-主配置文件：-etc-pptpd-conf" class="headerlink" title="2.3 主配置文件：&#x2F;etc&#x2F;pptpd.conf"></a>2.3 主配置文件：&#x2F;etc&#x2F;pptpd.conf</h4><p>相关字段：<br>option 配置PPTP连接。选项文件包含了有关连接的各种配置设置，例如认证方式、加密方式、DNS服务器等<br>localip 指定了PPTP服务器在VPN连接中使用的本地IP地址<br>remoteip 指定了PPTP服务器用于分配给VPN客户端的IP地址范围</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">option /etc/ppp/options.pptpd</span><br><span class="line">localip &lt;PPTP服务器的IP地址&gt;</span><br><span class="line">remoteip &lt;分配给客户端的IP地址范围&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-用户配置文件：-etc-ppp-chap-secrets"><a href="#2-4-用户配置文件：-etc-ppp-chap-secrets" class="headerlink" title="2.4 用户配置文件：&#x2F;etc&#x2F;ppp&#x2F;chap-secrets"></a>2.4 用户配置文件：&#x2F;etc&#x2F;ppp&#x2F;chap-secrets</h4><p>添加用户名、服务器、密码和IP地址的条目。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Secrets for authentication using CHAP</span></span><br><span class="line"><span class="comment"># client        server  secret                  IP addresses</span></span><br><span class="line">  user1         *       password1               *</span><br><span class="line">  user2         *       password2               *</span><br></pre></td></tr></table></figure>
+<h4 id="2-5-开启linux的IP转发功能"><a href="#2-5-开启linux的IP转发功能" class="headerlink" title="2.5 开启linux的IP转发功能"></a>2.5 开启linux的IP转发功能</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sysctl -p /proc/sys/net/ipv4/ip_forward	   <span class="comment"># 刷新配置生效</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-6-开启-PPTP-的穿透功能"><a href="#2-6-开启-PPTP-的穿透功能" class="headerlink" title="2.6 开启 PPTP 的穿透功能"></a>2.6 开启 PPTP 的穿透功能</h4><p>这个命令用于加载 ip_nat_pptp 内核模块，以支持PPTP的网络地址转换（NAT）。<br>PPTP协议本身需要特殊的NAT处理来正确地转发PPTP通信中的控制和数据流量</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe ip_nat_pptp</span><br><span class="line">lsmod | grep pptp</span><br></pre></td></tr></table></figure>
+<h4 id="2-7-添加-pptp-服务的-xml-文件"><a href="#2-7-添加-pptp-服务的-xml-文件" class="headerlink" title="2.7 添加 pptp 服务的 xml 文件"></a>2.7 添加 pptp 服务的 xml 文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/lib/firewalld/services</span><br><span class="line"><span class="built_in">cp</span> -p http.xml pptp.xml</span><br><span class="line">vim pptp.xml</span><br><span class="line">&lt;service&gt;</span><br><span class="line">	...</span><br><span class="line">	&lt;port protocol=<span class="string">&quot;tcp&quot;</span> port=<span class="string">&quot;1723&quot;</span> /&gt;</span><br><span class="line">&lt;/service&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SSH</title>
     <url>/2025/01/01/SSH/</url>
     <content><![CDATA[<h3 id="一、介绍："><a href="#一、介绍：" class="headerlink" title="一、介绍："></a>一、介绍：</h3><p>SSH(Secure Shell)是一个网络安全协议，用于多操作系统间的远程登录与服务，相对与Telnet明文传输而言，SSH是<strong>对传输内容进行了压缩</strong>，后在<strong>加密传送</strong>，<strong>非明文传送</strong>，更加安全可靠，提高传输速度<br><img src="/images/ssh1.png"><br><img src="/images/ssh2.png"></p>
@@ -388,29 +411,6 @@
 <h3 id="十三、常见报错"><a href="#十三、常见报错" class="headerlink" title="十三、常见报错"></a>十三、常见报错</h3><p>NOT FOUND：文件路径找不到，路径错误<br>Forbidden：权限错误</p>
 <h3 id="十四、访问出错排查"><a href="#十四、访问出错排查" class="headerlink" title="十四、访问出错排查"></a>十四、访问出错排查</h3><p>1，网络是否通常（内网和虚拟机，虚拟机内网ping外网）<br>2，DAC权限是否可以操作<br>3，防火墙firewalld是否关闭<br>4，Apache&#x2F;samba&#x2F;auditd是否开启（关乎是否能上网，是否能window与linux远程登陆，是否记录审计日志）<br>5，进程与文件是否属于同一个域<br>6，策略方案getsebool -a | grep<br>7，http 端口</p>
 ]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VPN</title>
-    <url>/2024/12/31/VPN/</url>
-    <content><![CDATA[<h2 id="一、-PPTP-协议"><a href="#一、-PPTP-协议" class="headerlink" title="一、 PPTP 协议"></a>一、 PPTP 协议</h2><p>点对点隧道协议，Point-to-Point Tunneling Protocol，是实现<a href="https://zh.wikipedia.org/wiki/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91" title="虚拟专用网">虚拟专用网</a>（VPN）的一种方式。<br>PPTP 使用<a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE" title="传输控制协议">传输控制协议</a>（TCP）建立控制通道以发送控制命令，并利用<a href="https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E8%B7%AF%E7%94%B1%E5%B0%81%E8%A3%85" title="通用路由封装">通用路由封装</a>（GRE）通道封装<a href="https://zh.wikipedia.org/wiki/%E7%82%B9%E5%AF%B9%E7%82%B9%E5%8D%8F%E8%AE%AE" title="点对点协议">点对点协议</a>（PPP）数据包以发送数据。</p>
-<h2 id="二、-PPTP-服务"><a href="#二、-PPTP-服务" class="headerlink" title="二、 PPTP 服务"></a>二、 PPTP 服务</h2><h4 id="2-1-基础信息："><a href="#2-1-基础信息：" class="headerlink" title="2.1 基础信息："></a>2.1 基础信息：</h4><p>下载安装：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y ppp </span><br><span class="line">wget http://dl.fedoraproject.org/pub/archive/epel/7/x86_64/Packages/p/pptpd-1.4.0-2.el7.x86_64.rpm</span><br><span class="line">yum install -y pptpd-1.4.0-2.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
-<p>端口：1723&#x2F;tcp</p>
-<h4 id="2-2-防火墙"><a href="#2-2-防火墙" class="headerlink" title="2.2 防火墙"></a>2.2 防火墙</h4><p><code>--add-port=1723/tcp</code>，<code>--add-protocol=gre</code>，<code>--add-service=pptp</code>，<code>--zone=trusted --add-interface=ppp+</code>（该命令的作用是将所有以 ppp 开头的接口，例如 ppp0、ppp1 等添加到 trusted 区域，- –add-interface 用来将一个特定的网络接口添加到指定的区域中。ppp+ 是一个接口的名称。这里的 ppp+ 是一个匹配模式，ppp 通常是点对点协议 PPP 接口的名称，常见于拨号连接、VPN、拨号调制解调器等）</p>
-<h4 id="2-3-主配置文件：-etc-pptpd-conf"><a href="#2-3-主配置文件：-etc-pptpd-conf" class="headerlink" title="2.3 主配置文件：&#x2F;etc&#x2F;pptpd.conf"></a>2.3 主配置文件：&#x2F;etc&#x2F;pptpd.conf</h4><p>相关字段：<br>option 配置PPTP连接。选项文件包含了有关连接的各种配置设置，例如认证方式、加密方式、DNS服务器等<br>localip 指定了PPTP服务器在VPN连接中使用的本地IP地址<br>remoteip 指定了PPTP服务器用于分配给VPN客户端的IP地址范围</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">option /etc/ppp/options.pptpd</span><br><span class="line">localip &lt;PPTP服务器的IP地址&gt;</span><br><span class="line">remoteip &lt;分配给客户端的IP地址范围&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="2-4-用户配置文件：-etc-ppp-chap-secrets"><a href="#2-4-用户配置文件：-etc-ppp-chap-secrets" class="headerlink" title="2.4 用户配置文件：&#x2F;etc&#x2F;ppp&#x2F;chap-secrets"></a>2.4 用户配置文件：&#x2F;etc&#x2F;ppp&#x2F;chap-secrets</h4><p>添加用户名、服务器、密码和IP地址的条目。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Secrets for authentication using CHAP</span></span><br><span class="line"><span class="comment"># client        server  secret                  IP addresses</span></span><br><span class="line">  user1         *       password1               *</span><br><span class="line">  user2         *       password2               *</span><br></pre></td></tr></table></figure>
-<h4 id="2-5-开启linux的IP转发功能"><a href="#2-5-开启linux的IP转发功能" class="headerlink" title="2.5 开启linux的IP转发功能"></a>2.5 开启linux的IP转发功能</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sysctl -p /proc/sys/net/ipv4/ip_forward	   <span class="comment"># 刷新配置生效</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-6-开启-PPTP-的穿透功能"><a href="#2-6-开启-PPTP-的穿透功能" class="headerlink" title="2.6 开启 PPTP 的穿透功能"></a>2.6 开启 PPTP 的穿透功能</h4><p>这个命令用于加载 ip_nat_pptp 内核模块，以支持PPTP的网络地址转换（NAT）。<br>PPTP协议本身需要特殊的NAT处理来正确地转发PPTP通信中的控制和数据流量</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe ip_nat_pptp</span><br><span class="line">lsmod | grep pptp</span><br></pre></td></tr></table></figure>
-<h4 id="2-7-添加-pptp-服务的-xml-文件"><a href="#2-7-添加-pptp-服务的-xml-文件" class="headerlink" title="2.7 添加 pptp 服务的 xml 文件"></a>2.7 添加 pptp 服务的 xml 文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/lib/firewalld/services</span><br><span class="line"><span class="built_in">cp</span> -p http.xml pptp.xml</span><br><span class="line">vim pptp.xml</span><br><span class="line">&lt;service&gt;</span><br><span class="line">	...</span><br><span class="line">	&lt;port protocol=<span class="string">&quot;tcp&quot;</span> port=<span class="string">&quot;1723&quot;</span> /&gt;</span><br><span class="line">&lt;/service&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -522,33 +522,6 @@
       </tags>
   </entry>
   <entry>
-    <title>文件操作</title>
-    <url>/2025/01/04/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="一、文件基础操作命令"><a href="#一、文件基础操作命令" class="headerlink" title="一、文件基础操作命令"></a>一、文件基础操作命令</h3><p><strong>进入主目录</strong> ： <code>cd</code><br><strong>查看当前目录</strong>： <code>pwd</code><br><strong>查看当前目录下的文件</strong>： <code>ls</code>，<code>ls -l</code>，<code>ls -a</code>， <code>ls -ld</code></p>
-<p><strong>创建文件&#x2F;文件夹&#x2F;目录</strong>： <code>touch</code> 命令创建文件，<code>mkdir</code> 命令创建文件夹创建目录<br><strong>输出内容到文件中</strong>： <code>echo</code> 命令   <code> echo 内容 &gt;/&gt;&gt; 文件</code>，&gt;直接覆盖内容，&gt;&gt;表示追加定向</p>
-<p><strong>显示查看文件内容</strong>： <code>cat+文件名</code><br><strong>查看大型文件01</strong>： <code>more+文件名</code><br>cat比较适合打开小型文件，一次性全显示出来，more适合查看打开大型文件，从头开始展示文件，以分屏展示，百分比进行显示内容调节，直接从顶部开始分页显示，左下角是显示进度百分比，可向后浏览，按enter进行一行一行翻，按空格进行一页一页翻，按Q退出此界面<br><strong>查看大型文件02</strong>： <code>less+文件名</code><br>按键盘上下箭头上下拖动浏览，前后均可浏览，按Q键退出<br><strong>查看文件默认前十行</strong>： <code>head</code>，<code>head -5</code> 查看前五行<br><strong>查看文件默认后十行</strong>： <code>tail</code>，<code>tail -5</code> 查看后五行</p>
-<p><strong>在系统内查找文件路径</strong>： <code>find 寻找地址 -name 文件名</code><br><strong>在文件中搜索有无此关键词</strong>： <code>grep+关键词词条+目标路径</code></p>
-<p><strong>复制</strong>： <code>cp+源头地址+目标地址 </code>（-r 递归<br><strong>移动</strong>： <code>mv+源头地址+目标地址</code></p>
-<p><strong>切换目录</strong>：  <code>cd+目录</code><br><strong>返回上层目录</strong>： <code>cd ..</code><br><strong>返回当前目录</strong>： <code>cd .</code><br><strong>返回家目录</strong>： <code>cd+空格</code> 或者 <code>cd ~</code></p>
-<p><strong>删除</strong>： （没有强制删除的话会提醒是否删除该文件？输入yes即可）<br>删除文件：<code>rm 文件名</code><br>强制删除文件：<code>rm -f 文件名</code><br>删除文件夹：<code>rm -r 文件夹</code><br>强制删除文件夹：<code>rm -rf 文件夹</code></p>
-<p><strong>创建递归文件</strong>：<br>创建文件夹：<code>mkdir</code><br>创建递归文件：<code>mkdir -p</code>（此处p表示parent，父子关系的多层文件）<br>递归查看opt文件：<code>ls -R /opt</code><br><strong>创建链接文件</strong>： <code>In -s</code> 源头链接 目标地址<br><strong>同时创建多个目录</strong>： 使用<code>mkdir</code>命令，中间用 <em>空格</em> 隔开即可</p>
-<p><strong>命令别名</strong>：<code>alias+别名=”命令名”</code><br>输入alias查看别名列表</p>
-<p><strong>统计文件大小</strong>： <code>du+选项+文件路径</code><br>s显示该目录总大小，h表示显示单位</p>
-<p><strong>通配符</strong>：<br>代表一个字符：<code>?</code><br>代表两个字符：<code>??</code><br>代表任意个字符：<code>*</code><br>匹配范围内的字符：<code>[]</code>中括号内用<code>-</code>相连，示例：<code>[1-3]</code><br>匹配字符集合：<code>&#123;&#125;</code>大括号内用 <code>,</code> 隔开，示例：<code>&#123;1,4&#125;</code></p>
-<h3 id="二、文件查找和压缩"><a href="#二、文件查找和压缩" class="headerlink" title="二、文件查找和压缩"></a>二、文件查找和压缩</h3><h4 id="1-find"><a href="#1-find" class="headerlink" title="1. find"></a>1. find</h4><p>格式：<code>find 路径 选项 内容</code><br><img src="/images/find.png"><br><strong>A 基础操作</strong><br>使用通配符搭配-name选项进行查找：<code>find / -name grub??</code><br>查找在&#x2F;etc下五天内被访问过的文件：<code>find /etc -atime -5</code><br>查找&#x2F;etc下所有大小为10M的文件：<code>find /etc -size +10</code><br>查找&#x2F;home 下yhx用户的所有文件：<code>find /home -user yhx</code><br>文件名不分大小查找：<code>find / -iname abc</code><br><strong>B 查找并操作</strong><br>格式： <code>find 路径 选项 (-print) -exec (-ok) 命令 &#123;&#125; \;</code><br>作用： -exec 的作用类似于管道符，把前面用find命令找出来的所有文件传递到后面做操作<br>其中{}代表占位符，指前面搜索到的文件 \；是结尾符<br>注意： 结尾符 ; 前面一定要有空格与前面内容隔开<br>注意：删除文件时，为避免程序出错等问题，删除时最好使用具有交互性指令，更加安全保险，两种方式如下：<br>【find -ok】ok选项和exec选项雷同，ok选项具有交互性：<code>find /home -name &#39;data*&#39; -ok rm -rf &#123;&#125; \;</code><br>【find -exec rm -i】rm -i选项在删除时也会弹出提示文本：<code>find /home -name &#39;data*&#39; -exec rm -i &#123;&#125; \;</code></p>
-<h4 id="2-grep"><a href="#2-grep" class="headerlink" title="2. grep"></a>2. grep</h4><p>格式：<code>grep 选项 关键词 目标文件</code><br>选项：<br><code>-i</code> 查找时忽略大小<br><code>-c</code> 返回这个关键词出现的次数（一行多个只有效一个）<br><code>-n</code> 输出时一并输出行号<br><code>-v</code> 反选-返回没有这个关键词的行<br>特殊通配符： <code>^</code>字符——返回以这个字符开头的    字符<code>$</code>返回以这个字符结尾的</p>
-<h4 id="3-wc"><a href="#3-wc" class="headerlink" title="3. wc"></a>3. wc</h4><p>格式：<code>wc [选项] 路径</code><br>选项：<br>-l 只显示此路径的行数（lines）<br>-w 只显示这个文件有多少单词&#x2F;字符串（words）<br>-c 只显示这个文件有多少字节（bytes）<br>-m 只显示这个文件有多少字符（chars）</p>
-<h4 id="4-tar"><a href="#4-tar" class="headerlink" title="4. tar"></a>4. tar</h4><p>格式：<code>[tar] [选项] [打包/压缩/解压后的文件名] [被打包的文件]</code><br>常用搭配：<br>（1）使用gzip 工具，<code>tar -czvf /压缩后的文件 /被打包压缩的文件</code><br>（2）使用 bzip2 工具，<code>tar -cjvf /压缩后的文件 /被打包压缩的文件</code><br>注意：压缩时，如果有多个目录，用空格隔开<br>压缩时性能对比：压缩速度 gzip &gt; bzip2<br>压缩时间 bzip2 &gt; gzip<br><img src="/images/tar.png"></p>
-<h4 id="5-zip"><a href="#5-zip" class="headerlink" title="5. zip"></a>5. zip</h4><p>压缩格式：<code>zip 压缩后名称 文件</code><br>常用命令：<br><code>zip -r</code> 递归压缩，同时压缩目录<br><code>zip -d</code> 指定解压路径<br>解压格式：<code>unzip 文件 (-d) 解压路径</code></p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>文本处理三剑客</title>
     <url>/2025/01/06/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/</url>
     <content><![CDATA[<h2 id="一、sed"><a href="#一、sed" class="headerlink" title="一、sed"></a>一、sed</h2><p>SED（stream editor）命令是一种流编辑器，适用于大量的文本处理，批量处理，无需打开文本，默认不修改源文本，输入修改到临时缓冲区，需要时保存</p>
@@ -646,18 +619,153 @@
 ]]></content>
   </entry>
   <entry>
-    <title>用户和组</title>
-    <url>/2025/01/04/%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/</url>
-    <content><![CDATA[<h2 id="一、预备知识"><a href="#一、预备知识" class="headerlink" title="一、预备知识"></a>一、预备知识</h2><h3 id="1-配置文件、UID与shell"><a href="#1-配置文件、UID与shell" class="headerlink" title="1. 配置文件、UID与shell"></a>1. 配置文件、UID与shell</h3><p>用户配置文件：<code>/etc/passwd</code>   其影子文件：<code>/etc/shadow</code><br>组配置文件：<code>/etc/group</code>   其影子文件：<code>/etc/gshadow</code><br>UID 分配：其中root的UID默认为0，系统用户UID为1-999，普通用户UID以1000开始命名<br>shell 选择：普通用户 <code>/bin/bash</code>，系统用户不可登录控制台 <code>/sbin/nologin</code></p>
-<h3 id="2-相关命令与权限"><a href="#2-相关命令与权限" class="headerlink" title="2. 相关命令与权限"></a>2. 相关命令与权限</h3><p>&lt;1&gt; <code>su - 用户名称</code>，切换用户，加 - 表示整个 shell 环境一起切换，保留权限等信息， su 用户，不加 - 表示开启新的 shell 环境<br>&lt;2&gt; &#x2F;etc&#x2F;passwd 存放用户信息，密码加密，真正的密码放于影子文件中，&#x2F;etc&#x2F;shadow 是&#x2F;etc&#x2F;passwd的影子文件用于存放密码<br>&lt;3&gt; 普通用户无法查看影子文件</p>
-<h2 id="二、用户相关配置文件与命令"><a href="#二、用户相关配置文件与命令" class="headerlink" title="二、用户相关配置文件与命令"></a>二、用户相关配置文件与命令</h2><h3 id="1-etc-passwd"><a href="#1-etc-passwd" class="headerlink" title="1. &#x2F;etc&#x2F;passwd"></a>1. &#x2F;etc&#x2F;passwd</h3><p>用户名：加密密码：UID：GID：描述说明信息：主目录：命令解释器shell信息</p>
-<h3 id="2-etc-shadow"><a href="#2-etc-shadow" class="headerlink" title="2. &#x2F;etc&#x2F;shadow"></a>2. &#x2F;etc&#x2F;shadow</h3><p>用户名：经过算法加密后的口令：从1970.1.1到现在最近一次修改密码的时间：用更改密码后至少需要多少天才能第二次修改：用更改密码后至少需要多少天必须修改密码否则过期：密码过期几天后被禁用：被禁用的具体日期：其他</p>
-<h3 id="3-创建用户"><a href="#3-创建用户" class="headerlink" title="3. 创建用户"></a>3. 创建用户</h3><p><strong>创建添加用户</strong>：   <code>useradd 用户名</code><br><strong>创建用户并修改其UID标识码</strong>：  <code>useradd -u UID 用户名</code><br><strong>创建用户并修改其GID标识码即是主组</strong>：  <code>useradd -g GID 用户名</code><br><strong>创建用户并修改创建附加组</strong>：  <code>useradd -G 自定义附加组名 用户名</code><br><strong>创建用户并转移主目录 不放于默认目录home</strong>： <code> useradd -d 目标目录 用户名</code><br><strong>设置密码</strong>：<br>a.交互式（不回显式）：<code>passwd 用户名</code><br>确认后需要输入两次密码进行确认：New password: 和Retype new password:<br>若没有加用户名直接执行passwd命令，则默认对当下用户进行修改密码操作<br>root是超级用户，有权限可以任意修改密码，普通用户修改密码需要遵守linux密码规则，例如包含大小写、数字字符等<br>b.免交互式（回显式）：<code>echo 新密码 | passwd --stdin 用户</code><br>（stdin表示数据重定向-输入重定向和输出重定向）<br>示例：使用免交互式将lisi02密码设置为lywlyw20050923：      echo lywlyw20050923 | passwd –stdin lisi02<br>echo可以输出内容至屏幕上，|管道符将密码输出到用户上，–stdin接收密码<br>好处：可以看到密码以免输错   坏处：安全度不高 公共场合不适用 history可以查到<br>c.查看用户是否设置密码：<code>passwd -S 用户</code><br>已设置密码：password set<br>未设置密码：password locked</p>
-<h3 id="4-修改用户"><a href="#4-修改用户" class="headerlink" title="4. 修改用户"></a>4. 修改用户</h3><p><strong>修改用户的主组</strong>：  <code>usermod -g 更改的新主组 用户名</code><br><strong>修改用户的UID标识码</strong>：  <code>usermod -u 更新的UID码 用户名</code><br><strong>修改其用户名&#x2F;登录名</strong>：  <code>usermod -l 新的用户名称 原本的用户名称（处理的对象）</code><br><strong>用户有效期</strong>：<br>查看用户有效期： <code>chage -l 用户名</code><br>设置用户有效期(方法一)：<code>usermod -e 时间 用户名</code>（时间年月日用-分隔）<br>设置用户有效期(方法二)：<code>chage -E 时间 用户名</code>（时间年月日用-分隔）<br>把有效期改为永久有效永不失效(方法一)：<code>usermod -e -1 用户名</code><br>把有效期改为永久有效永不失效(方法二)：<code>chage -E -1 用户名</code></p>
-<h3 id="5-查看和删除用户"><a href="#5-查看和删除用户" class="headerlink" title="5. 查看和删除用户"></a>5. 查看和删除用户</h3><p><strong>查看用户信息</strong>： <code>id 用户名</code><br><strong>删除用户</strong>： <code>userdel 用户名</code>（-r 删除用户目录）<br><strong>封禁账号</strong>：<br>a.更改shell命令解释器：<code>usermod -s /sbin/nologin 用户名</code><br>b.使用passwd进行用户锁定：<code>passwd -l 用户</code><br>c.使用usermod进行用户锁定：<code>usermod -L 用户</code><br>d.对所有普通用户进行封禁：<code>touch /etc/nologin</code></p>
-<h2 id="三、组相关配置文件与命令"><a href="#三、组相关配置文件与命令" class="headerlink" title="三、组相关配置文件与命令"></a>三、组相关配置文件与命令</h2><h3 id="1-创建组"><a href="#1-创建组" class="headerlink" title="1. 创建组"></a>1. 创建组</h3><p><strong>创建组指定GID</strong>：  <code>groupadd -g 指定的GID 组名</code></p>
-<h3 id="2-修改组"><a href="#2-修改组" class="headerlink" title="2. 修改组"></a>2. 修改组</h3><p><strong>修改组名并修改组GID</strong>：   <code>groupmod -g 新GID -n 新组名 组名</code><br><strong>设置组密码</strong>：   <code>gpasswd 组名</code><br><strong>给组设置管理员</strong>：   <code>gpasswd -A 管理员 组名</code><br><strong>给组添加成员</strong>：   <code>gpasswd -a 用户 组名</code><br><strong>批量添加用户</strong>：  <code>gpasswd -M 组用户 组名</code>（组用户间用逗号隔开）</p>
-<h3 id="3-查看和删除"><a href="#3-查看和删除" class="headerlink" title="3. 查看和删除"></a>3. 查看和删除</h3><p><strong>查询用户属于哪个组，有多少个组</strong>：   <code>groups 用户</code><br><strong>切换组</strong>：   <code>newgrp 组名</code><br><strong>查看当前所在(生效)的组</strong>：   <code>id -gn</code><br><strong>删除组密码</strong>：   <code>gpasswd -r 组名</code><br><strong>删除组用户</strong>：   <code>gpasswd -d 组用户 组名</code><br><strong>删除组</strong>：   <code>groupdel 组名</code><br><strong>强删主组</strong>：   <code>groupdel -f 组名</code></p>
+    <title>时间配置与同步</title>
+    <url>/2025/01/04/%E6%97%B6%E9%97%B4%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%90%8C%E6%AD%A5/</url>
+    <content><![CDATA[<h2 id="一、date"><a href="#一、date" class="headerlink" title="一、date"></a>一、date</h2><h4 id="1-显示当前日期和时间"><a href="#1-显示当前日期和时间" class="headerlink" title="1. 显示当前日期和时间"></a>1. 显示当前日期和时间</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span></span><br><span class="line"><span class="comment"># Fri Jan  4 14:42:03 CST 2025</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-自定义输出格式"><a href="#2-自定义输出格式" class="headerlink" title="2. 自定义输出格式"></a>2. 自定义输出格式</h4><p>可以通过 <code>+</code> 符号后跟格式字符串来自定义输出的日期和时间格式。常见的格式符号包括：</p>
+<ul>
+<li><code>%Y</code> - 年份（四位数）</li>
+<li><code>%m</code> - 月份（两位数）</li>
+<li><code>%d</code> - 日（两位数）</li>
+<li><code>%H</code> - 小时（24小时制，两位数）</li>
+<li><code>%M</code> - 分钟（两位数）</li>
+<li><code>%S</code> - 秒（两位数）<br>例如，输出“年-月-日 时:分:秒”格式：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span> <span class="string">&quot;+%Y-%m-%d %H:%M:%S&quot;</span></span><br><span class="line"><span class="comment"># 2025-01-04 14:42:03</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-指定日期时间"><a href="#3-指定日期时间" class="headerlink" title="3. 指定日期时间"></a>3. 指定日期时间</h4><p><code>-d</code> 选项来显示指定日期</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;yesterday&quot;</span></span><br><span class="line"><span class="comment"># Thu Jan  3 14:42:03 CST 2025</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;2025-12-31&quot;</span></span><br><span class="line"><span class="comment"># Wed Dec 31 00:00:00 CST 2025</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-设置系统时间"><a href="#4-设置系统时间" class="headerlink" title="4. 设置系统时间"></a>4. 设置系统时间</h4><p>要修改系统日期和时间，使用 <code>date</code> 命令并指定新的日期时间。格式为：<code>sudo date MMDDhhmm[[CC]YY][.ss]</code></p>
+<ul>
+<li><code>MM</code>：月份（两位数）</li>
+<li><code>DD</code>：日期（两位数）</li>
+<li><code>hh</code>：小时（两位数，24小时制）</li>
+<li><code>mm</code>：分钟（两位数）</li>
+<li><code>CC</code>：世纪（两位数，默认为 20）</li>
+<li><code>YY</code>：年份（两位数）</li>
+<li><code>ss</code>：秒（两位数）<br>例如，要将时间设置为 2025 年 1 月 4 日 15:00：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">date</span> 010415002025</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="5-设置时区"><a href="#5-设置时区" class="headerlink" title="5. 设置时区"></a>5. 设置时区</h4><p>可以通过设置 <code>TZ</code> 环境变量来临时更改时区。例如，设置为纽约时区：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">TZ=<span class="string">&quot;America/New_York&quot;</span> <span class="built_in">date</span></span><br></pre></td></tr></table></figure>
+<h4 id="6-日期运算"><a href="#6-日期运算" class="headerlink" title="6. 日期运算"></a>6. 日期运算</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;5 days&quot;</span>    <span class="comment"># 计算 5 天后日期</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;next Monday&quot;</span>    <span class="comment"># 计算下周一日期</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;2 weeks ago&quot;</span>    <span class="comment"># 计算两周前日期</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="二、Timedatectl"><a href="#二、Timedatectl" class="headerlink" title="二、Timedatectl"></a>二、Timedatectl</h2><p>查看当前日期时间：<code>timedatectl  (status)</code><br>修改时间：<code>timedatectl set-time</code><br>修改地区：<code>timedatectl set-timezone</code><br>查看可修改的地区列表：<code>timedatectl list-timezones</code><br>搜索&#x2F;选择修改地区：<code>tzselect</code><br>开关NTP服务：<code>timedatectl set-ntp 1/0 true/false</code><br>设置硬件时间状态：<code>timedatectl set-local-rtc 1/0</code>（1：为本地时间；0：为NTC时间）</p>
+<blockquote>
+<p>UTC：universal time coordinated 协调世界时间<br>BTC：real-time clock &#x3D;&#x3D;&#x3D;&#x3D; BIOS 硬件时间<br>NTP: network time protocal 网络时间协议</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">timedatectl</span><br><span class="line"><span class="comment">#                Local time: Sat 2025-01-04 22:48:00 CST</span></span><br><span class="line"><span class="comment">#            Universal time: Sat 2025-01-04 14:48:00 UTC</span></span><br><span class="line"><span class="comment">#                  RTC time: Sat 2025-01-04 14:52:00</span></span><br><span class="line"><span class="comment">#                 Time zone: Asia/Beijing (CST, +0800)</span></span><br><span class="line"><span class="comment"># System clock synchronized: yes</span></span><br><span class="line"><span class="comment">#               NTP service: active</span></span><br><span class="line"><span class="comment">#           RTC in local TZ: no</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="三、chrony"><a href="#三、chrony" class="headerlink" title="三、chrony"></a>三、chrony</h2><p>Chrony实现时间同步功能，让计算机保持系统时钟与时钟服务器（NTP）同步，或者自设定互联网上提供的时间源<br>守护进程：<code>chronyd</code><br>命令：<code>chronyc</code><br>配置文件：<code>/etc/chrony.conf</code><br>注意事项：需要为系统&#x2F;网卡配置DNS，配置DNS可以解析配置文件中网络源的域名<br>查看网络源情况：<code>chronyc sources -v</code><br>查看NTP信息：<code>chronyc chacking -v</code><br>强制同步系统时间： <code>chronyc -a makestep</code></p>
+<h4 id="1-配置文件"><a href="#1-配置文件" class="headerlink" title="1. 配置文件"></a>1. 配置文件</h4><p>字段：pool&#x2F;server 资源池&#x2F;域名 加速</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/chrony.conf</span><br><span class="line"><span class="comment"># Use public servers from the pool.ntp.org project.</span></span><br><span class="line"><span class="comment"># Please consider joining the pool (http://www.pool.ntp.org/join.html).</span></span><br><span class="line"><span class="comment"># pool pool.ntp.org iburst</span></span><br><span class="line"><span class="comment"># [pool/server] [资源池/域名] [加速]</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-查看网络源情况"><a href="#2-查看网络源情况" class="headerlink" title="2. 查看网络源情况"></a>2. 查看网络源情况</h4><p><code>Source mode &#39;^&#39; = server, &#39;=&#39; = peer, &#39;#&#39; = local clock.</code><br>这部分解释了不同的源模式符号。例如，<code>^</code> 表示服务器模式，<code>=</code> 表示对等模式，<code>#</code> 表示本地时钟。<br><code>Source state &#39;*&#39; = current synced, &#39;+&#39; = combined, &#39;-&#39; = not combined, &#39;?&#39; = unreachable, &#39;x&#39; = time may be in error, &#39;~&#39; = time too variable.</code><br>这部分解释了源的状态符号。<code>*</code> 表示当前同步的源，<code>+</code> 表示组合的源，<code>-</code> 表示未组合，<code>?</code> 表示无法访问，<code>x</code> 表示时间可能出错，<code>~</code> 表示时间太不稳定。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chronyc sources -v</span><br><span class="line"><span class="comment"># 210 Number of sources = 1</span></span><br><span class="line"><span class="comment">#   .-- Source mode  &#x27;^&#x27; = server, &#x27;=&#x27; = peer, &#x27;#&#x27; = local clock.</span></span><br><span class="line"><span class="comment">#  / .- Source state &#x27;*&#x27; = current synced, &#x27;+&#x27; = combined , &#x27;-&#x27; = not combined,</span></span><br><span class="line"><span class="comment"># | /   &#x27;?&#x27; = unreachable, &#x27;x&#x27; = time may be in error, &#x27;~&#x27; = time too variable.</span></span><br><span class="line"><span class="comment"># ||                                                 .- xxxx [ yyyy ] +/- zzzz</span></span><br><span class="line"><span class="comment"># ||      Reachability register (octal) -.           |  xxxx = adjusted offset,</span></span><br><span class="line"><span class="comment"># ||      Log2(Polling interval) --.      |          |  yyyy = measured offset,</span></span><br><span class="line"><span class="comment"># ||                                \     |          |  zzzz = estimated error.</span></span><br><span class="line"><span class="comment"># ||                                 |    |           \</span></span><br><span class="line"><span class="comment"># MS Name/IP address         Stratum Poll Reach LastRx Last sample</span></span><br><span class="line"><span class="comment"># ===============================================================================</span></span><br><span class="line"><span class="comment"># ^~ ntp1.aliyun.com               2   6     6   138  -240.0s[-240.0s] +/-   23ms</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-修改chrony配置文件-将ntp1-aliyun-com作为NTP同步时间源"><a href="#3-修改chrony配置文件-将ntp1-aliyun-com作为NTP同步时间源" class="headerlink" title="3. 修改chrony配置文件,将ntp1.aliyun.com作为NTP同步时间源"></a>3. 修改chrony配置文件,将ntp1.aliyun.com作为NTP同步时间源</h4><p>步骤：修改配置文件，取消原有系统自带，按照格式添加需要的时间源；重启chronyd服务，开启NTP服务，开启chronyd服务开机自启，确认NTP同步成功——连接成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/chrony.conf | grep aliyun</span><br><span class="line"><span class="comment"># server ntp1.aliyun.com iburst</span></span><br><span class="line">systemctl restart chronyd &amp;&amp; systemctl status chronyd &amp;&amp; systemctl <span class="built_in">enable</span> --now chronyd</span><br><span class="line">timedatectl</span><br><span class="line"><span class="comment">#                Local time: Sat 2025-01-04 22:48:00 CST</span></span><br><span class="line"><span class="comment">#            Universal time: Sat 2025-01-04 14:48:00 UTC</span></span><br><span class="line"><span class="comment">#                  RTC time: Sat 2025-01-04 14:52:00</span></span><br><span class="line"><span class="comment">#                 Time zone: Asia/Beijing (CST, +0800)</span></span><br><span class="line"><span class="comment"># System clock synchronized: yes</span></span><br><span class="line"><span class="comment">#               NTP service: active    # 确保NTP开启且连接成功</span></span><br><span class="line"><span class="comment">#           RTC in local TZ: no</span></span><br><span class="line">chronyc sources -v</span><br><span class="line"><span class="comment"># 210 Number of sources = 1</span></span><br><span class="line"><span class="comment">#   .-- Source mode  &#x27;^&#x27; = server, &#x27;=&#x27; = peer, &#x27;#&#x27; = local clock.</span></span><br><span class="line"><span class="comment">#  / .- Source state &#x27;*&#x27; = current synced, &#x27;+&#x27; = combined , &#x27;-&#x27; = not combined,</span></span><br><span class="line"><span class="comment"># | /   &#x27;?&#x27; = unreachable, &#x27;x&#x27; = time may be in error, &#x27;~&#x27; = time too variable.</span></span><br><span class="line"><span class="comment"># ||                                                 .- xxxx [ yyyy ] +/- zzzz</span></span><br><span class="line"><span class="comment"># ||      Reachability register (octal) -.           |  xxxx = adjusted offset,</span></span><br><span class="line"><span class="comment"># ||      Log2(Polling interval) --.      |          |  yyyy = measured offset,</span></span><br><span class="line"><span class="comment"># ||                                \     |          |  zzzz = estimated error.</span></span><br><span class="line"><span class="comment"># ||                                 |    |           \</span></span><br><span class="line"><span class="comment"># MS Name/IP address         Stratum Poll Reach LastRx Last sample</span></span><br><span class="line"><span class="comment"># ===============================================================================</span></span><br><span class="line"><span class="comment"># ^~ ntp1.aliyun.com               2   6     6   138  -240.0s[-240.0s] +/-   23ms</span></span><br><span class="line">chronyc -a makestep</span><br><span class="line">chronyc sources -v    <span class="comment"># 可以使用强制同步，或者稍作等待再重新查看，因为chronyd具有一定延迟性</span></span><br><span class="line"><span class="comment"># 210 Number of sources = 1</span></span><br><span class="line"><span class="comment">#   .-- Source mode  &#x27;^&#x27; = server, &#x27;=&#x27; = peer, &#x27;#&#x27; = local clock.</span></span><br><span class="line"><span class="comment">#  / .- Source state &#x27;*&#x27; = current synced, &#x27;+&#x27; = combined , &#x27;-&#x27; = not combined,</span></span><br><span class="line"><span class="comment"># | /   &#x27;?&#x27; = unreachable, &#x27;x&#x27; = time may be in error, &#x27;~&#x27; = time too variable.</span></span><br><span class="line"><span class="comment"># ||                                                 .- xxxx [ yyyy ] +/- zzzz</span></span><br><span class="line"><span class="comment"># ||      Reachability register (octal) -.           |  xxxx = adjusted offset,</span></span><br><span class="line"><span class="comment"># ||      Log2(Polling interval) --.      |          |  yyyy = measured offset,</span></span><br><span class="line"><span class="comment"># ||                                \     |          |  zzzz = estimated error.</span></span><br><span class="line"><span class="comment"># ||                                 |    |           \</span></span><br><span class="line"><span class="comment"># MS Name/IP address         Stratum Poll Reach LastRx Last sample</span></span><br><span class="line"><span class="comment"># ===============================================================================</span></span><br><span class="line"><span class="comment"># ^* ntp1.aliyun.com               2   6     6   138  -240.0s[-240.0s] +/-   23ms</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件操作</title>
+    <url>/2025/01/04/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="一、文件基础操作命令"><a href="#一、文件基础操作命令" class="headerlink" title="一、文件基础操作命令"></a>一、文件基础操作命令</h3><p><strong>进入主目录</strong> ： <code>cd</code><br><strong>查看当前目录</strong>： <code>pwd</code><br><strong>查看当前目录下的文件</strong>： <code>ls</code>，<code>ls -l</code>，<code>ls -a</code>， <code>ls -ld</code></p>
+<p><strong>创建文件&#x2F;文件夹&#x2F;目录</strong>： <code>touch</code> 命令创建文件，<code>mkdir</code> 命令创建文件夹创建目录<br><strong>输出内容到文件中</strong>： <code>echo</code> 命令   <code> echo 内容 &gt;/&gt;&gt; 文件</code>，&gt;直接覆盖内容，&gt;&gt;表示追加定向</p>
+<p><strong>显示查看文件内容</strong>： <code>cat+文件名</code><br><strong>查看大型文件01</strong>： <code>more+文件名</code><br>cat比较适合打开小型文件，一次性全显示出来，more适合查看打开大型文件，从头开始展示文件，以分屏展示，百分比进行显示内容调节，直接从顶部开始分页显示，左下角是显示进度百分比，可向后浏览，按enter进行一行一行翻，按空格进行一页一页翻，按Q退出此界面<br><strong>查看大型文件02</strong>： <code>less+文件名</code><br>按键盘上下箭头上下拖动浏览，前后均可浏览，按Q键退出<br><strong>查看文件默认前十行</strong>： <code>head</code>，<code>head -5</code> 查看前五行<br><strong>查看文件默认后十行</strong>： <code>tail</code>，<code>tail -5</code> 查看后五行</p>
+<p><strong>在系统内查找文件路径</strong>： <code>find 寻找地址 -name 文件名</code><br><strong>在文件中搜索有无此关键词</strong>： <code>grep+关键词词条+目标路径</code></p>
+<p><strong>复制</strong>： <code>cp+源头地址+目标地址 </code>（-r 递归<br><strong>移动</strong>： <code>mv+源头地址+目标地址</code></p>
+<p><strong>切换目录</strong>：  <code>cd+目录</code><br><strong>返回上层目录</strong>： <code>cd ..</code><br><strong>返回当前目录</strong>： <code>cd .</code><br><strong>返回家目录</strong>： <code>cd+空格</code> 或者 <code>cd ~</code></p>
+<p><strong>删除</strong>： （没有强制删除的话会提醒是否删除该文件？输入yes即可）<br>删除文件：<code>rm 文件名</code><br>强制删除文件：<code>rm -f 文件名</code><br>删除文件夹：<code>rm -r 文件夹</code><br>强制删除文件夹：<code>rm -rf 文件夹</code></p>
+<p><strong>创建递归文件</strong>：<br>创建文件夹：<code>mkdir</code><br>创建递归文件：<code>mkdir -p</code>（此处p表示parent，父子关系的多层文件）<br>递归查看opt文件：<code>ls -R /opt</code><br><strong>创建链接文件</strong>： <code>In -s</code> 源头链接 目标地址<br><strong>同时创建多个目录</strong>： 使用<code>mkdir</code>命令，中间用 <em>空格</em> 隔开即可</p>
+<p><strong>命令别名</strong>：<code>alias+别名=”命令名”</code><br>输入alias查看别名列表</p>
+<p><strong>统计文件大小</strong>： <code>du+选项+文件路径</code><br>s显示该目录总大小，h表示显示单位</p>
+<p><strong>通配符</strong>：<br>代表一个字符：<code>?</code><br>代表两个字符：<code>??</code><br>代表任意个字符：<code>*</code><br>匹配范围内的字符：<code>[]</code>中括号内用<code>-</code>相连，示例：<code>[1-3]</code><br>匹配字符集合：<code>&#123;&#125;</code>大括号内用 <code>,</code> 隔开，示例：<code>&#123;1,4&#125;</code></p>
+<h3 id="二、文件查找和压缩"><a href="#二、文件查找和压缩" class="headerlink" title="二、文件查找和压缩"></a>二、文件查找和压缩</h3><h4 id="1-find"><a href="#1-find" class="headerlink" title="1. find"></a>1. find</h4><p>格式：<code>find 路径 选项 内容</code><br><img src="/images/find.png"><br><strong>A 基础操作</strong><br>使用通配符搭配-name选项进行查找：<code>find / -name grub??</code><br>查找在&#x2F;etc下五天内被访问过的文件：<code>find /etc -atime -5</code><br>查找&#x2F;etc下所有大小为10M的文件：<code>find /etc -size +10</code><br>查找&#x2F;home 下yhx用户的所有文件：<code>find /home -user yhx</code><br>文件名不分大小查找：<code>find / -iname abc</code><br><strong>B 查找并操作</strong><br>格式： <code>find 路径 选项 (-print) -exec (-ok) 命令 &#123;&#125; \;</code><br>作用： -exec 的作用类似于管道符，把前面用find命令找出来的所有文件传递到后面做操作<br>其中{}代表占位符，指前面搜索到的文件 \；是结尾符<br>注意： 结尾符 ; 前面一定要有空格与前面内容隔开<br>注意：删除文件时，为避免程序出错等问题，删除时最好使用具有交互性指令，更加安全保险，两种方式如下：<br>【find -ok】ok选项和exec选项雷同，ok选项具有交互性：<code>find /home -name &#39;data*&#39; -ok rm -rf &#123;&#125; \;</code><br>【find -exec rm -i】rm -i选项在删除时也会弹出提示文本：<code>find /home -name &#39;data*&#39; -exec rm -i &#123;&#125; \;</code></p>
+<h4 id="2-grep"><a href="#2-grep" class="headerlink" title="2. grep"></a>2. grep</h4><p>格式：<code>grep 选项 关键词 目标文件</code><br>选项：<br><code>-i</code> 查找时忽略大小<br><code>-c</code> 返回这个关键词出现的次数（一行多个只有效一个）<br><code>-n</code> 输出时一并输出行号<br><code>-v</code> 反选-返回没有这个关键词的行<br>特殊通配符： <code>^</code>字符——返回以这个字符开头的    字符<code>$</code>返回以这个字符结尾的</p>
+<h4 id="3-wc"><a href="#3-wc" class="headerlink" title="3. wc"></a>3. wc</h4><p>格式：<code>wc [选项] 路径</code><br>选项：<br>-l 只显示此路径的行数（lines）<br>-w 只显示这个文件有多少单词&#x2F;字符串（words）<br>-c 只显示这个文件有多少字节（bytes）<br>-m 只显示这个文件有多少字符（chars）</p>
+<h4 id="4-tar"><a href="#4-tar" class="headerlink" title="4. tar"></a>4. tar</h4><p>格式：<code>[tar] [选项] [打包/压缩/解压后的文件名] [被打包的文件]</code><br>常用搭配：<br>（1）使用gzip 工具，<code>tar -czvf /压缩后的文件 /被打包压缩的文件</code><br>（2）使用 bzip2 工具，<code>tar -cjvf /压缩后的文件 /被打包压缩的文件</code><br>注意：压缩时，如果有多个目录，用空格隔开<br>压缩时性能对比：压缩速度 gzip &gt; bzip2<br>压缩时间 bzip2 &gt; gzip<br><img src="/images/tar.png"></p>
+<h4 id="5-zip"><a href="#5-zip" class="headerlink" title="5. zip"></a>5. zip</h4><p>压缩格式：<code>zip 压缩后名称 文件</code><br>常用命令：<br><code>zip -r</code> 递归压缩，同时压缩目录<br><code>zip -d</code> 指定解压路径<br>解压格式：<code>unzip 文件 (-d) 解压路径</code></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>系统查询与调节</title>
+    <url>/2025/01/06/%E7%B3%BB%E7%BB%9F%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%B0%83%E8%8A%82/</url>
+    <content><![CDATA[<h2 id="一、系统方面"><a href="#一、系统方面" class="headerlink" title="一、系统方面"></a>一、系统方面</h2><h4 id="1-查看硬盘分区管理信息"><a href="#1-查看硬盘分区管理信息" class="headerlink" title="1. 查看硬盘分区管理信息"></a>1. 查看硬盘分区管理信息</h4><p>fdisk -l</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@2303010148 ~]# fdisk -l</span><br><span class="line">Disk /dev/nvme0n1：20 GiB，21474836480 字节，41943040 个扇区</span><br><span class="line">磁盘型号：VMware Virtual NVMe Disk</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：dos</span><br><span class="line">磁盘标识符：0x1354d7aa</span><br><span class="line">设备           启动    起点     末尾     扇区 大小 Id 类型</span><br><span class="line">/dev/nvme0n1p1 *       2048  2099199  2097152   1G 83 Linux</span><br><span class="line">/dev/nvme0n1p2      2099200 41943039 39843840  19G 8e Linux LVM</span><br></pre></td></tr></table></figure>
+<h4 id="2-查看开机自动挂载信息"><a href="#2-查看开机自动挂载信息" class="headerlink" title="2. 查看开机自动挂载信息"></a>2. 查看开机自动挂载信息</h4><p>cat &#x2F;etc&#x2F;fstab </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@2303010148 ~]# cat /etc/fstab</span><br><span class="line">/dev/mapper/klas-root   /                       xfs     defaults        0 0</span><br><span class="line">UUID=1aa10ebb-84dc-4732-ac41-f339df31c68a /boot                   xfs     defaults        0 0</span><br><span class="line">/dev/mapper/klas-home   /home                   xfs     defaults        0 0</span><br><span class="line">/dev/mapper/klas-swap   none                    swap    defaults        0 0</span><br></pre></td></tr></table></figure>
+<h4 id="3-显示磁盘空间使用情况"><a href="#3-显示磁盘空间使用情况" class="headerlink" title="3. 显示磁盘空间使用情况"></a>3. 显示磁盘空间使用情况</h4><p>df -Th</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@2303010148 ~]# df -Th</span><br><span class="line">文件系统              类型      容量  已用  可用 已用% 挂载点</span><br><span class="line">devtmpfs              devtmpfs  451M     0  451M    0% /dev</span><br><span class="line">tmpfs                 tmpfs     467M   12K  467M    1% /dev/shm</span><br><span class="line">tmpfs                 tmpfs     467M   13M  454M    3% /run</span><br><span class="line">tmpfs                 tmpfs     467M     0  467M    0% /sys/fs/cgroup</span><br></pre></td></tr></table></figure>
+<h4 id="4-查看-CPU-信息："><a href="#4-查看-CPU-信息：" class="headerlink" title="4. 查看 CPU 信息："></a>4. 查看 CPU 信息：</h4><p>lscpu<br>cat &#x2F;proc&#x2F;cpuinfo</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@2303010148 ~]# lscpu</span><br><span class="line">架构：                           x86_64</span><br><span class="line">CPU 运行模式：                   32-bit, 64-bit</span><br><span class="line">字节序：                         Little Endian</span><br><span class="line">Address sizes:                   45 bits physical, 48 bits virtual</span><br><span class="line">CPU:                             1</span><br><span class="line">在线 CPU 列表：                  0</span><br><span class="line">每个核的线程数：                 1</span><br></pre></td></tr></table></figure>
+<h4 id="5-查看内存信息："><a href="#5-查看内存信息：" class="headerlink" title="5. 查看内存信息："></a>5. 查看内存信息：</h4><p>free -h<br>cat &#x2F;proc&#x2F;meminfo</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@2303010148 ~]# free -h</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:          932Mi       519Mi        94Mi        12Mi       317Mi       258Mi</span><br><span class="line">Swap:         2.0Gi       4.0Mi       2.0Gi</span><br><span class="line">[root@2303010148 ~]# cat /proc/meminfo</span><br><span class="line">MemTotal:         954496 kB</span><br><span class="line">MemFree:           96400 kB</span><br><span class="line">MemAvailable:     263656 kB</span><br><span class="line">Buffers:            2080 kB</span><br></pre></td></tr></table></figure>
+<h4 id="6-查看系统版本："><a href="#6-查看系统版本：" class="headerlink" title="6. 查看系统版本："></a>6. 查看系统版本：</h4><p>cat &#x2F;etc&#x2F;os-release<br>cat &#x2F;etc&#x2F;redhat-release</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@2303010148 ~]# cat /etc/os-release</span><br><span class="line">NAME=&quot;Kylin Linux Advanced Server&quot;</span><br><span class="line">VERSION=&quot;V10 (Lance)&quot;</span><br><span class="line">ID=&quot;kylin&quot;</span><br><span class="line">VERSION_ID=&quot;V10&quot;</span><br><span class="line">PRETTY_NAME=&quot;Kylin Linux Advanced Server V10 (Lance)&quot;</span><br><span class="line">ANSI_COLOR=&quot;0;31&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="7-查看内核版本："><a href="#7-查看内核版本：" class="headerlink" title="7. 查看内核版本："></a>7. 查看内核版本：</h4><p>uname -a</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@2303010148 ~]# uname -a</span><br><span class="line">Linux 2303010148 4.19.90-52.22.v2207.ky10.x86_64 #1 SMP Tue Mar 14 12:19:10 CST 2023 x86_64 x86_64 x86_64 GNU/Linux</span><br></pre></td></tr></table></figure>
+<h4 id="8-关机"><a href="#8-关机" class="headerlink" title="8. 关机"></a>8. 关机</h4><p>reboot<br>shutdown -r ?minute</p>
+<h4 id="9-切换默认用户界面"><a href="#9-切换默认用户界面" class="headerlink" title="9. 切换默认用户界面"></a>9. 切换默认用户界面</h4><p>systemctl isolate graphical.target&#x2F;multi-user.target</p>
+<h2 id="二、进程"><a href="#二、进程" class="headerlink" title="二、进程"></a>二、进程</h2><h3 id="1-静态查看进程-ps"><a href="#1-静态查看进程-ps" class="headerlink" title="1. 静态查看进程 ps"></a>1. 静态查看进程 ps</h3><p>定义与对进程的理解：在这一个时间片之前所有进程的一个快照，不论进程状态死活，统一做一个大汇报<br>使用搭配：pipe管道+ more分页查看，pipe管道+ grep过滤查找</p>
+<p><strong>常用命令：</strong><br>（1）<strong>查看cpu内存使用占用情况</strong>：<code>ps -aux</code>【a-all；u-user；x-不区分终端】<br>（2）<strong>查看父进程ID信息</strong>：<code>ps -ef</code>  【e-展示使用的环境变量；f-全格式显示】</p>
+<p>@：使用ps命令时，TTY一列表示终端，分类一：伪终端PTS，由操作系统模拟创建，常用于进程间通信，例如网络连接，远程登陆等；分类二：控制台终端TTY，选择范围在1-6，可使用alt键加f？进行切换，示例：ALT+F1切换一号终端；分类三：？使用问号表示，是一个后台程序，无占用终端<br>@：使用ps命令时：TIME表示的是cpu的使用时间，注意这里可能是多线程的一种进程</p>
+<h4 id="ps-aux"><a href="#ps-aux" class="headerlink" title="ps -aux"></a>ps -aux</h4><blockquote>
+<p>[USER]  [PID]  [%CPU]  [%MEM]  [VSZ]  [RSS]  [TTY]  [STAT]  [START]  [TIME]  [COMMAND]<br>用户名，  进程号，  CPU占比，  内存占比，  虚拟占用内存，  实际占用内存，  终端，  进程状态，  进程开始时间，  cpu使用时间，  创建进程的命令<br><img src="/images/%E7%B3%BB%E7%BB%9F1.png"><br>虚拟内存大小：VSZ——[visual set size]<br>实际专用内存：RSS——[resident set size]</p>
+</blockquote>
+<h4 id="ps-ef"><a href="#ps-ef" class="headerlink" title="ps -ef"></a>ps -ef</h4><blockquote>
+<p>[UID]  [PID]  [PPID]  [C]  [STIME]  [TTY]  [TIME]  [CMD]<br>用户名， 进程号， 父进程， CPU累积使用时间， 进程启动时间， 终端， CPU占用时间， 创建进程的命令<br><img src="/images/%E7%B3%BB%E7%BB%9F2.png"></p>
+</blockquote>
+<h3 id="2-动态查看进程-top"><a href="#2-动态查看进程-top" class="headerlink" title="2. 动态查看进程 top"></a>2. 动态查看进程 top</h3><p><strong>常用命令：</strong><br>（1）大写P：对进程进行CPU排序<br>（2）大写M：对内存memory进行排序<br>（3）小写c：对command命令行做具体查看，显示其命令路径<br>（4）小写h：对top的一个信息汇总<br>（5）小写q：退出动态监控</p>
+<p><strong>常用搭配查看系统信息：</strong><br>（1）w：当前登录用户<br>（2）uptime：显示系统总共运行了多长时间和系统的平均负载<br>（3）lscpu：cpu的详细使用信息<br>（4）lsmem：内存的详细使用信息<br>（5）free：查看内存使用情况</p>
+<blockquote>
+<p>[PID]  [USER]  [PR]  [NI]  [VIRT]  [RES]  [SHR]  [S]  [%CPU]  [%MEM]  [TIME+]  [COMMAND]<br>进程号，  用户名，  优先级，  nice值，  虚拟占用内存，  实际占用内存，  共享内存，  进程状态，  cpu占用比，  内存占用比，  CPU使用时间，  创建进程的命令，</p>
+</blockquote>
+<p><img src="/images/%E7%B3%BB%E7%BB%9F3.png"></p>
+<h3 id="3-kill-杀死进程"><a href="#3-kill-杀死进程" class="headerlink" title="3. kill 杀死进程"></a>3. kill 杀死进程</h3><p>（1）<code>kill</code>：以“进程号”“作业号”杀死进程<br>（2）<code>killall</code>：以 “进程名字” + “精确匹配” 杀死进程<br>若使用 <code>killall -9 vi</code>，则精确匹配杀掉所有进程中使用 vi 命令开展的进程，而不会影响到 vim 命令开展的进程<br>（3）<code>pkill</code>：以 “进程名字” + “模糊查找” 杀死进程<br>若使用 <code>pkill -9 vi</code>，则磨合匹配所有 vi 和 vim 开展的进程并杀死<br>@：-9 向进程发送一个 SIGKILL 信号，用于强制终止目标进程。例如，进程可能被某些资源锁死，或正在处理无法中断的操作，这时发送 <code>SIGKILL</code> 可以强制结束进程。-9 只是一个信号编号，示例 <code>kill -15</code>（SIGTERM）信号，它会优雅地要求进程终止，并给进程时间进行资源清理。</p>
+<h3 id="4-前后台切换"><a href="#4-前后台切换" class="headerlink" title="4. 前后台切换"></a>4. 前后台切换</h3><ul>
+<li><p><strong>进程从前台转后台运行</strong><br>方法一：<code>command &amp;</code><br>方法二：<code>command</code>-&gt;<code>ctrl+z</code>-&gt;<code>bg %作业号</code> （bg %作业号，可以将该作业进程转到后台执行）</p>
+</li>
+<li><p><strong>进程从后台转到前台暂停</strong><br>方法一：<code>fg  %作业号</code></p>
+</li>
+<li><p><strong>jobs 命令</strong><br>查看任务汇总，只能查看用户层面的自定义提交进程，无法查看到系统层面的任务。<br>常使用搭配：<code>jobs -l</code>任务列表；<code>jobs -r</code>正在running的任务；<code>jobs -s</code> [stopped]</p>
+</li>
+<li><p><strong>bg &#x2F; fg 命令</strong><br>分别代表background和frontground前台和后台，<br>命令使用格式：转前台：<code>fg [%作业号]</code> ；转后台：<code>bg [%作业号]</code><br>@：在使用bg或者fg命令将进程进行前后台转换时，可以缺省作业号前面的%百分号，但是在使用作业号kill进程时，不可省略%，这样会混淆PID与作业号，若想删除%1，后缺省%，删除了PID为1的总父进程systemd，则系统重启。</p>
+</li>
+<li><p><strong>python 命令</strong><br>命令格式：<code>python [python脚本]</code><br>相当于一个python解释器，在输入python命令后，后接一个python脚本文件，自动打开解释器进行执行。否则使用相对路径或者加入环境变量还需要配置它的执行权限。</p>
+</li>
+</ul>
+<hr>
+<h2 id="三、crontab-定时操作"><a href="#三、crontab-定时操作" class="headerlink" title="三、crontab 定时操作"></a>三、crontab 定时操作</h2><p>作用：定时操作，周期计划表<br>守护进程：<strong>crond</strong><br>配置文件：（1）用户层面：**&#x2F;var&#x2F;spool&#x2F;cron&#x2F;user_name**     （2）系统层面：**&#x2F;etc&#x2F;crontab**    （3）系统子配置文件：**&#x2F;etc&#x2F;cron.d&#x2F;crontab脚本文件**<br>常用选项：<code>-l</code>查看定时任务列表；<code>-e</code>编辑定时任务列表；<code>-u</code>指定用户；<code>-r</code>删除清空任务列表<br>@：使用 <code>crontab -e</code> 命令等于编辑 <code>/var/spool/cron/user_name</code> 文件进行配置，crontab -e 就是打开该用户的 crontab 文件</p>
+<p>配置文件内部，每一行表示一个定时任务，具体配置如下：</p>
+<blockquote>
+<p>[分钟]  [小时]  [几号]  [月份]  [周几]  [命令]<br>[0-59]  [0-23]  [1-31]  [1-12]  [0-7]  [command]</p>
+</blockquote>
+<p>可以使用通配符进行匹配：<br><code>[*]</code>：星号表示所有<br><code>[,]</code>：逗号表示不连续范围<br><code>[-]</code>：短横线表示连续范围<br><code>[/]</code>：斜杠表示频率，每隔多久做某事</p>
+<p>示例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">30    21    *    *    *    systemctl restart network        <span class="comment"># 每晚的21:30重启network。</span></span><br><span class="line">45    4    1,10,22    *    *    systemctl restart network   <span class="comment"># 每月1、10、22日的4:45重启network。</span></span><br><span class="line">10    1    *    *    6,7    systemctl restart network       <span class="comment"># 每周六、周日的1:10重启network。</span></span><br><span class="line">*/30    18-23    *    *    *    systemctl restart network   <span class="comment"># 每天18:00至23:00之间每隔30分钟重启network。</span></span><br><span class="line">00    23    *    *    6    systemctl restart network        <span class="comment"># 每星期六晚上的23:00 pm重启network。</span></span><br><span class="line">00    */1    *    *    *    systemctl restart network       <span class="comment"># 每一小时重启network。</span></span><br><span class="line">00    0-7,23    *    *    *    systemctl restart network    <span class="comment"># 晚上11点到早上7点之间，每隔一小时重启network。</span></span><br><span class="line">00    11    4    *    1-3    systemctl restart network      <span class="comment"># 每月的4号与每周一到周三的11点重启network。</span></span><br></pre></td></tr></table></figure>
+
+
+<p>@ 版本问题：<br>在redhat版本中，超级管理员root和普通用户都有权利编辑自己的crontab文件；但是在OpenEuler中，<strong>默认仅允许root可以编辑crontab文件</strong>，普通用户无权编辑自己的crontab文件，使用crontab -e提示“you(username) are not allowed to use this program(crontab)”，也默认无法进入**&#x2F;var&#x2F;spool&#x2F;cron（默认权限700）<strong>中，修改目录权限进入后，使用vi编辑也出现提示信息“Permission Denied”，固得知OpenEuler系统对此方面要求严格，若想让普通用户也有权利编辑自己的crontab文件，可以使用root用户编辑crond服务的白名单文件</strong>&#x2F;etc&#x2F;cron.allow<strong>，</strong>一行表明一个用户**，将普通用户增加到白名单中，即可让普通用户拥有权力</p>
+<p>@ 易错点：<br>（1）在配置跨天的时间<br>示例晚上11点到隔天早上7点，请勿写成23-7，这种跨时间域的方式crontab无法识别，需要将其“分开写”+“按顺序写”，改写成0-7，23即可<br>（2）在配置每隔？小时执行一次时候<br>配置字段前两部分需要写成：<code>00  */?次数</code>，而不是 <code>*  */?次数</code>，这样设置后面的小时就无意义了，主要还是依靠前头的每分钟一次做决定，这样就变成每分钟执行一次</p>
+<hr>
+<h2 id="四、优先级"><a href="#四、优先级" class="headerlink" title="四、优先级"></a>四、优先级</h2><p><strong>定义：</strong><br>进程的优先级直接影响到 CPU 资源的分配。当多个进程具有相同优先级时，CPU 资源通常会被平均分配。若系统负载较轻且 CPU 资源充足，调度器可能会公平地为所有进程分配时间片，而不考虑优先级的差异。这种机制确保了在资源富裕的情况下，每个进程都有机会获得 CPU 的处理时间。<br>@：相关命令 &lt;查看cpu信息&gt; ：lscpu, cat &#x2F;proc&#x2F;cpuinfo<br>@：总核数 &#x3D; 物理CPU个数 x 每颗物理CPU的核数<br>@：逻辑CPU个数 &#x3D; 物理CPU个数 x 每颗物理CPU的核数 x 超线程数</p>
+<p><strong>基础介绍：</strong><br>1. 对于PR（priority值）和NI（nice值）来说，<strong>若数值越大，优先级越低，数值越小，优先级越高</strong><br>2. <strong>NICE值取值范围在 [ -20, +19 ] 之间，映射到priority优先级的“100 - 139”级别做静态优先级字段</strong><br>3. PR值一般是内核动态调整的，NI值影响内核分配给进程的CPU时间片，%nice影响cpu占用百分比，PRI（新）&#x3D;PRI（旧）+NI值</p>
+<p><img src="/images/%E7%B3%BB%E7%BB%9F4.png"></p>
+<p><strong>命令：</strong><br><strong>1.</strong> <strong>提交命令转后台时 设置优先级：</strong> <code>nice -n [优先级] [命令]</code><br><strong>2. 将已经提交的命令优先级进行二次设置：</strong><code>renice -n &lt;nice优先级&gt; -p &lt;PID&gt; -g &lt;PGID&gt; -u &lt;user&gt;</code><br><strong>3. 使用top二级命令：</strong> <code>top -&gt; r键 -&gt; 输入PID -&gt; 输入优先级</code><br><strong>4. 设置进程的调度策略和优先级PR值字段：</strong> <code>chrt -p &lt;priority&gt; &lt;PID&gt;</code></p>
+<p><strong>注意事项：</strong><br>@：不使用nice命令直接将命令运行到后台，默认优先级为0<br>@：使用nice命令缺省 [-n 优先级] 字段，则默认优先级为10<br>@：普通用户无法提高自己的优先级，只能对自己的优先级进行降低行为，也可以kill掉自己的进程<br>@：在实际运用中，多使用-u调节用户进程优先级，少用-p指定PID，进程过多，操作不现实</p>
+<hr>
+<h2 id="五、tuned-系统调优"><a href="#五、tuned-系统调优" class="headerlink" title="五、tuned 系统调优"></a>五、tuned 系统调优</h2><p><strong>定义：自动调节调优linux系统性能的工具，服务在后台运行，时刻监控进程状态进行调优，使用系统预设的或是用户自定义的配置文件来调节系统参数，来满足性能需求</strong><br><strong>服务</strong>：tuned.service<br><strong>命令</strong>：tuned-adm<br><strong>主配置文件</strong>：&#x2F;etc&#x2F;tuned<br><strong>子配置文件集：</strong>&#x2F;usr&#x2F;lib&#x2F;tuned&#x2F;[方案名]&#x2F;tuned.conf<br><strong>日志文件</strong>：&#x2F;var&#x2F;log&#x2F;tuned&#x2F;tuned.log</p>
+<p><img src="/images/%E7%B3%BB%E7%BB%9F5.png"><br><img src="/images/%E7%B3%BB%E7%BB%9F6.png"></p>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -810,85 +918,6 @@
       </tags>
   </entry>
   <entry>
-    <title>权限</title>
-    <url>/2025/01/04/%E6%9D%83%E9%99%90/</url>
-    <content><![CDATA[<h2 id="一、一般权限"><a href="#一、一般权限" class="headerlink" title="一、一般权限"></a>一、一般权限</h2><p><strong>1. chmod修改权限—chown修改所有者—chgrp修改所属组</strong><br><strong>2. 权限位-硬链接数-属主-属组-大小-最后修改时间-文件或目录名称</strong></p>
-<p><strong>3. 文件权限的四种状态</strong><br>读权限<code>read</code>：允许用户读取文件内容，查看文件的属性内容信息—【<code>r</code>】<br>写权限<code>write</code>：允许用户对文件进行创建&#x2F;修改&#x2F;移动&#x2F;重命名等操作—【<code>w</code>】<br>执行权限<code>execute</code>：允许用户运行文件，执行脚本—【<code>x</code>】—对于文件属于执行模式 对于目录属于访问模式<br>无权限：用户对此文件目录无任何权限—【<code>-</code>】<br>权限只限制普通用户，限制不了超级用户root</p>
-<p><strong>4. 文件的归属关系</strong><br>所有者<code>user</code>：拥有此文件&#x2F;目录的用户【<code>u</code>】<br>所属组<code>group</code>：拥有此文件&#x2F;目录的用户组【<code>g</code>】<br>其他用户<code>other</code>：除去所有者和所属组之外的第三方用户【<code>o</code>】<br>所有用户<code>all</code>：包含以上三种用户【<code>a</code>】<br>优先级别：所有者 &gt; 所属组 &gt; 其他用户</p>
-<p><strong>5. 权限位的组成-字符模式</strong><br>权限位共有十个字符，共分成四组，第一组为文件类型，第二三四组分别各有三个字符位，二三四组代表所有	者权限&#x2F;所属组权限&#x2F;其他用户权限，其中文件类型：<br>-表示普通文件；b表示块设备文件通常位于&#x2F;dev目录下；d表示目录文件；s表示套接口文件；l表示软链接	文件例快捷方式等；p为管道文件用于通信；c为字符设备文件例键盘显示器文件等；<br><img src="/images/%E6%9D%83%E9%99%901.png"><br><img src="/images/%E6%9D%83%E9%99%902.png"></p>
-<p><strong>6. 权限位的组成-数字模式</strong><br>权限位由八进制的数字表示，r对应4，w对应2，x对应1，配置时需要求和使用<br><img src="/images/%E6%9D%83%E9%99%903.png"></p>
-<p><strong>7. chmod 更改文件目录权限</strong><br>英文全名：change the permissions mode of a file（更改文件的权限模式）<br>命令所在路径：&#x2F;bin&#x2F;chmod<br>功能描述：更改文件&#x2F;目录权限<br>命令格式：<code>chmod [ugoa] [+-=] [rwx]</code> 文件名（ugoa代表具体用户 +-&#x3D;代表加&#x2F;减&#x2F;赋值权限 rwx表示具体权限内容）<br>          <code>chmod [nnn] 文件名</code> （需要输入三个数字代表三种用户的权限）<br>常用命令选项：-R 递归修改文件权限</p>
-<p><strong>8. chown 更改文件目录所有者</strong><br>英文全名：change file ownership（更改权限所有者）<br>命令所在路径：&#x2F;bin&#x2F;chown<br>功能描述：更改文件&#x2F;目录的所有者<br>命令格式：<code>chown [-R] 用户 文件或目录</code><br>          <code>chown [-R] 用户:用户组 文件或目录</code><br>          <code>chown [-R] :用户组 文件或目录</code><br>常用命令选项：-R 递归修改文件权限<br>               -c 在更改时显示详细报告</p>
-<p><strong>9. chgrp 更改文件目录所属组</strong><br>英文全名：change file group ownership<br>命令所在路径：&#x2F;bin&#x2F;chgrp<br>功能描述：改变文件&#x2F;目录的所属组<br>命令格式：<code>chgrp 用户组 文件/目录</code></p>
-<h2 id="二、特殊权限"><a href="#二、特殊权限" class="headerlink" title="二、特殊权限"></a>二、特殊权限</h2><p><img src="/images/%E6%9D%83%E9%99%904.png"><br><img src="/images/%E6%9D%83%E9%99%905.png"></p>
-<p><strong>1.  命令名称：SUID</strong><br>占位：占用所有者的x位，所有者的 x 权限标识会变成 s<br>格式：字符法：<code>chmod u+s 文件名</code>   <code>chmod u-s 文件名</code><br>       数字法：<code>chmod 4[原有权限三位] 文件名</code>   <code>chmod 0[原有权限三位] 文件名</code><br>意义：对于一个可执行的文件用了SUID权限后，执行者会临时拥有所有者的权限，执行后则恢复原有身份，这个	  过程只是为了提高效率<br>范围：仅对可执行文件(命令)有意义<br>注意：使用数字修改SUID时，在原权限前加上SUID的数字表示法“4”即可，后接原有的权限三位数字<br>示例：passwd命令文件的属主执行位为s，普通用户(执行者)在使用此命令时拥有和属主root同等权力，可以修改密码</p>
-<p><strong>2. 命令名称：SGID</strong><br>占位：占用所属组的x位，所属组的 x 权限标识会变成 s<br>格式：<code>chmod g+s 文件名</code>  <code>chmod g-s 文件名</code><br>      <code>chmod 2[原有权限三位] 文件名</code>  <code>无删除SGID的数字表示法</code><br>意义：对文件传递所属组的身份；对目录任何用户在此目录下创建的文件都具有和该目录所属的组相同的组<br>范围：对文件和目录都生效</p>
-<p><strong>3. 命令名称：Sticky Bit</strong><br>占位：占用其他用户的x位，其他用户的 x 权限标识会变成 s<br>格式：字符法：<code>chmod o+t 文件名</code>  <code>chmod o-t 文件名</code><br>      数字法：<code>chmod 1[原有权限三位] 文件名</code>  <code>无删除Sticky Bit的数字表示法</code><br>意义：一个文件添加了STIB权限后，仅有root和文件所有者可以对所有文件作删除，其余用户就算拥有rwx权限，	  也只能删除自己的文件，无法对别的用户创建的文件作修改&#x2F;重命名&#x2F;删除等操作。<br>功能：防止误删，限制除root和文件拥有者外的其他用户的删除权力，此命令限制不了root和文件拥有者</p>
-<h2 id="三、其他权限"><a href="#三、其他权限" class="headerlink" title="三、其他权限"></a>三、其他权限</h2><h2 id="1-ACL"><a href="#1-ACL" class="headerlink" title="1. ACL"></a>1. ACL</h2><p>英文全称：FACL（file access control list）文件访问控制列表权限<br>用途：FACL用于设定用户或组针对文件的权限<br>注意：若某文件或目录设置了ACL权限，那么整个文件或目录的最终权限是取文件的用户 rwx 权限和 ACL 权限的交集</p>
-<p><strong>命令一：setfacl</strong><br>-m 对用户或组设置facl权限（<code>setfacl -m [u/g]:[用户名/组名]:[字符式权限] 文件/目录</code>）（注：不能使用数字法）<br>-b 删除所有FACL权限（<code>setfacl -b 文件/目录</code>）<br>-x 删除指定FACL权限（<code>setfacl -x 用户名/组名 文件/目录</code>）<br>-k 移除默认FACL 权限<br>-R 设置目录FACL权限（则是递归设置，目录中的所有子文件都随之改变）<br>-d 设置默认FACL权限（仅对目录生效，目录中新建的文件会拥有此默认权限）<br>-R 递归设置FACL权限</p>
-<p><strong>命令二：getfacl</strong><br>-a 展示所有FACL权限及其注释信息（注释信息为：文件路径；所有者；所属组）<br>-c 只显示FACL权限，不显示注释内容<br>-d 只显示注释内容，不显示FACL权限<br>-R 以列表显示目录下所有文件的FACL权限及其信息</p>
-<h3 id="2-umask"><a href="#2-umask" class="headerlink" title="2. umask"></a>2. umask</h3><p>显示四位：第一位 <code>SUID；SGID；Sticky Bit</code><br>      第二位 <code>User</code><br>      第三位 <code>Group</code><br>      第四位 <code>Other</code><br>查看方式：<code>umask -p</code> 查看默认权限掩码数字版；<code>umask -S</code> 查看默认权限的字符模式<br>临时修改默认权限：<code>umask [ugoa][+-=][rwx]</code>（重启即失效）  <code>umask [数字掩码]</code><br>永久修改默认权限：umask的配置文件是&#x2F;etc&#x2F;bashrc，所以 vim &#x2F;etc&#x2F;bashrc，把最后的umask值修改即可（重启即生效）</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>时间配置与同步</title>
-    <url>/2025/01/04/%E6%97%B6%E9%97%B4%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%90%8C%E6%AD%A5/</url>
-    <content><![CDATA[<h2 id="一、date"><a href="#一、date" class="headerlink" title="一、date"></a>一、date</h2><h4 id="1-显示当前日期和时间"><a href="#1-显示当前日期和时间" class="headerlink" title="1. 显示当前日期和时间"></a>1. 显示当前日期和时间</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span></span><br><span class="line"><span class="comment"># Fri Jan  4 14:42:03 CST 2025</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-自定义输出格式"><a href="#2-自定义输出格式" class="headerlink" title="2. 自定义输出格式"></a>2. 自定义输出格式</h4><p>可以通过 <code>+</code> 符号后跟格式字符串来自定义输出的日期和时间格式。常见的格式符号包括：</p>
-<ul>
-<li><code>%Y</code> - 年份（四位数）</li>
-<li><code>%m</code> - 月份（两位数）</li>
-<li><code>%d</code> - 日（两位数）</li>
-<li><code>%H</code> - 小时（24小时制，两位数）</li>
-<li><code>%M</code> - 分钟（两位数）</li>
-<li><code>%S</code> - 秒（两位数）<br>例如，输出“年-月-日 时:分:秒”格式：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span> <span class="string">&quot;+%Y-%m-%d %H:%M:%S&quot;</span></span><br><span class="line"><span class="comment"># 2025-01-04 14:42:03</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="3-指定日期时间"><a href="#3-指定日期时间" class="headerlink" title="3. 指定日期时间"></a>3. 指定日期时间</h4><p><code>-d</code> 选项来显示指定日期</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;yesterday&quot;</span></span><br><span class="line"><span class="comment"># Thu Jan  3 14:42:03 CST 2025</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;2025-12-31&quot;</span></span><br><span class="line"><span class="comment"># Wed Dec 31 00:00:00 CST 2025</span></span><br></pre></td></tr></table></figure>
-<h4 id="4-设置系统时间"><a href="#4-设置系统时间" class="headerlink" title="4. 设置系统时间"></a>4. 设置系统时间</h4><p>要修改系统日期和时间，使用 <code>date</code> 命令并指定新的日期时间。格式为：<code>sudo date MMDDhhmm[[CC]YY][.ss]</code></p>
-<ul>
-<li><code>MM</code>：月份（两位数）</li>
-<li><code>DD</code>：日期（两位数）</li>
-<li><code>hh</code>：小时（两位数，24小时制）</li>
-<li><code>mm</code>：分钟（两位数）</li>
-<li><code>CC</code>：世纪（两位数，默认为 20）</li>
-<li><code>YY</code>：年份（两位数）</li>
-<li><code>ss</code>：秒（两位数）<br>例如，要将时间设置为 2025 年 1 月 4 日 15:00：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">date</span> 010415002025</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="5-设置时区"><a href="#5-设置时区" class="headerlink" title="5. 设置时区"></a>5. 设置时区</h4><p>可以通过设置 <code>TZ</code> 环境变量来临时更改时区。例如，设置为纽约时区：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">TZ=<span class="string">&quot;America/New_York&quot;</span> <span class="built_in">date</span></span><br></pre></td></tr></table></figure>
-<h4 id="6-日期运算"><a href="#6-日期运算" class="headerlink" title="6. 日期运算"></a>6. 日期运算</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;5 days&quot;</span>    <span class="comment"># 计算 5 天后日期</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;next Monday&quot;</span>    <span class="comment"># 计算下周一日期</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;2 weeks ago&quot;</span>    <span class="comment"># 计算两周前日期</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="二、Timedatectl"><a href="#二、Timedatectl" class="headerlink" title="二、Timedatectl"></a>二、Timedatectl</h2><p>查看当前日期时间：<code>timedatectl  (status)</code><br>修改时间：<code>timedatectl set-time</code><br>修改地区：<code>timedatectl set-timezone</code><br>查看可修改的地区列表：<code>timedatectl list-timezones</code><br>搜索&#x2F;选择修改地区：<code>tzselect</code><br>开关NTP服务：<code>timedatectl set-ntp 1/0 true/false</code><br>设置硬件时间状态：<code>timedatectl set-local-rtc 1/0</code>（1：为本地时间；0：为NTC时间）</p>
-<blockquote>
-<p>UTC：universal time coordinated 协调世界时间<br>BTC：real-time clock &#x3D;&#x3D;&#x3D;&#x3D; BIOS 硬件时间<br>NTP: network time protocal 网络时间协议</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">timedatectl</span><br><span class="line"><span class="comment">#                Local time: Sat 2025-01-04 22:48:00 CST</span></span><br><span class="line"><span class="comment">#            Universal time: Sat 2025-01-04 14:48:00 UTC</span></span><br><span class="line"><span class="comment">#                  RTC time: Sat 2025-01-04 14:52:00</span></span><br><span class="line"><span class="comment">#                 Time zone: Asia/Beijing (CST, +0800)</span></span><br><span class="line"><span class="comment"># System clock synchronized: yes</span></span><br><span class="line"><span class="comment">#               NTP service: active</span></span><br><span class="line"><span class="comment">#           RTC in local TZ: no</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="三、chrony"><a href="#三、chrony" class="headerlink" title="三、chrony"></a>三、chrony</h2><p>Chrony实现时间同步功能，让计算机保持系统时钟与时钟服务器（NTP）同步，或者自设定互联网上提供的时间源<br>守护进程：<code>chronyd</code><br>命令：<code>chronyc</code><br>配置文件：<code>/etc/chrony.conf</code><br>注意事项：需要为系统&#x2F;网卡配置DNS，配置DNS可以解析配置文件中网络源的域名<br>查看网络源情况：<code>chronyc sources -v</code><br>查看NTP信息：<code>chronyc chacking -v</code><br>强制同步系统时间： <code>chronyc -a makestep</code></p>
-<h4 id="1-配置文件"><a href="#1-配置文件" class="headerlink" title="1. 配置文件"></a>1. 配置文件</h4><p>字段：pool&#x2F;server 资源池&#x2F;域名 加速</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/chrony.conf</span><br><span class="line"><span class="comment"># Use public servers from the pool.ntp.org project.</span></span><br><span class="line"><span class="comment"># Please consider joining the pool (http://www.pool.ntp.org/join.html).</span></span><br><span class="line"><span class="comment"># pool pool.ntp.org iburst</span></span><br><span class="line"><span class="comment"># [pool/server] [资源池/域名] [加速]</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-查看网络源情况"><a href="#2-查看网络源情况" class="headerlink" title="2. 查看网络源情况"></a>2. 查看网络源情况</h4><p><code>Source mode &#39;^&#39; = server, &#39;=&#39; = peer, &#39;#&#39; = local clock.</code><br>这部分解释了不同的源模式符号。例如，<code>^</code> 表示服务器模式，<code>=</code> 表示对等模式，<code>#</code> 表示本地时钟。<br><code>Source state &#39;*&#39; = current synced, &#39;+&#39; = combined, &#39;-&#39; = not combined, &#39;?&#39; = unreachable, &#39;x&#39; = time may be in error, &#39;~&#39; = time too variable.</code><br>这部分解释了源的状态符号。<code>*</code> 表示当前同步的源，<code>+</code> 表示组合的源，<code>-</code> 表示未组合，<code>?</code> 表示无法访问，<code>x</code> 表示时间可能出错，<code>~</code> 表示时间太不稳定。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chronyc sources -v</span><br><span class="line"><span class="comment"># 210 Number of sources = 1</span></span><br><span class="line"><span class="comment">#   .-- Source mode  &#x27;^&#x27; = server, &#x27;=&#x27; = peer, &#x27;#&#x27; = local clock.</span></span><br><span class="line"><span class="comment">#  / .- Source state &#x27;*&#x27; = current synced, &#x27;+&#x27; = combined , &#x27;-&#x27; = not combined,</span></span><br><span class="line"><span class="comment"># | /   &#x27;?&#x27; = unreachable, &#x27;x&#x27; = time may be in error, &#x27;~&#x27; = time too variable.</span></span><br><span class="line"><span class="comment"># ||                                                 .- xxxx [ yyyy ] +/- zzzz</span></span><br><span class="line"><span class="comment"># ||      Reachability register (octal) -.           |  xxxx = adjusted offset,</span></span><br><span class="line"><span class="comment"># ||      Log2(Polling interval) --.      |          |  yyyy = measured offset,</span></span><br><span class="line"><span class="comment"># ||                                \     |          |  zzzz = estimated error.</span></span><br><span class="line"><span class="comment"># ||                                 |    |           \</span></span><br><span class="line"><span class="comment"># MS Name/IP address         Stratum Poll Reach LastRx Last sample</span></span><br><span class="line"><span class="comment"># ===============================================================================</span></span><br><span class="line"><span class="comment"># ^~ ntp1.aliyun.com               2   6     6   138  -240.0s[-240.0s] +/-   23ms</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-修改chrony配置文件-将ntp1-aliyun-com作为NTP同步时间源"><a href="#3-修改chrony配置文件-将ntp1-aliyun-com作为NTP同步时间源" class="headerlink" title="3. 修改chrony配置文件,将ntp1.aliyun.com作为NTP同步时间源"></a>3. 修改chrony配置文件,将ntp1.aliyun.com作为NTP同步时间源</h4><p>步骤：修改配置文件，取消原有系统自带，按照格式添加需要的时间源；重启chronyd服务，开启NTP服务，开启chronyd服务开机自启，确认NTP同步成功——连接成功</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/chrony.conf | grep aliyun</span><br><span class="line"><span class="comment"># server ntp1.aliyun.com iburst</span></span><br><span class="line">systemctl restart chronyd &amp;&amp; systemctl status chronyd &amp;&amp; systemctl <span class="built_in">enable</span> --now chronyd</span><br><span class="line">timedatectl</span><br><span class="line"><span class="comment">#                Local time: Sat 2025-01-04 22:48:00 CST</span></span><br><span class="line"><span class="comment">#            Universal time: Sat 2025-01-04 14:48:00 UTC</span></span><br><span class="line"><span class="comment">#                  RTC time: Sat 2025-01-04 14:52:00</span></span><br><span class="line"><span class="comment">#                 Time zone: Asia/Beijing (CST, +0800)</span></span><br><span class="line"><span class="comment"># System clock synchronized: yes</span></span><br><span class="line"><span class="comment">#               NTP service: active    # 确保NTP开启且连接成功</span></span><br><span class="line"><span class="comment">#           RTC in local TZ: no</span></span><br><span class="line">chronyc sources -v</span><br><span class="line"><span class="comment"># 210 Number of sources = 1</span></span><br><span class="line"><span class="comment">#   .-- Source mode  &#x27;^&#x27; = server, &#x27;=&#x27; = peer, &#x27;#&#x27; = local clock.</span></span><br><span class="line"><span class="comment">#  / .- Source state &#x27;*&#x27; = current synced, &#x27;+&#x27; = combined , &#x27;-&#x27; = not combined,</span></span><br><span class="line"><span class="comment"># | /   &#x27;?&#x27; = unreachable, &#x27;x&#x27; = time may be in error, &#x27;~&#x27; = time too variable.</span></span><br><span class="line"><span class="comment"># ||                                                 .- xxxx [ yyyy ] +/- zzzz</span></span><br><span class="line"><span class="comment"># ||      Reachability register (octal) -.           |  xxxx = adjusted offset,</span></span><br><span class="line"><span class="comment"># ||      Log2(Polling interval) --.      |          |  yyyy = measured offset,</span></span><br><span class="line"><span class="comment"># ||                                \     |          |  zzzz = estimated error.</span></span><br><span class="line"><span class="comment"># ||                                 |    |           \</span></span><br><span class="line"><span class="comment"># MS Name/IP address         Stratum Poll Reach LastRx Last sample</span></span><br><span class="line"><span class="comment"># ===============================================================================</span></span><br><span class="line"><span class="comment"># ^~ ntp1.aliyun.com               2   6     6   138  -240.0s[-240.0s] +/-   23ms</span></span><br><span class="line">chronyc -a makestep</span><br><span class="line">chronyc sources -v    <span class="comment"># 可以使用强制同步，或者稍作等待再重新查看，因为chronyd具有一定延迟性</span></span><br><span class="line"><span class="comment"># 210 Number of sources = 1</span></span><br><span class="line"><span class="comment">#   .-- Source mode  &#x27;^&#x27; = server, &#x27;=&#x27; = peer, &#x27;#&#x27; = local clock.</span></span><br><span class="line"><span class="comment">#  / .- Source state &#x27;*&#x27; = current synced, &#x27;+&#x27; = combined , &#x27;-&#x27; = not combined,</span></span><br><span class="line"><span class="comment"># | /   &#x27;?&#x27; = unreachable, &#x27;x&#x27; = time may be in error, &#x27;~&#x27; = time too variable.</span></span><br><span class="line"><span class="comment"># ||                                                 .- xxxx [ yyyy ] +/- zzzz</span></span><br><span class="line"><span class="comment"># ||      Reachability register (octal) -.           |  xxxx = adjusted offset,</span></span><br><span class="line"><span class="comment"># ||      Log2(Polling interval) --.      |          |  yyyy = measured offset,</span></span><br><span class="line"><span class="comment"># ||                                \     |          |  zzzz = estimated error.</span></span><br><span class="line"><span class="comment"># ||                                 |    |           \</span></span><br><span class="line"><span class="comment"># MS Name/IP address         Stratum Poll Reach LastRx Last sample</span></span><br><span class="line"><span class="comment"># ===============================================================================</span></span><br><span class="line"><span class="comment"># ^* ntp1.aliyun.com               2   6     6   138  -240.0s[-240.0s] +/-   23ms</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>防火墙</title>
     <url>/2025/01/04/%E9%98%B2%E7%81%AB%E5%A2%99/</url>
     <content><![CDATA[<h2 id="一、防火墙内核Netfilte："><a href="#一、防火墙内核Netfilte：" class="headerlink" title="一、防火墙内核Netfilte："></a>一、防火墙内核Netfilte：</h2><p>防火墙是位于内部网络和外部网络之间的一道安全管控系统，依照规则对于数据包的进出进行放行&#x2F;拦截操作，而netfilter是linux内核数据包处理模块，属于“内核态”防火墙框架，对网络流量的处理和操作，它可以提供数据包的过滤、转发、地址转换NAT功能。是位于网卡和内核协议栈之间的一堵墙，是linux内核的一组钩子，内核模块向网络堆栈注册回调函数，每个经过网络堆栈钩子的数据包都会回调已注册的回调函数<br><img src="/images/%E9%98%B2%E7%81%AB%E5%A2%991.png"></p>
@@ -912,6 +941,54 @@
 <p>C. 为什么在“跨主机”+“端口转发”的情况下，需要开启masquerade选项进行IP伪装？<br>    当主机A通过访问主机B的某端口，而主机B的端口流量转发给了主机C，即主机A是通过主机B访问主机C的，那么就要开启地址伪装，否则在主机C接收到响应后开始发送回应报文，而接收地址依然是主机B的地址，但是主机A一直在等待主机B的回应，固对话建立失败，因为来访回应的地址不同。<br><img src="/images/%E9%98%B2%E7%81%AB%E5%A2%996.png"></p>
 <p><strong>（9）富规则</strong><br>Firewalld中的富规则表示更细致、更详细的防火墙策略配置，它可以针对系统服务、端口号、源地址和目标地址等诸多信息进行更有针对性的策略配置。<br><img src="/images/%E9%98%B2%E7%81%AB%E5%A2%997.png"></p>
 <p><strong>（10）http 与 firewalld</strong><br><img src="/images/%E9%98%B2%E7%81%AB%E5%A2%998.png"></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用户和组</title>
+    <url>/2025/01/04/%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/</url>
+    <content><![CDATA[<h2 id="一、预备知识"><a href="#一、预备知识" class="headerlink" title="一、预备知识"></a>一、预备知识</h2><h3 id="1-配置文件、UID与shell"><a href="#1-配置文件、UID与shell" class="headerlink" title="1. 配置文件、UID与shell"></a>1. 配置文件、UID与shell</h3><p>用户配置文件：<code>/etc/passwd</code>   其影子文件：<code>/etc/shadow</code><br>组配置文件：<code>/etc/group</code>   其影子文件：<code>/etc/gshadow</code><br>UID 分配：其中root的UID默认为0，系统用户UID为1-999，普通用户UID以1000开始命名<br>shell 选择：普通用户 <code>/bin/bash</code>，系统用户不可登录控制台 <code>/sbin/nologin</code></p>
+<h3 id="2-相关命令与权限"><a href="#2-相关命令与权限" class="headerlink" title="2. 相关命令与权限"></a>2. 相关命令与权限</h3><p>&lt;1&gt; <code>su - 用户名称</code>，切换用户，加 - 表示整个 shell 环境一起切换，保留权限等信息， su 用户，不加 - 表示开启新的 shell 环境<br>&lt;2&gt; &#x2F;etc&#x2F;passwd 存放用户信息，密码加密，真正的密码放于影子文件中，&#x2F;etc&#x2F;shadow 是&#x2F;etc&#x2F;passwd的影子文件用于存放密码<br>&lt;3&gt; 普通用户无法查看影子文件</p>
+<h2 id="二、用户相关配置文件与命令"><a href="#二、用户相关配置文件与命令" class="headerlink" title="二、用户相关配置文件与命令"></a>二、用户相关配置文件与命令</h2><h3 id="1-etc-passwd"><a href="#1-etc-passwd" class="headerlink" title="1. &#x2F;etc&#x2F;passwd"></a>1. &#x2F;etc&#x2F;passwd</h3><p>用户名：加密密码：UID：GID：描述说明信息：主目录：命令解释器shell信息</p>
+<h3 id="2-etc-shadow"><a href="#2-etc-shadow" class="headerlink" title="2. &#x2F;etc&#x2F;shadow"></a>2. &#x2F;etc&#x2F;shadow</h3><p>用户名：经过算法加密后的口令：从1970.1.1到现在最近一次修改密码的时间：用更改密码后至少需要多少天才能第二次修改：用更改密码后至少需要多少天必须修改密码否则过期：密码过期几天后被禁用：被禁用的具体日期：其他</p>
+<h3 id="3-创建用户"><a href="#3-创建用户" class="headerlink" title="3. 创建用户"></a>3. 创建用户</h3><p><strong>创建添加用户</strong>：   <code>useradd 用户名</code><br><strong>创建用户并修改其UID标识码</strong>：  <code>useradd -u UID 用户名</code><br><strong>创建用户并修改其GID标识码即是主组</strong>：  <code>useradd -g GID 用户名</code><br><strong>创建用户并修改创建附加组</strong>：  <code>useradd -G 自定义附加组名 用户名</code><br><strong>创建用户并转移主目录 不放于默认目录home</strong>： <code> useradd -d 目标目录 用户名</code><br><strong>设置密码</strong>：<br>a.交互式（不回显式）：<code>passwd 用户名</code><br>确认后需要输入两次密码进行确认：New password: 和Retype new password:<br>若没有加用户名直接执行passwd命令，则默认对当下用户进行修改密码操作<br>root是超级用户，有权限可以任意修改密码，普通用户修改密码需要遵守linux密码规则，例如包含大小写、数字字符等<br>b.免交互式（回显式）：<code>echo 新密码 | passwd --stdin 用户</code><br>（stdin表示数据重定向-输入重定向和输出重定向）<br>示例：使用免交互式将lisi02密码设置为lywlyw20050923：      echo lywlyw20050923 | passwd –stdin lisi02<br>echo可以输出内容至屏幕上，|管道符将密码输出到用户上，–stdin接收密码<br>好处：可以看到密码以免输错   坏处：安全度不高 公共场合不适用 history可以查到<br>c.查看用户是否设置密码：<code>passwd -S 用户</code><br>已设置密码：password set<br>未设置密码：password locked</p>
+<h3 id="4-修改用户"><a href="#4-修改用户" class="headerlink" title="4. 修改用户"></a>4. 修改用户</h3><p><strong>修改用户的主组</strong>：  <code>usermod -g 更改的新主组 用户名</code><br><strong>修改用户的UID标识码</strong>：  <code>usermod -u 更新的UID码 用户名</code><br><strong>修改其用户名&#x2F;登录名</strong>：  <code>usermod -l 新的用户名称 原本的用户名称（处理的对象）</code><br><strong>用户有效期</strong>：<br>查看用户有效期： <code>chage -l 用户名</code><br>设置用户有效期(方法一)：<code>usermod -e 时间 用户名</code>（时间年月日用-分隔）<br>设置用户有效期(方法二)：<code>chage -E 时间 用户名</code>（时间年月日用-分隔）<br>把有效期改为永久有效永不失效(方法一)：<code>usermod -e -1 用户名</code><br>把有效期改为永久有效永不失效(方法二)：<code>chage -E -1 用户名</code></p>
+<h3 id="5-查看和删除用户"><a href="#5-查看和删除用户" class="headerlink" title="5. 查看和删除用户"></a>5. 查看和删除用户</h3><p><strong>查看用户信息</strong>： <code>id 用户名</code><br><strong>删除用户</strong>： <code>userdel 用户名</code>（-r 删除用户目录）<br><strong>封禁账号</strong>：<br>a.更改shell命令解释器：<code>usermod -s /sbin/nologin 用户名</code><br>b.使用passwd进行用户锁定：<code>passwd -l 用户</code><br>c.使用usermod进行用户锁定：<code>usermod -L 用户</code><br>d.对所有普通用户进行封禁：<code>touch /etc/nologin</code></p>
+<h2 id="三、组相关配置文件与命令"><a href="#三、组相关配置文件与命令" class="headerlink" title="三、组相关配置文件与命令"></a>三、组相关配置文件与命令</h2><h3 id="1-创建组"><a href="#1-创建组" class="headerlink" title="1. 创建组"></a>1. 创建组</h3><p><strong>创建组指定GID</strong>：  <code>groupadd -g 指定的GID 组名</code></p>
+<h3 id="2-修改组"><a href="#2-修改组" class="headerlink" title="2. 修改组"></a>2. 修改组</h3><p><strong>修改组名并修改组GID</strong>：   <code>groupmod -g 新GID -n 新组名 组名</code><br><strong>设置组密码</strong>：   <code>gpasswd 组名</code><br><strong>给组设置管理员</strong>：   <code>gpasswd -A 管理员 组名</code><br><strong>给组添加成员</strong>：   <code>gpasswd -a 用户 组名</code><br><strong>批量添加用户</strong>：  <code>gpasswd -M 组用户 组名</code>（组用户间用逗号隔开）</p>
+<h3 id="3-查看和删除"><a href="#3-查看和删除" class="headerlink" title="3. 查看和删除"></a>3. 查看和删除</h3><p><strong>查询用户属于哪个组，有多少个组</strong>：   <code>groups 用户</code><br><strong>切换组</strong>：   <code>newgrp 组名</code><br><strong>查看当前所在(生效)的组</strong>：   <code>id -gn</code><br><strong>删除组密码</strong>：   <code>gpasswd -r 组名</code><br><strong>删除组用户</strong>：   <code>gpasswd -d 组用户 组名</code><br><strong>删除组</strong>：   <code>groupdel 组名</code><br><strong>强删主组</strong>：   <code>groupdel -f 组名</code></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>权限</title>
+    <url>/2025/01/04/%E6%9D%83%E9%99%90/</url>
+    <content><![CDATA[<h2 id="一、一般权限"><a href="#一、一般权限" class="headerlink" title="一、一般权限"></a>一、一般权限</h2><p><strong>1. chmod修改权限—chown修改所有者—chgrp修改所属组</strong><br><strong>2. 权限位-硬链接数-属主-属组-大小-最后修改时间-文件或目录名称</strong></p>
+<p><strong>3. 文件权限的四种状态</strong><br>读权限<code>read</code>：允许用户读取文件内容，查看文件的属性内容信息—【<code>r</code>】<br>写权限<code>write</code>：允许用户对文件进行创建&#x2F;修改&#x2F;移动&#x2F;重命名等操作—【<code>w</code>】<br>执行权限<code>execute</code>：允许用户运行文件，执行脚本—【<code>x</code>】—对于文件属于执行模式 对于目录属于访问模式<br>无权限：用户对此文件目录无任何权限—【<code>-</code>】<br>权限只限制普通用户，限制不了超级用户root</p>
+<p><strong>4. 文件的归属关系</strong><br>所有者<code>user</code>：拥有此文件&#x2F;目录的用户【<code>u</code>】<br>所属组<code>group</code>：拥有此文件&#x2F;目录的用户组【<code>g</code>】<br>其他用户<code>other</code>：除去所有者和所属组之外的第三方用户【<code>o</code>】<br>所有用户<code>all</code>：包含以上三种用户【<code>a</code>】<br>优先级别：所有者 &gt; 所属组 &gt; 其他用户</p>
+<p><strong>5. 权限位的组成-字符模式</strong><br>权限位共有十个字符，共分成四组，第一组为文件类型，第二三四组分别各有三个字符位，二三四组代表所有	者权限&#x2F;所属组权限&#x2F;其他用户权限，其中文件类型：<br>-表示普通文件；b表示块设备文件通常位于&#x2F;dev目录下；d表示目录文件；s表示套接口文件；l表示软链接	文件例快捷方式等；p为管道文件用于通信；c为字符设备文件例键盘显示器文件等；<br><img src="/images/%E6%9D%83%E9%99%901.png"><br><img src="/images/%E6%9D%83%E9%99%902.png"></p>
+<p><strong>6. 权限位的组成-数字模式</strong><br>权限位由八进制的数字表示，r对应4，w对应2，x对应1，配置时需要求和使用<br><img src="/images/%E6%9D%83%E9%99%903.png"></p>
+<p><strong>7. chmod 更改文件目录权限</strong><br>英文全名：change the permissions mode of a file（更改文件的权限模式）<br>命令所在路径：&#x2F;bin&#x2F;chmod<br>功能描述：更改文件&#x2F;目录权限<br>命令格式：<code>chmod [ugoa] [+-=] [rwx]</code> 文件名（ugoa代表具体用户 +-&#x3D;代表加&#x2F;减&#x2F;赋值权限 rwx表示具体权限内容）<br>          <code>chmod [nnn] 文件名</code> （需要输入三个数字代表三种用户的权限）<br>常用命令选项：-R 递归修改文件权限</p>
+<p><strong>8. chown 更改文件目录所有者</strong><br>英文全名：change file ownership（更改权限所有者）<br>命令所在路径：&#x2F;bin&#x2F;chown<br>功能描述：更改文件&#x2F;目录的所有者<br>命令格式：<code>chown [-R] 用户 文件或目录</code><br>          <code>chown [-R] 用户:用户组 文件或目录</code><br>          <code>chown [-R] :用户组 文件或目录</code><br>常用命令选项：-R 递归修改文件权限<br>               -c 在更改时显示详细报告</p>
+<p><strong>9. chgrp 更改文件目录所属组</strong><br>英文全名：change file group ownership<br>命令所在路径：&#x2F;bin&#x2F;chgrp<br>功能描述：改变文件&#x2F;目录的所属组<br>命令格式：<code>chgrp 用户组 文件/目录</code></p>
+<h2 id="二、特殊权限"><a href="#二、特殊权限" class="headerlink" title="二、特殊权限"></a>二、特殊权限</h2><p><img src="/images/%E6%9D%83%E9%99%904.png"><br><img src="/images/%E6%9D%83%E9%99%905.png"></p>
+<p><strong>1.  命令名称：SUID</strong><br>占位：占用所有者的x位，所有者的 x 权限标识会变成 s<br>格式：字符法：<code>chmod u+s 文件名</code>   <code>chmod u-s 文件名</code><br>       数字法：<code>chmod 4[原有权限三位] 文件名</code>   <code>chmod 0[原有权限三位] 文件名</code><br>意义：对于一个可执行的文件用了SUID权限后，执行者会临时拥有所有者的权限，执行后则恢复原有身份，这个	  过程只是为了提高效率<br>范围：仅对可执行文件(命令)有意义<br>注意：使用数字修改SUID时，在原权限前加上SUID的数字表示法“4”即可，后接原有的权限三位数字<br>示例：passwd命令文件的属主执行位为s，普通用户(执行者)在使用此命令时拥有和属主root同等权力，可以修改密码</p>
+<p><strong>2. 命令名称：SGID</strong><br>占位：占用所属组的x位，所属组的 x 权限标识会变成 s<br>格式：<code>chmod g+s 文件名</code>  <code>chmod g-s 文件名</code><br>      <code>chmod 2[原有权限三位] 文件名</code>  <code>无删除SGID的数字表示法</code><br>意义：对文件传递所属组的身份；对目录任何用户在此目录下创建的文件都具有和该目录所属的组相同的组<br>范围：对文件和目录都生效</p>
+<p><strong>3. 命令名称：Sticky Bit</strong><br>占位：占用其他用户的x位，其他用户的 x 权限标识会变成 s<br>格式：字符法：<code>chmod o+t 文件名</code>  <code>chmod o-t 文件名</code><br>      数字法：<code>chmod 1[原有权限三位] 文件名</code>  <code>无删除Sticky Bit的数字表示法</code><br>意义：一个文件添加了STIB权限后，仅有root和文件所有者可以对所有文件作删除，其余用户就算拥有rwx权限，	  也只能删除自己的文件，无法对别的用户创建的文件作修改&#x2F;重命名&#x2F;删除等操作。<br>功能：防止误删，限制除root和文件拥有者外的其他用户的删除权力，此命令限制不了root和文件拥有者</p>
+<h2 id="三、其他权限"><a href="#三、其他权限" class="headerlink" title="三、其他权限"></a>三、其他权限</h2><h2 id="1-ACL"><a href="#1-ACL" class="headerlink" title="1. ACL"></a>1. ACL</h2><p>英文全称：FACL（file access control list）文件访问控制列表权限<br>用途：FACL用于设定用户或组针对文件的权限<br>注意：若某文件或目录设置了ACL权限，那么整个文件或目录的最终权限是取文件的用户 rwx 权限和 ACL 权限的交集</p>
+<p><strong>命令一：setfacl</strong><br>-m 对用户或组设置facl权限（<code>setfacl -m [u/g]:[用户名/组名]:[字符式权限] 文件/目录</code>）（注：不能使用数字法）<br>-b 删除所有FACL权限（<code>setfacl -b 文件/目录</code>）<br>-x 删除指定FACL权限（<code>setfacl -x 用户名/组名 文件/目录</code>）<br>-k 移除默认FACL 权限<br>-R 设置目录FACL权限（则是递归设置，目录中的所有子文件都随之改变）<br>-d 设置默认FACL权限（仅对目录生效，目录中新建的文件会拥有此默认权限）<br>-R 递归设置FACL权限</p>
+<p><strong>命令二：getfacl</strong><br>-a 展示所有FACL权限及其注释信息（注释信息为：文件路径；所有者；所属组）<br>-c 只显示FACL权限，不显示注释内容<br>-d 只显示注释内容，不显示FACL权限<br>-R 以列表显示目录下所有文件的FACL权限及其信息</p>
+<h3 id="2-umask"><a href="#2-umask" class="headerlink" title="2. umask"></a>2. umask</h3><p>显示四位：第一位 <code>SUID；SGID；Sticky Bit</code><br>      第二位 <code>User</code><br>      第三位 <code>Group</code><br>      第四位 <code>Other</code><br>查看方式：<code>umask -p</code> 查看默认权限掩码数字版；<code>umask -S</code> 查看默认权限的字符模式<br>临时修改默认权限：<code>umask [ugoa][+-=][rwx]</code>（重启即失效）  <code>umask [数字掩码]</code><br>永久修改默认权限：umask的配置文件是&#x2F;etc&#x2F;bashrc，所以 vim &#x2F;etc&#x2F;bashrc，把最后的umask值修改即可（重启即生效）</p>
 ]]></content>
       <categories>
         <category>Linux</category>
