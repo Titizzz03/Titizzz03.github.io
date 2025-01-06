@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>FTP</title>
-    <url>/2024/12/31/FTP/</url>
-    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
-<li>File Transport File，提供文件上传和下载服务</li>
-<li>服务名：vsftpd</li>
-<li>端口：21&#x2F;tcp</li>
-<li>配置文件：<code>/etc/vsftpd/vsftpd.conf</code></li>
-<li>配置文件常见字段：<br>（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录<br>（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式<br>（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录</li>
-<li>安全上下文策略：<code>ftpd_full_access</code></li>
-<li>防火墙名称：vsftpd</li>
-</ul>
-<hr>
-<p>@ <a href="https://zybuluo.com/2303010148/note/2563425">基于 DNS + httpd + ftpd 服务的个人主页发布系统</a><br>@ <a href="https://zybuluo.com/mdeditor#2564002-full-reader">shell 脚本批量创建个人主页系统</a></p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker</title>
     <url>/2024/12/30/Docker/</url>
     <content><![CDATA[<h3 id="一、基础介绍"><a href="#一、基础介绍" class="headerlink" title="一、基础介绍"></a>一、基础介绍</h3><ul>
@@ -93,6 +71,102 @@
 <hr>
 <p>不断学习ing，如果有错请指出(⸝⸝•‧̫•⸝⸝)</p>
 ]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FTP</title>
+    <url>/2024/12/31/FTP/</url>
+    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
+<li>File Transport File，提供文件上传和下载服务</li>
+<li>服务名：vsftpd</li>
+<li>端口：21&#x2F;tcp</li>
+<li>配置文件：<code>/etc/vsftpd/vsftpd.conf</code></li>
+<li>配置文件常见字段：<br>（1）annoymous_enable &#x3D; YES&#x2F;NO，是否允许匿名用户登录<br>（2）IndexOptions Charset&#x3D;UTF-8，文件编码格式<br>（3）chroot_local_user &#x3D; YES, local_root &#x3D; &#x2F;share，访问根目录</li>
+<li>安全上下文策略：<code>ftpd_full_access</code></li>
+<li>防火墙名称：vsftpd</li>
+</ul>
+<hr>
+<p>@ <a href="https://zybuluo.com/2303010148/note/2563425">基于 DNS + httpd + ftpd 服务的个人主页发布系统</a><br>@ <a href="https://zybuluo.com/mdeditor#2564002-full-reader">shell 脚本批量创建个人主页系统</a></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NFS网络存储与autofs自动挂载</title>
+    <url>/2025/01/05/NFS%E7%BD%91%E7%BB%9C%E5%AD%98%E5%82%A8%E4%B8%8Eautofs%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD/</url>
+    <content><![CDATA[<h2 id="一、引言：Linux存储分类"><a href="#一、引言：Linux存储分类" class="headerlink" title="一、引言：Linux存储分类"></a>一、引言：Linux存储分类</h2><p><img src="/images/nfs1.png"><br>1. <strong>DAS直连附加存储</strong>：存储设备通过专用接口(SCSI, SATA, USB…)直接连接到服务器<br>2. <strong>NAS网络连接存储</strong>：具有单独的存储操作系统，通过TCP&#x2F;IP协议访数据，支持(FTP, <strong>NFS</strong>, HTTP…)等协议进行文件共享，小型低成本<br>@：SMB多用于LINUX与windows之间文件共享，针对用户&#x2F;组（UID&#x2F;GID）进行配置，可以设置共享权限<br>@：NFS多用于LINUX与LINUX之间，具体差异是根据固定IP地址&#x2F;固定IP网段来配置，可以设置共享权限<br>@：FTP可用于LINUX与windows之间，而LINUX之间常用于基于SSH协议上的SFTP安全传输协议进行文件上传下载的共享<br>3. <strong>SAN存储区域网络</strong>：也叫做FC(SAN)，通过光纤交换机访问数据，建立专用于数据存储的区域网络，基于块级别存储，高性能高成本</p>
+<h2 id="二、基础介绍"><a href="#二、基础介绍" class="headerlink" title="二、基础介绍"></a>二、基础介绍</h2><p><strong>NFS是基于网络的一个资源共享配置系统</strong>，创建两个IP地址的虚拟机，在服务端虚拟上搭建一个NFS的共享目录，<strong>将NFS主机分享的目录，挂载到本地客户端当中，本地NFS的客户端应用可以透明地读写位于远端NFS服务器上的文件，在客户端端看起来，就像访问本地文件一样。</strong></p>
+<h2 id="三、端口配置问题"><a href="#三、端口配置问题" class="headerlink" title="三、端口配置问题"></a>三、端口配置问题</h2><p>NFS服务端口开在2049，但是由于文件系统非常复杂，所以NFS需要远程调用 <strong>RPC(Remote Procedure Call)</strong> 协议去启动其他端口，传输数据的端口是随机生成小于1024的。具体流程：<br>① 首先服务端启动 RPC 服务，并开启111端口<br>② 服务端启动NFS服务，并向 RPC 注册端口信息<br>③ 客户端启动 RPC 服务，向服务端的 RPC 服务请求服务端的NFS端口<br>④ 服务端的 RPC 服务反馈NFS端口信息给客户端<br>⑤ 客户端通过获取的NFS端口来建立和服务端的NFS连接并进行数据的传输<br><img src="/images/nfs2.png"></p>
+<h2 id="四、NFS-优缺点"><a href="#四、NFS-优缺点" class="headerlink" title="四、NFS 优缺点"></a>四、NFS 优缺点</h2><p>优点：节省本地空间，可以通过网络进行访问<br>缺点：<br>1) 若服务端宕机，则所有客户端都无法进行访问<br>2) 若客户端无法使用网络，则无法访问服务端文件<br>3) NFS采用明文数据传输，无用户认证机制，需要担心其安全性<br>4) 服务端在高并发下，NFS性能效率一般</p>
+<h2 id="五、服务端配置文件-etc-exports"><a href="#五、服务端配置文件-etc-exports" class="headerlink" title="五、服务端配置文件&#x2F;etc&#x2F;exports"></a>五、服务端配置文件&#x2F;etc&#x2F;exports</h2><p><code>/etc/exports</code> 文件是NFS主要的配置文件，该文件用于设置服务器的共享目录，以及目录允许访问的主机，访问权限，和其他选项，NFS安装后会在&#x2F;etc&#x2F;目录下创建一个空文件，用户需要自定编辑</p>
+<h2 id="六、日志文件-var-lib-nfs"><a href="#六、日志文件-var-lib-nfs" class="headerlink" title="六、日志文件 &#x2F;var&#x2F;lib&#x2F;nfs"></a>六、日志文件 &#x2F;var&#x2F;lib&#x2F;nfs</h2><p>服务端常用&#x2F;var&#x2F;lib&#x2F;nfs&#x2F;etab记录所有共享文件的完整权限</p>
+<blockquote>
+<p><code>ro,rw</code> 只读和读写<br><code>async</code> 异步，数据变化后不立即写磁盘，先写入到缓冲区中，过一段时间再写入磁盘，性能高<br><code>sync</code>（1.0.0后为默认）同步，数据在请求时立即写入共享存储磁盘<br><code>root_squash</code> （默认）远程root映射为nfsnobody,UID为65534，CentOS8 为nobody,早期版本是4294967294 (nfsnobody)<br><code>no_root_squash</code> 远程root映射成root用户<br><code>all_squash</code> 所有远程用户(包括root)都变成nfsnobody, CentOS8 为nobody<br><code>no_all_squash</code> （默认）保留共享文件的UID和GID<br><code>anonuid</code>和<code>anongid</code> 指明匿名用户映射为特定用户UID和组GID，而非nfsnobody,可配合all_squash使用</p>
+</blockquote>
+<h2 id="七、相关命令"><a href="#七、相关命令" class="headerlink" title="七、相关命令"></a>七、相关命令</h2><p>1. <code>showmount  -e  [IP_ADDRESS]</code> 展示网络挂载信息<br>2. <code>exportfs</code> 管理NFS共享文件系统列表；无需重启服务，使用 <code>exportfs</code> 命令搭配选项即可重新加载主配置文件<br>@：创建 NFS 共享的根目录，也称为导出文件夹。文件系统，或简称为导出。<br>常用命令：<code>-a</code>(all) 导出或取消导出所有目录<br><code>-r</code>(reexport) 重新导出，且同步&#x2F;var&#x2F;lib&#x2F;nfs&#x2F;etab和&#x2F;etc&#x2F;exports文件信息<br><code>-u</code>(unexport) 取消导出一个或多个目录<br><code>-v</code>(verbose)<br><code>-s</code>(display current export list suitable)</p>
+<h2 id="八、客户端的三个挂载方式"><a href="#八、客户端的三个挂载方式" class="headerlink" title="八、客户端的三个挂载方式"></a>八、客户端的三个挂载方式</h2><p><strong>1. 手动挂载</strong> <code>mount -t nfs [serverIP:/PATH] [mountpoint]</code><br><strong>2. 开机自动挂载</strong><br>(1) <code>/etc/fstab</code>： <code>[serverIP:/PATH] [挂载点] nfs [挂载权限] [是否备份1/0] [是否检查1/0]</code><br>(2)<code> /etc/rc.local</code>：  <code>mount -t nfs [serverIP:/PATH] [mountpoint] (额外操作：chmod +x /etc/rc.d/rc.local)</code><br><strong>3. 按需自动挂载卸载：</strong> <code>autofs</code> 直接映射和间接映射<br>主配置文件：<code>/etc/auto.master.d/xxx.autofs</code><br>子配置文件：<code>/etc/auto.xxx</code></p>
+<h2 id="九、autofs-按需自动下载"><a href="#九、autofs-按需自动下载" class="headerlink" title="九、autofs 按需自动下载"></a>九、autofs 按需自动下载</h2><h4 id="1-功能介绍："><a href="#1-功能介绍：" class="headerlink" title="1. 功能介绍："></a>1. 功能介绍：</h4><p>手动挂载和开机自动挂载开启后，若无需使用，会占用系统资源，需要手动卸载，才能释放资源，autofs工具为此提供解决方案，能够及时挂载动态卸载文件系统，识别若超过五分钟未使用该文件，则自动卸载，免去我们手动挂载的麻烦。</p>
+<h4 id="2-主子配置文件"><a href="#2-主子配置文件" class="headerlink" title="2. 主子配置文件"></a>2. 主子配置文件</h4><blockquote>
+<p>主配置文件：<code>/etc/auto.master.d/xxx.autofs</code><br>——内容：<code>[挂载点] [子配置文件路径]</code><br>子配置文件：<code>/etc/auto.xxx</code><br>——内容：<code>[挂载点] [-fstype=挂载选项] [服务端IP:/共享路径]</code></p>
+</blockquote>
+<h4 id="3-直接映射与间接映射"><a href="#3-直接映射与间接映射" class="headerlink" title="3. 直接映射与间接映射"></a>3. 直接映射与间接映射</h4><blockquote>
+<p><strong>直接映射</strong>：主：<code>[/-] [子配置文件]</code><br>—-内容：子：<code>[挂载点绝对路径] [挂载选项] [服务端共享路径]</code><br><strong>间接映射</strong>：主：<code>[挂载点父目录] [子配置文件]</code><br>—-内容：子：<code>[挂载点相对路径] [挂载选项] [服务端共享路径]</code></p>
+</blockquote>
+<p>@：<code>/-</code> 仅是一种占位符，代表任意路径<br>@：间接映射，在主子配置文件的挂载点上的一种写法，不可描述冲突，属于拼接写法，冲突会报错</p>
+<p><strong>直接映射和间接映射的区别：</strong><br><img src="/images/nfs3.png"><br>@：间接映射可以使用通配符编辑子配置文件，间接映射client端示例：<br>@：主配置文件内容：<code>/mnt  /etc/auto.zbx</code><br>@：子配置文件内容：<code>*  -fstype=nfs,rw,sync  192.168.48.201:/share/&amp;</code><br>@：表示 <code>/share/*</code> 下所有文件在client机上都可以按需进入挂载使用，都挂载到&#x2F;mnt&#x2F;下</p>
+<h4 id="4-细说间接映射"><a href="#4-细说间接映射" class="headerlink" title="4. 细说间接映射"></a>4. 细说间接映射</h4><p>@：说明<br>@：直接映射因为进去挂载点的父目录时，看得到该挂载的文件，所以不会覆盖原文件<br>@：间接映射因为进去挂载点的父目录时，会看不到挂载文件，因为它覆盖了该目录下所有的原文件，只透明的展示了本身文件<br><img src="/images/nfs4.png"></p>
+<h4 id="5-总体权限管控图"><a href="#5-总体权限管控图" class="headerlink" title="5. 总体权限管控图"></a>5. 总体权限管控图</h4><p><img src="/images/nfs5.png"></p>
+<h4 id="6-配置挂载权限是否匿名化"><a href="#6-配置挂载权限是否匿名化" class="headerlink" title="6. 配置挂载权限是否匿名化"></a>6. 配置挂载权限是否匿名化</h4><p>nfs默认对root用户做匿名化，对普通用户不做匿名化，但是此操作无任何意义，一看就知道nobody为root用户，固可以选择全部用户匿名话或者全部用户不匿名化</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ----------------------------------------------------</span></span><br><span class="line"><span class="comment"># ----- nfs 默认对 root 用户做匿名化处理：root_squash</span></span><br><span class="line"><span class="comment"># ----------------------------------------------------</span></span><br><span class="line"><span class="built_in">cd</span> /mnt/work</span><br><span class="line"><span class="built_in">echo</span> 123 &gt; 123.txt</span><br><span class="line">ll</span><br><span class="line"><span class="comment"># -rw-r--r-- 1 nobody nobody 4 May 10 18:25 123.txt</span></span><br><span class="line"><span class="comment"># ----------------------------------------------------</span></span><br><span class="line"><span class="comment"># ----- 编辑服务端 /etc/exports 对 root 不做匿名化：no_root_squash</span></span><br><span class="line"><span class="comment"># ----------------------------------------------------</span></span><br><span class="line"><span class="built_in">echo</span> 456 &gt; 456.txt</span><br><span class="line">ll</span><br><span class="line"><span class="comment"># -rw-r--r-- 1 nobody nobody 4 May 10 18:25 123.txt</span></span><br><span class="line"><span class="comment"># -rw-r--r-- 1 root root 4 May 10 18:27 456.txt</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="7-示例一，采用NFS将服务端的目录共享，客户机挂载到本地"><a href="#7-示例一，采用NFS将服务端的目录共享，客户机挂载到本地" class="headerlink" title="7. 示例一，采用NFS将服务端的目录共享，客户机挂载到本地"></a>7. 示例一，采用NFS将服务端的目录共享，客户机挂载到本地</h4><p>&lt;1&gt; 在服务端和客户端各自配置好yum源，安装并启动rpcbind和nfs<br>@：注意 因为NFS服务依赖于RPC服务，所以必须先开启rpcbind服务，再开启nfs-utils服务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mount /dev/sr0 /mnt</span><br><span class="line">yum install -y nfs* rpcbind</span><br><span class="line">systemctl <span class="built_in">enable</span> --now rpcbind &amp;&amp; systemctl <span class="built_in">enable</span> --now nfs-utils</span><br></pre></td></tr></table></figure>
+<p>&lt;2&gt; 在服务端根下创建共享文件并设置文件权限为777</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /share/&#123;work,life&#125;</span><br><span class="line"><span class="built_in">chmod</span> -R 777 /share</span><br></pre></td></tr></table></figure>
+<p>&lt;3&gt; 在服务端修改配置文件，添加共享文件夹和客户端ip网段，并查看本机共享目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># --- 修改配置文件</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;/share/work 192.168.99.0/24(rw,sync)&#x27;</span> &gt; /etc/exports</span><br><span class="line">sed -i <span class="string">&#x27;$a\/share/life 192.168.99.0/24(rw,sync)&#x27;</span> /etc/exports</span><br><span class="line"><span class="built_in">cat</span> /etc/exports</span><br><span class="line"><span class="comment"># /share/work 192.168.99.0/24(rw,sync)</span></span><br><span class="line"><span class="comment"># /share/life 192.168.99.0/24(rw,sync)</span></span><br><span class="line"><span class="comment"># --- 重启服务，查看本机共享目录</span></span><br><span class="line">systemctl restart nfs    </span><br><span class="line">showmount -e</span><br><span class="line"><span class="comment"># Export list for server:</span></span><br><span class="line"><span class="comment"># /share/work 192.168.48.0/24</span></span><br><span class="line"><span class="comment"># /share/life 192.168.48.0/24</span></span><br></pre></td></tr></table></figure>
+<p>&lt;4&gt; 服务端防火墙配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">firewall-cmd --add-service=nfs --permanent    <span class="comment"># 允许 NFS 服务</span></span><br><span class="line">firewall-cmd --add-service=rpc-bind --permanent   <span class="comment"># 允许 NFS 服务通过 RPC 进行通信</span></span><br><span class="line">firewall-cmd --zone=public --add-service=mountd --permanent    <span class="comment"># 允许 NFS 客户端挂载</span></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<p>&lt;5&gt; 服务端 selinux 配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">setsebool -P nfs_export_all_rw 1    <span class="comment"># 确保 NFS 服务的相关端口和服务被允许</span></span><br><span class="line">setsebool -P nfs_export_all_ro 1    <span class="comment"># 确保 NFS 服务的相关端口和服务被允许</span></span><br><span class="line">setsebool -P nfs_client 1    <span class="comment"># 允许客户端挂载</span></span><br><span class="line">semanage fcontext -a -t nfs_t <span class="string">&#x27;/share(/.*)?&#x27;</span>    <span class="comment"># 配置 selinux 安全上下文标签</span></span><br><span class="line">restorecon -Rv /share</span><br></pre></td></tr></table></figure>
+<p>&lt;6&gt; 服务端验证</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">exportfs -ra    <span class="comment"># 重新导出 NFS 共享</span></span><br><span class="line">exportfs -v     <span class="comment"># 查看共享目录列表</span></span><br></pre></td></tr></table></figure>
+<p>&lt;7&gt; 在客户端，查看服务端的共享文件，将服务端的共享文件挂载到本地<br>@：server-192.168.99.200，client-192.168.99.201</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">showmount -e 192.168.99.200</span><br><span class="line">mount -t nfs 192.168.99.200:/share /mnt/share    <span class="comment"># 手动挂载</span></span><br><span class="line">mount | grep share</span><br><span class="line"><span class="built_in">cd</span> /mnt/share &amp;&amp; <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># work life</span></span><br></pre></td></tr></table></figure>
+<p>&lt;8&gt; 在客户端，设置开机自动挂载</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">tail</span> -1 /etc/fstab    <span class="comment"># 编辑 /etc/fstab 文件新增 NFS 挂载记录</span></span><br><span class="line"><span class="comment"># 192.168.48.200:/share    /mnt/share    nfs    rw,sync    0    0</span></span><br><span class="line">mount -a    <span class="comment"># 验证 /etc/fstab 自动挂载是否有错</span></span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs     <span class="comment"># 查看挂载信息</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="8-示例二，采用autofs按需自动挂载服务器端到本地【直接映射挂载】"><a href="#8-示例二，采用autofs按需自动挂载服务器端到本地【直接映射挂载】" class="headerlink" title="8. 示例二，采用autofs按需自动挂载服务器端到本地【直接映射挂载】"></a>8. 示例二，采用autofs按需自动挂载服务器端到本地【直接映射挂载】</h4><p>&lt;1&gt; 在服务端，客户端，安装autofs并开启<br>@：注意：本地源无提供autofs工具包，需要利用网络源下载autofs工具，此时把手动配置的repo文件cdrom移动至back下，使其不为&#x2F;etc&#x2F;yum.repos.d目录的子文件，则默认使用网络源进行下载；openEuler.repo是系统预设的网络源文件<br>@：注意：因为需要使用网络源下载工具包，固需要确保虚拟机可以正常上网，可以连接外网，且因为网络源中下载链接中都为域名地址，所以需要检查虚拟机网络配置中是否有配置DNS来解析域名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y autofs &amp;&amp; systemctl <span class="built_in">enable</span> --now autofs</span><br></pre></td></tr></table></figure>
+<p>&lt;2&gt; 配置客户端主配置文件，子配置文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/auto.master.d/titi.autofs</span><br><span class="line"><span class="comment"># /- /etc/auto.titi</span></span><br><span class="line"><span class="built_in">cat</span> /etc/auto.titi</span><br><span class="line"><span class="comment"># /mnt/nfs/work -fstype,nfs,rw,sync 192.168.99.200:/share/work</span></span><br></pre></td></tr></table></figure>
+<p>&lt;3&gt; 客户端确保&#x2F;mnt默认挂载点无文件，重启autofs</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">unmount /mnt/*</span><br><span class="line">systemctl restart autofs</span><br></pre></td></tr></table></figure>
+<p>&lt;4&gt; 不需要使用，无进入目录，显示无挂载，需要使用时，进入目录，显示挂载信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ------- 不需要使用，无进入目录，显示无挂载 -------</span></span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs</span><br><span class="line"><span class="comment"># ------- 无需人工手动创建挂载点 只要在配置文件中编写挂载点 autofs自动创建 -------</span></span><br><span class="line"><span class="built_in">ls</span> /mnt/nfs</span><br><span class="line"><span class="comment"># work</span></span><br><span class="line"><span class="comment"># ------- 进入挂载点 autofs开始自动挂载 -------</span></span><br><span class="line"><span class="built_in">cd</span> /mnt/nfs/work</span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs</span><br><span class="line"><span class="comment"># 192.168.99.200:/share/work    nfs4    17G    2.7G     14G    17%    /mnt/nfs/work</span></span><br><span class="line"><span class="comment"># ------- 退出挂载点 查看系统挂载信息此时还是挂载中 -------</span></span><br><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs</span><br><span class="line"><span class="comment"># 192.168.99.200:/share/work    nfs4    17G    2.7G     14G    17%    /mnt/nfs/work</span></span><br><span class="line"><span class="comment"># ------- 因为autofs具有时效性 后台等待五分钟 若未在挂载点中未使用则自动卸载 -------</span></span><br><span class="line"><span class="comment"># ------- 可以选择等待五分钟/重启autofs/umount手动卸载等刷新挂载信息 -------</span></span><br><span class="line">systemctl restart autofs</span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="9-示例三，采用autofs按需自动挂载服务器端到本地【间接映射挂载】"><a href="#9-示例三，采用autofs按需自动挂载服务器端到本地【间接映射挂载】" class="headerlink" title="9. 示例三，采用autofs按需自动挂载服务器端到本地【间接映射挂载】"></a>9. 示例三，采用autofs按需自动挂载服务器端到本地【间接映射挂载】</h4><p>&lt;1&gt; 在客户端上，先卸载 <code>/mnt/*</code>，再关闭 autofs</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">unmount /mnt/*</span><br><span class="line">systemctl stop autofs</span><br></pre></td></tr></table></figure>
+<p>&lt;2&gt; 配置主子配置文件为间接挂载</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/auto.master.d/titi.autofs</span><br><span class="line"><span class="comment"># /mnt /etc/auto.titi</span></span><br><span class="line"><span class="built_in">cat</span> /etc/auto.titi</span><br><span class="line"><span class="comment"># * -fstype,nfs,rw,sync 192.168.99.200:/share/&amp;</span></span><br><span class="line">systemctl restart autofs</span><br></pre></td></tr></table></figure>
+<p>&lt;3&gt; 不使用时查看挂载情况，显示没有挂载，需要使用时，进入目录work和life，系统自动挂载两个子目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ------- 未进入挂载父目录，此时挂载信息无服务端相关信息 ------- </span></span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs    </span><br><span class="line"><span class="comment"># ------- 查看挂载父目录为空，因为间接挂载，实际目录被隐藏，但是还可以进入子文件 work，life ------- </span></span><br><span class="line"><span class="built_in">ls</span> /mnt    </span><br><span class="line"><span class="built_in">cd</span> /mnt/work</span><br><span class="line"><span class="built_in">cd</span> /mnt/life</span><br><span class="line"><span class="comment"># ------- 再次查看系统挂载信息，挂载成功 ------- </span></span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs    </span><br><span class="line"><span class="comment"># 192.168.99.200:/share/work    nfs4    17G    2.7G     14G    17%    /mnt/work</span></span><br><span class="line"><span class="comment"># 192.168.99.200:/share/life    nfs4    17G    2.7G     14G    17%    /mnt/life</span></span><br></pre></td></tr></table></figure>
+<p>&lt;4&gt; 在服务器端再共享一个子目录shopping，添加该目录到nfs配置文件并重启nfs服务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -m 777 /share/shopping</span><br><span class="line">sed -i <span class="string">&#x27;$a\/share/shopping 192.168.99.0/24(rw,sync)&#x27;</span> /etc/exports</span><br><span class="line">systemctl restart nfs</span><br></pre></td></tr></table></figure>
+<p>&lt;5&gt; 在客户端，进入shopping后，系统应自动挂载该子目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/shopping</span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs</span><br><span class="line"><span class="comment"># 192.168.99.200:/share/work    nfs4    17G    2.7G     14G    17%    /mnt/work</span></span><br><span class="line"><span class="comment"># 192.168.99.200:/share/life    nfs4    17G    2.7G     14G    17%    /mnt/life</span></span><br><span class="line"><span class="comment"># 192.168.99.200:/share/shopping    nfs4    17G    2.7G     14G    17%    /mnt/shopping</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -214,6 +288,36 @@
       </tags>
   </entry>
   <entry>
+    <title>SSH</title>
+    <url>/2025/01/01/SSH/</url>
+    <content><![CDATA[<h3 id="一、介绍："><a href="#一、介绍：" class="headerlink" title="一、介绍："></a>一、介绍：</h3><p>SSH(Secure Shell)是一个网络安全协议，用于多操作系统间的远程登录与服务，相对与Telnet明文传输而言，SSH是<strong>对传输内容进行了压缩</strong>，后在<strong>加密传送</strong>，<strong>非明文传送</strong>，更加安全可靠，提高传输速度<br><img src="/images/ssh1.png"><br><img src="/images/ssh2.png"></p>
+<h3 id="二、配置文件："><a href="#二、配置文件：" class="headerlink" title="二、配置文件："></a>二、配置文件：</h3><p>服务端程序：<code>/usr/bin/sshd</code>，服务端配置文件：<code>/etc/ssh/sshd_config</code><br>客户端程序：<code>/usr/bin/ssh</code>， 客户端配置文件：<code>/etc/ssh/ssh_config</code></p>
+<h3 id="三、-etc-ssh-sshd-config-主要配置字段："><a href="#三、-etc-ssh-sshd-config-主要配置字段：" class="headerlink" title="三、&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段："></a>三、&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段：</h3><p><code>PermitRootLogin no</code> 是否允许root登录<br><code>PasswordAuthentication yes</code> 是否允许密码登录<br><code>PubkeyAuthentication yes</code> 是否允许公钥登录<br><code>AllowUsers</code>，<code>AllowGroups</code> 白名单<br><code>DenyUsers</code>，<code>DenyGroups</code> 黑名单</p>
+<h3 id="四、其他文件："><a href="#四、其他文件：" class="headerlink" title="四、其他文件："></a>四、其他文件：</h3><p>Client机私钥文件：<code>~/.ssh/id_rsa</code><br>Client机公钥文件：<code>~/.ssh/id_rsa.pub</code><br>Client机信任主机文件：<code>~/.ssh/known_hosts</code><br>Server机接收的公钥文件：<code>~/.ssh/authorized_keys</code></p>
+<h3 id="五、相关命令："><a href="#五、相关命令：" class="headerlink" title="五、相关命令："></a>五、相关命令：</h3><p>生成密钥对：<code>ssh-keygen</code><br>发送公钥：<code>ssh-copy-id  username@ip_address 密码登录：</code>ssh username@IpAddress<code>， </code>ssh -l username IpAddress&#96;</p>
+<h3 id="六、其他："><a href="#六、其他：" class="headerlink" title="六、其他："></a>六、其他：</h3><ul>
+<li>client已经对server设置了ssh免密登录，如何再次使用密码登录？<br>禁止免密登录，即使用密码登录：<code>ssh -o PubkeyAuthentication=no user@IpAddress</code><br>选择登录方式为密码登录：<code>ssh -o PreferredAuthentications=password user@IpAddress</code></li>
+<li>ssh远程执行命令<br><code>ssh user@IpAddress [command]</code></li>
+<li>如何对ssh配置文件进行备份？<br>复制 <code>.bak</code> 备份文件在同一目录下：<code>cp /etc/ssh/sshd_config&#123;,.bak&#125;</code></li>
+<li><code>~/.ssh</code> 目录文件权限必须为 700，除了自己，其他人没有任何权限，否则 ssh 服务器拒绝登录</li>
+<li>服务器上的 <code>~/.ssh/authorized_keys</code> 权限必须为 600</li>
+</ul>
+<h3 id="七、scp"><a href="#七、scp" class="headerlink" title="七、scp"></a>七、scp</h3><p><strong>scp命令——secure copy</strong><br>&lt;1&gt; scp命令适合传送众多的小型数据，基于ssh的远程文件拷贝功能，享有与ssh相同级别的数据加密。cp命令仅用于本机内部文件拷贝与传输，scp适用于不同的服务器之间文件拷贝。<br>&lt;2&gt; 格式：<code>scp 选项 源头地址 目标地址</code><br><strong>下载&#x2F;从远端传到本地：</strong> <code>scp [option]  [user@IP_address:path]  [local_path]</code><br><strong>上传&#x2F;从本地传到远端：</strong> <code>scp [option]  [local_path]  [user@IP_address:path]</code><br>&lt;3&gt; 选项：<code>-r</code> 递归；<code>-q</code> 精简模式 不显示进度条；<code>-p</code> 保持原属性；<code>-v</code> 显示传输细节；<code>-P</code> 指定端口号；<code>-C</code> 压缩传输；</p>
+<h3 id="八、sftp"><a href="#八、sftp" class="headerlink" title="八、sftp"></a>八、sftp</h3><p><strong>sftp命令——secure file transfer protocol</strong><br>&lt;1&gt; sftp是交互性命令，也是基于ssh服务的基本功能，sftp相当于在两台主机之间建立桥梁，可以对主机和服务机做操作<br>&lt;2&gt; FTP与SFTP之间的不同：<br>FTP是使用TCP&#x2F;IP协议的，传输效率高，使用明文传输，windows下较多使用FTP，FTP也较适用于内网；而SFTP属于SSH协议的一部分，与SSH同根同源，使用加密传输，传输效率低，较适用于与外网建立连接，确保数据机密性与完整性。<br>&lt;3&gt; 格式：</p>
+<ul>
+<li><strong>登录到服务端：</strong> <code>ssh user@IP_address  (-P port)</code></li>
+<li><strong>使用子命令传输</strong><br><strong>下载：</strong> <code>get 主机路径 本地路径</code><br><strong>上传：</strong> <code>put 本地路径 主机路径</code><br><code>普通命令</code>：作用在服务端<br><code>l+普通命令</code>：作用在本地（有时有的命令无法使用，可以使用 <code>!+command</code> 方式，<code>!</code> 叹号在这里表示逃离回本地shell执行）</li>
+</ul>
+<h3 id="九、rsync"><a href="#九、rsync" class="headerlink" title="九、rsync"></a>九、rsync</h3><p><strong>rsync命令——remote synchronize</strong><br>&lt;1&gt; rsync最大的特点在于可以增量传输，对已存在的文件不会进行二次传输，减少数据冗余。rsync在传输同一份文件时，第一次进行全部复制，后在复制属于增量传输，仅对新增的改变的进行传输，原存在的不再二次传输。<br>&lt;2&gt; 格式：<code>rsync  [command]  [源头地址]  [目标地址]</code><br>常用选项：<code>-r</code> 递归； <code>-z</code> 压缩；<code>-a</code> 归档； <code>-v</code> 展示详细内容；<code>-q</code> 精简输出；<br>配置文件：&#x2F;etc&#x2F;rsyncd.conf</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SAMBA</title>
     <url>/2025/01/01/SAMBA/</url>
     <content><![CDATA[<h3 id="一、安装samba工具"><a href="#一、安装samba工具" class="headerlink" title="一、安装samba工具"></a>一、安装samba工具</h3><p>1. 确保虚拟机有连接光盘（光盘存放真正软件源，yum包起链接作用）<br>2. 挂载光盘： mount &#x2F;dev&#x2F;sr0 &#x2F;mnt<br>3. 切换目录： cd &#x2F;etc&#x2F;yum.repos.d<br>4. 检查内部是否正常：ls &#x2F;etc&#x2F;yum.repos.d    cat &#x2F;etc&#x2F;yum.repos.d&#x2F;cdrom.repo    yum repolist -v.<br>5. 开始下载： yum install samba -y<br>6. 下载完成： which smbpasswd（查找有无此命令，有即工具已下载）<br> rpm -qa | grep samba（查找有无samba工具）<br><img src="/images/samba.png"></p>
@@ -241,102 +345,21 @@
       </tags>
   </entry>
   <entry>
-    <title>NFS网络存储与autofs自动挂载</title>
-    <url>/2025/01/05/NFS%E7%BD%91%E7%BB%9C%E5%AD%98%E5%82%A8%E4%B8%8Eautofs%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD/</url>
-    <content><![CDATA[<h2 id="一、引言：Linux存储分类"><a href="#一、引言：Linux存储分类" class="headerlink" title="一、引言：Linux存储分类"></a>一、引言：Linux存储分类</h2><p><img src="/images/nfs1.png"><br>1. <strong>DAS直连附加存储</strong>：存储设备通过专用接口(SCSI, SATA, USB…)直接连接到服务器<br>2. <strong>NAS网络连接存储</strong>：具有单独的存储操作系统，通过TCP&#x2F;IP协议访数据，支持(FTP, <strong>NFS</strong>, HTTP…)等协议进行文件共享，小型低成本<br>@：SMB多用于LINUX与windows之间文件共享，针对用户&#x2F;组（UID&#x2F;GID）进行配置，可以设置共享权限<br>@：NFS多用于LINUX与LINUX之间，具体差异是根据固定IP地址&#x2F;固定IP网段来配置，可以设置共享权限<br>@：FTP可用于LINUX与windows之间，而LINUX之间常用于基于SSH协议上的SFTP安全传输协议进行文件上传下载的共享<br>3. <strong>SAN存储区域网络</strong>：也叫做FC(SAN)，通过光纤交换机访问数据，建立专用于数据存储的区域网络，基于块级别存储，高性能高成本</p>
-<h2 id="二、基础介绍"><a href="#二、基础介绍" class="headerlink" title="二、基础介绍"></a>二、基础介绍</h2><p><strong>NFS是基于网络的一个资源共享配置系统</strong>，创建两个IP地址的虚拟机，在服务端虚拟上搭建一个NFS的共享目录，<strong>将NFS主机分享的目录，挂载到本地客户端当中，本地NFS的客户端应用可以透明地读写位于远端NFS服务器上的文件，在客户端端看起来，就像访问本地文件一样。</strong></p>
-<h2 id="三、端口配置问题"><a href="#三、端口配置问题" class="headerlink" title="三、端口配置问题"></a>三、端口配置问题</h2><p>NFS服务端口开在2049，但是由于文件系统非常复杂，所以NFS需要远程调用 <strong>RPC(Remote Procedure Call)</strong> 协议去启动其他端口，传输数据的端口是随机生成小于1024的。具体流程：<br>① 首先服务端启动 RPC 服务，并开启111端口<br>② 服务端启动NFS服务，并向 RPC 注册端口信息<br>③ 客户端启动 RPC 服务，向服务端的 RPC 服务请求服务端的NFS端口<br>④ 服务端的 RPC 服务反馈NFS端口信息给客户端<br>⑤ 客户端通过获取的NFS端口来建立和服务端的NFS连接并进行数据的传输<br><img src="/images/nfs2.png"></p>
-<h2 id="四、NFS-优缺点"><a href="#四、NFS-优缺点" class="headerlink" title="四、NFS 优缺点"></a>四、NFS 优缺点</h2><p>优点：节省本地空间，可以通过网络进行访问<br>缺点：<br>1) 若服务端宕机，则所有客户端都无法进行访问<br>2) 若客户端无法使用网络，则无法访问服务端文件<br>3) NFS采用明文数据传输，无用户认证机制，需要担心其安全性<br>4) 服务端在高并发下，NFS性能效率一般</p>
-<h2 id="五、服务端配置文件-etc-exports"><a href="#五、服务端配置文件-etc-exports" class="headerlink" title="五、服务端配置文件&#x2F;etc&#x2F;exports"></a>五、服务端配置文件&#x2F;etc&#x2F;exports</h2><p><code>/etc/exports</code> 文件是NFS主要的配置文件，该文件用于设置服务器的共享目录，以及目录允许访问的主机，访问权限，和其他选项，NFS安装后会在&#x2F;etc&#x2F;目录下创建一个空文件，用户需要自定编辑</p>
-<h2 id="六、日志文件-var-lib-nfs"><a href="#六、日志文件-var-lib-nfs" class="headerlink" title="六、日志文件 &#x2F;var&#x2F;lib&#x2F;nfs"></a>六、日志文件 &#x2F;var&#x2F;lib&#x2F;nfs</h2><p>服务端常用&#x2F;var&#x2F;lib&#x2F;nfs&#x2F;etab记录所有共享文件的完整权限</p>
-<blockquote>
-<p><code>ro,rw</code> 只读和读写<br><code>async</code> 异步，数据变化后不立即写磁盘，先写入到缓冲区中，过一段时间再写入磁盘，性能高<br><code>sync</code>（1.0.0后为默认）同步，数据在请求时立即写入共享存储磁盘<br><code>root_squash</code> （默认）远程root映射为nfsnobody,UID为65534，CentOS8 为nobody,早期版本是4294967294 (nfsnobody)<br><code>no_root_squash</code> 远程root映射成root用户<br><code>all_squash</code> 所有远程用户(包括root)都变成nfsnobody, CentOS8 为nobody<br><code>no_all_squash</code> （默认）保留共享文件的UID和GID<br><code>anonuid</code>和<code>anongid</code> 指明匿名用户映射为特定用户UID和组GID，而非nfsnobody,可配合all_squash使用</p>
-</blockquote>
-<h2 id="七、相关命令"><a href="#七、相关命令" class="headerlink" title="七、相关命令"></a>七、相关命令</h2><p>1. <code>showmount  -e  [IP_ADDRESS]</code> 展示网络挂载信息<br>2. <code>exportfs</code> 管理NFS共享文件系统列表；无需重启服务，使用 <code>exportfs</code> 命令搭配选项即可重新加载主配置文件<br>@：创建 NFS 共享的根目录，也称为导出文件夹。文件系统，或简称为导出。<br>常用命令：<code>-a</code>(all) 导出或取消导出所有目录<br><code>-r</code>(reexport) 重新导出，且同步&#x2F;var&#x2F;lib&#x2F;nfs&#x2F;etab和&#x2F;etc&#x2F;exports文件信息<br><code>-u</code>(unexport) 取消导出一个或多个目录<br><code>-v</code>(verbose)<br><code>-s</code>(display current export list suitable)</p>
-<h2 id="八、客户端的三个挂载方式"><a href="#八、客户端的三个挂载方式" class="headerlink" title="八、客户端的三个挂载方式"></a>八、客户端的三个挂载方式</h2><p><strong>1. 手动挂载</strong> <code>mount -t nfs [serverIP:/PATH] [mountpoint]</code><br><strong>2. 开机自动挂载</strong><br>(1) <code>/etc/fstab</code>： <code>[serverIP:/PATH] [挂载点] nfs [挂载权限] [是否备份1/0] [是否检查1/0]</code><br>(2)<code> /etc/rc.local</code>：  <code>mount -t nfs [serverIP:/PATH] [mountpoint] (额外操作：chmod +x /etc/rc.d/rc.local)</code><br><strong>3. 按需自动挂载卸载：</strong> <code>autofs</code> 直接映射和间接映射<br>主配置文件：<code>/etc/auto.master.d/xxx.autofs</code><br>子配置文件：<code>/etc/auto.xxx</code></p>
-<h2 id="九、autofs-按需自动下载"><a href="#九、autofs-按需自动下载" class="headerlink" title="九、autofs 按需自动下载"></a>九、autofs 按需自动下载</h2><h4 id="1-功能介绍："><a href="#1-功能介绍：" class="headerlink" title="1. 功能介绍："></a>1. 功能介绍：</h4><p>手动挂载和开机自动挂载开启后，若无需使用，会占用系统资源，需要手动卸载，才能释放资源，autofs工具为此提供解决方案，能够及时挂载动态卸载文件系统，识别若超过五分钟未使用该文件，则自动卸载，免去我们手动挂载的麻烦。</p>
-<h4 id="2-主子配置文件"><a href="#2-主子配置文件" class="headerlink" title="2. 主子配置文件"></a>2. 主子配置文件</h4><blockquote>
-<p>主配置文件：<code>/etc/auto.master.d/xxx.autofs</code><br>——内容：<code>[挂载点] [子配置文件路径]</code><br>子配置文件：<code>/etc/auto.xxx</code><br>——内容：<code>[挂载点] [-fstype=挂载选项] [服务端IP:/共享路径]</code></p>
-</blockquote>
-<h4 id="3-直接映射与间接映射"><a href="#3-直接映射与间接映射" class="headerlink" title="3. 直接映射与间接映射"></a>3. 直接映射与间接映射</h4><blockquote>
-<p><strong>直接映射</strong>：主：<code>[/-] [子配置文件]</code><br>—-内容：子：<code>[挂载点绝对路径] [挂载选项] [服务端共享路径]</code><br><strong>间接映射</strong>：主：<code>[挂载点父目录] [子配置文件]</code><br>—-内容：子：<code>[挂载点相对路径] [挂载选项] [服务端共享路径]</code></p>
-</blockquote>
-<p>@：<code>/-</code> 仅是一种占位符，代表任意路径<br>@：间接映射，在主子配置文件的挂载点上的一种写法，不可描述冲突，属于拼接写法，冲突会报错</p>
-<p><strong>直接映射和间接映射的区别：</strong><br><img src="/images/nfs3.png"><br>@：间接映射可以使用通配符编辑子配置文件，间接映射client端示例：<br>@：主配置文件内容：<code>/mnt  /etc/auto.zbx</code><br>@：子配置文件内容：<code>*  -fstype=nfs,rw,sync  192.168.48.201:/share/&amp;</code><br>@：表示 <code>/share/*</code> 下所有文件在client机上都可以按需进入挂载使用，都挂载到&#x2F;mnt&#x2F;下</p>
-<h4 id="4-细说间接映射"><a href="#4-细说间接映射" class="headerlink" title="4. 细说间接映射"></a>4. 细说间接映射</h4><p>@：说明<br>@：直接映射因为进去挂载点的父目录时，看得到该挂载的文件，所以不会覆盖原文件<br>@：间接映射因为进去挂载点的父目录时，会看不到挂载文件，因为它覆盖了该目录下所有的原文件，只透明的展示了本身文件<br><img src="/images/nfs4.png"></p>
-<h4 id="5-总体权限管控图"><a href="#5-总体权限管控图" class="headerlink" title="5. 总体权限管控图"></a>5. 总体权限管控图</h4><p><img src="/images/nfs5.png"></p>
-<h4 id="6-配置挂载权限是否匿名化"><a href="#6-配置挂载权限是否匿名化" class="headerlink" title="6. 配置挂载权限是否匿名化"></a>6. 配置挂载权限是否匿名化</h4><p>nfs默认对root用户做匿名化，对普通用户不做匿名化，但是此操作无任何意义，一看就知道nobody为root用户，固可以选择全部用户匿名话或者全部用户不匿名化</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ----------------------------------------------------</span></span><br><span class="line"><span class="comment"># ----- nfs 默认对 root 用户做匿名化处理：root_squash</span></span><br><span class="line"><span class="comment"># ----------------------------------------------------</span></span><br><span class="line"><span class="built_in">cd</span> /mnt/work</span><br><span class="line"><span class="built_in">echo</span> 123 &gt; 123.txt</span><br><span class="line">ll</span><br><span class="line"><span class="comment"># -rw-r--r-- 1 nobody nobody 4 May 10 18:25 123.txt</span></span><br><span class="line"><span class="comment"># ----------------------------------------------------</span></span><br><span class="line"><span class="comment"># ----- 编辑服务端 /etc/exports 对 root 不做匿名化：no_root_squash</span></span><br><span class="line"><span class="comment"># ----------------------------------------------------</span></span><br><span class="line"><span class="built_in">echo</span> 456 &gt; 456.txt</span><br><span class="line">ll</span><br><span class="line"><span class="comment"># -rw-r--r-- 1 nobody nobody 4 May 10 18:25 123.txt</span></span><br><span class="line"><span class="comment"># -rw-r--r-- 1 root root 4 May 10 18:27 456.txt</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="7-示例一，采用NFS将服务端的目录共享，客户机挂载到本地"><a href="#7-示例一，采用NFS将服务端的目录共享，客户机挂载到本地" class="headerlink" title="7. 示例一，采用NFS将服务端的目录共享，客户机挂载到本地"></a>7. 示例一，采用NFS将服务端的目录共享，客户机挂载到本地</h4><p>&lt;1&gt; 在服务端和客户端各自配置好yum源，安装并启动rpcbind和nfs<br>@：注意 因为NFS服务依赖于RPC服务，所以必须先开启rpcbind服务，再开启nfs-utils服务</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mount /dev/sr0 /mnt</span><br><span class="line">yum install -y nfs* rpcbind</span><br><span class="line">systemctl <span class="built_in">enable</span> --now rpcbind &amp;&amp; systemctl <span class="built_in">enable</span> --now nfs-utils</span><br></pre></td></tr></table></figure>
-<p>&lt;2&gt; 在服务端根下创建共享文件并设置文件权限为777</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /share/&#123;work,life&#125;</span><br><span class="line"><span class="built_in">chmod</span> -R 777 /share</span><br></pre></td></tr></table></figure>
-<p>&lt;3&gt; 在服务端修改配置文件，添加共享文件夹和客户端ip网段，并查看本机共享目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># --- 修改配置文件</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;/share/work 192.168.99.0/24(rw,sync)&#x27;</span> &gt; /etc/exports</span><br><span class="line">sed -i <span class="string">&#x27;$a\/share/life 192.168.99.0/24(rw,sync)&#x27;</span> /etc/exports</span><br><span class="line"><span class="built_in">cat</span> /etc/exports</span><br><span class="line"><span class="comment"># /share/work 192.168.99.0/24(rw,sync)</span></span><br><span class="line"><span class="comment"># /share/life 192.168.99.0/24(rw,sync)</span></span><br><span class="line"><span class="comment"># --- 重启服务，查看本机共享目录</span></span><br><span class="line">systemctl restart nfs    </span><br><span class="line">showmount -e</span><br><span class="line"><span class="comment"># Export list for server:</span></span><br><span class="line"><span class="comment"># /share/work 192.168.48.0/24</span></span><br><span class="line"><span class="comment"># /share/life 192.168.48.0/24</span></span><br></pre></td></tr></table></figure>
-<p>&lt;4&gt; 服务端防火墙配置</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">firewall-cmd --add-service=nfs --permanent    <span class="comment"># 允许 NFS 服务</span></span><br><span class="line">firewall-cmd --add-service=rpc-bind --permanent   <span class="comment"># 允许 NFS 服务通过 RPC 进行通信</span></span><br><span class="line">firewall-cmd --zone=public --add-service=mountd --permanent    <span class="comment"># 允许 NFS 客户端挂载</span></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
-<p>&lt;5&gt; 服务端 selinux 配置</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">setsebool -P nfs_export_all_rw 1    <span class="comment"># 确保 NFS 服务的相关端口和服务被允许</span></span><br><span class="line">setsebool -P nfs_export_all_ro 1    <span class="comment"># 确保 NFS 服务的相关端口和服务被允许</span></span><br><span class="line">setsebool -P nfs_client 1    <span class="comment"># 允许客户端挂载</span></span><br><span class="line">semanage fcontext -a -t nfs_t <span class="string">&#x27;/share(/.*)?&#x27;</span>    <span class="comment"># 配置 selinux 安全上下文标签</span></span><br><span class="line">restorecon -Rv /share</span><br></pre></td></tr></table></figure>
-<p>&lt;6&gt; 服务端验证</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">exportfs -ra    <span class="comment"># 重新导出 NFS 共享</span></span><br><span class="line">exportfs -v     <span class="comment"># 查看共享目录列表</span></span><br></pre></td></tr></table></figure>
-<p>&lt;7&gt; 在客户端，查看服务端的共享文件，将服务端的共享文件挂载到本地<br>@：server-192.168.99.200，client-192.168.99.201</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">showmount -e 192.168.99.200</span><br><span class="line">mount -t nfs 192.168.99.200:/share /mnt/share    <span class="comment"># 手动挂载</span></span><br><span class="line">mount | grep share</span><br><span class="line"><span class="built_in">cd</span> /mnt/share &amp;&amp; <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># work life</span></span><br></pre></td></tr></table></figure>
-<p>&lt;8&gt; 在客户端，设置开机自动挂载</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">tail</span> -1 /etc/fstab    <span class="comment"># 编辑 /etc/fstab 文件新增 NFS 挂载记录</span></span><br><span class="line"><span class="comment"># 192.168.48.200:/share    /mnt/share    nfs    rw,sync    0    0</span></span><br><span class="line">mount -a    <span class="comment"># 验证 /etc/fstab 自动挂载是否有错</span></span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs     <span class="comment"># 查看挂载信息</span></span><br></pre></td></tr></table></figure>
-
-
-<h4 id="8-示例二，采用autofs按需自动挂载服务器端到本地【直接映射挂载】"><a href="#8-示例二，采用autofs按需自动挂载服务器端到本地【直接映射挂载】" class="headerlink" title="8. 示例二，采用autofs按需自动挂载服务器端到本地【直接映射挂载】"></a>8. 示例二，采用autofs按需自动挂载服务器端到本地【直接映射挂载】</h4><p>&lt;1&gt; 在服务端，客户端，安装autofs并开启<br>@：注意：本地源无提供autofs工具包，需要利用网络源下载autofs工具，此时把手动配置的repo文件cdrom移动至back下，使其不为&#x2F;etc&#x2F;yum.repos.d目录的子文件，则默认使用网络源进行下载；openEuler.repo是系统预设的网络源文件<br>@：注意：因为需要使用网络源下载工具包，固需要确保虚拟机可以正常上网，可以连接外网，且因为网络源中下载链接中都为域名地址，所以需要检查虚拟机网络配置中是否有配置DNS来解析域名</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y autofs &amp;&amp; systemctl <span class="built_in">enable</span> --now autofs</span><br></pre></td></tr></table></figure>
-<p>&lt;2&gt; 配置客户端主配置文件，子配置文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/auto.master.d/titi.autofs</span><br><span class="line"><span class="comment"># /- /etc/auto.titi</span></span><br><span class="line"><span class="built_in">cat</span> /etc/auto.titi</span><br><span class="line"><span class="comment"># /mnt/nfs/work -fstype,nfs,rw,sync 192.168.99.200:/share/work</span></span><br></pre></td></tr></table></figure>
-<p>&lt;3&gt; 客户端确保&#x2F;mnt默认挂载点无文件，重启autofs</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">unmount /mnt/*</span><br><span class="line">systemctl restart autofs</span><br></pre></td></tr></table></figure>
-<p>&lt;4&gt; 不需要使用，无进入目录，显示无挂载，需要使用时，进入目录，显示挂载信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ------- 不需要使用，无进入目录，显示无挂载 -------</span></span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs</span><br><span class="line"><span class="comment"># ------- 无需人工手动创建挂载点 只要在配置文件中编写挂载点 autofs自动创建 -------</span></span><br><span class="line"><span class="built_in">ls</span> /mnt/nfs</span><br><span class="line"><span class="comment"># work</span></span><br><span class="line"><span class="comment"># ------- 进入挂载点 autofs开始自动挂载 -------</span></span><br><span class="line"><span class="built_in">cd</span> /mnt/nfs/work</span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs</span><br><span class="line"><span class="comment"># 192.168.99.200:/share/work    nfs4    17G    2.7G     14G    17%    /mnt/nfs/work</span></span><br><span class="line"><span class="comment"># ------- 退出挂载点 查看系统挂载信息此时还是挂载中 -------</span></span><br><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs</span><br><span class="line"><span class="comment"># 192.168.99.200:/share/work    nfs4    17G    2.7G     14G    17%    /mnt/nfs/work</span></span><br><span class="line"><span class="comment"># ------- 因为autofs具有时效性 后台等待五分钟 若未在挂载点中未使用则自动卸载 -------</span></span><br><span class="line"><span class="comment"># ------- 可以选择等待五分钟/重启autofs/umount手动卸载等刷新挂载信息 -------</span></span><br><span class="line">systemctl restart autofs</span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="9-示例三，采用autofs按需自动挂载服务器端到本地【间接映射挂载】"><a href="#9-示例三，采用autofs按需自动挂载服务器端到本地【间接映射挂载】" class="headerlink" title="9. 示例三，采用autofs按需自动挂载服务器端到本地【间接映射挂载】"></a>9. 示例三，采用autofs按需自动挂载服务器端到本地【间接映射挂载】</h4><p>&lt;1&gt; 在客户端上，先卸载 <code>/mnt/*</code>，再关闭 autofs</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">unmount /mnt/*</span><br><span class="line">systemctl stop autofs</span><br></pre></td></tr></table></figure>
-<p>&lt;2&gt; 配置主子配置文件为间接挂载</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/auto.master.d/titi.autofs</span><br><span class="line"><span class="comment"># /mnt /etc/auto.titi</span></span><br><span class="line"><span class="built_in">cat</span> /etc/auto.titi</span><br><span class="line"><span class="comment"># * -fstype,nfs,rw,sync 192.168.99.200:/share/&amp;</span></span><br><span class="line">systemctl restart autofs</span><br></pre></td></tr></table></figure>
-<p>&lt;3&gt; 不使用时查看挂载情况，显示没有挂载，需要使用时，进入目录work和life，系统自动挂载两个子目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ------- 未进入挂载父目录，此时挂载信息无服务端相关信息 ------- </span></span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs    </span><br><span class="line"><span class="comment"># ------- 查看挂载父目录为空，因为间接挂载，实际目录被隐藏，但是还可以进入子文件 work，life ------- </span></span><br><span class="line"><span class="built_in">ls</span> /mnt    </span><br><span class="line"><span class="built_in">cd</span> /mnt/work</span><br><span class="line"><span class="built_in">cd</span> /mnt/life</span><br><span class="line"><span class="comment"># ------- 再次查看系统挂载信息，挂载成功 ------- </span></span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs    </span><br><span class="line"><span class="comment"># 192.168.99.200:/share/work    nfs4    17G    2.7G     14G    17%    /mnt/work</span></span><br><span class="line"><span class="comment"># 192.168.99.200:/share/life    nfs4    17G    2.7G     14G    17%    /mnt/life</span></span><br></pre></td></tr></table></figure>
-<p>&lt;4&gt; 在服务器端再共享一个子目录shopping，添加该目录到nfs配置文件并重启nfs服务</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -m 777 /share/shopping</span><br><span class="line">sed -i <span class="string">&#x27;$a\/share/shopping 192.168.99.0/24(rw,sync)&#x27;</span> /etc/exports</span><br><span class="line">systemctl restart nfs</span><br></pre></td></tr></table></figure>
-<p>&lt;5&gt; 在客户端，进入shopping后，系统应自动挂载该子目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/shopping</span><br><span class="line"><span class="built_in">df</span> -Th | grep nfs</span><br><span class="line"><span class="comment"># 192.168.99.200:/share/work    nfs4    17G    2.7G     14G    17%    /mnt/work</span></span><br><span class="line"><span class="comment"># 192.168.99.200:/share/life    nfs4    17G    2.7G     14G    17%    /mnt/life</span></span><br><span class="line"><span class="comment"># 192.168.99.200:/share/shopping    nfs4    17G    2.7G     14G    17%    /mnt/shopping</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SSH</title>
-    <url>/2025/01/01/SSH/</url>
-    <content><![CDATA[<h3 id="一、介绍："><a href="#一、介绍：" class="headerlink" title="一、介绍："></a>一、介绍：</h3><p>SSH(Secure Shell)是一个网络安全协议，用于多操作系统间的远程登录与服务，相对与Telnet明文传输而言，SSH是<strong>对传输内容进行了压缩</strong>，后在<strong>加密传送</strong>，<strong>非明文传送</strong>，更加安全可靠，提高传输速度<br><img src="/images/ssh1.png"><br><img src="/images/ssh2.png"></p>
-<h3 id="二、配置文件："><a href="#二、配置文件：" class="headerlink" title="二、配置文件："></a>二、配置文件：</h3><p>服务端程序：<code>/usr/bin/sshd</code>，服务端配置文件：<code>/etc/ssh/sshd_config</code><br>客户端程序：<code>/usr/bin/ssh</code>， 客户端配置文件：<code>/etc/ssh/ssh_config</code></p>
-<h3 id="三、-etc-ssh-sshd-config-主要配置字段："><a href="#三、-etc-ssh-sshd-config-主要配置字段：" class="headerlink" title="三、&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段："></a>三、&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段：</h3><p><code>PermitRootLogin no</code> 是否允许root登录<br><code>PasswordAuthentication yes</code> 是否允许密码登录<br><code>PubkeyAuthentication yes</code> 是否允许公钥登录<br><code>AllowUsers</code>，<code>AllowGroups</code> 白名单<br><code>DenyUsers</code>，<code>DenyGroups</code> 黑名单</p>
-<h3 id="四、其他文件："><a href="#四、其他文件：" class="headerlink" title="四、其他文件："></a>四、其他文件：</h3><p>Client机私钥文件：<code>~/.ssh/id_rsa</code><br>Client机公钥文件：<code>~/.ssh/id_rsa.pub</code><br>Client机信任主机文件：<code>~/.ssh/known_hosts</code><br>Server机接收的公钥文件：<code>~/.ssh/authorized_keys</code></p>
-<h3 id="五、相关命令："><a href="#五、相关命令：" class="headerlink" title="五、相关命令："></a>五、相关命令：</h3><p>生成密钥对：<code>ssh-keygen</code><br>发送公钥：<code>ssh-copy-id  username@ip_address 密码登录：</code>ssh username@IpAddress<code>， </code>ssh -l username IpAddress&#96;</p>
-<h3 id="六、其他："><a href="#六、其他：" class="headerlink" title="六、其他："></a>六、其他：</h3><ul>
-<li>client已经对server设置了ssh免密登录，如何再次使用密码登录？<br>禁止免密登录，即使用密码登录：<code>ssh -o PubkeyAuthentication=no user@IpAddress</code><br>选择登录方式为密码登录：<code>ssh -o PreferredAuthentications=password user@IpAddress</code></li>
-<li>ssh远程执行命令<br><code>ssh user@IpAddress [command]</code></li>
-<li>如何对ssh配置文件进行备份？<br>复制 <code>.bak</code> 备份文件在同一目录下：<code>cp /etc/ssh/sshd_config&#123;,.bak&#125;</code></li>
-<li><code>~/.ssh</code> 目录文件权限必须为 700，除了自己，其他人没有任何权限，否则 ssh 服务器拒绝登录</li>
-<li>服务器上的 <code>~/.ssh/authorized_keys</code> 权限必须为 600</li>
-</ul>
-<h3 id="七、scp"><a href="#七、scp" class="headerlink" title="七、scp"></a>七、scp</h3><p><strong>scp命令——secure copy</strong><br>&lt;1&gt; scp命令适合传送众多的小型数据，基于ssh的远程文件拷贝功能，享有与ssh相同级别的数据加密。cp命令仅用于本机内部文件拷贝与传输，scp适用于不同的服务器之间文件拷贝。<br>&lt;2&gt; 格式：<code>scp 选项 源头地址 目标地址</code><br><strong>下载&#x2F;从远端传到本地：</strong> <code>scp [option]  [user@IP_address:path]  [local_path]</code><br><strong>上传&#x2F;从本地传到远端：</strong> <code>scp [option]  [local_path]  [user@IP_address:path]</code><br>&lt;3&gt; 选项：<code>-r</code> 递归；<code>-q</code> 精简模式 不显示进度条；<code>-p</code> 保持原属性；<code>-v</code> 显示传输细节；<code>-P</code> 指定端口号；<code>-C</code> 压缩传输；</p>
-<h3 id="八、sftp"><a href="#八、sftp" class="headerlink" title="八、sftp"></a>八、sftp</h3><p><strong>sftp命令——secure file transfer protocol</strong><br>&lt;1&gt; sftp是交互性命令，也是基于ssh服务的基本功能，sftp相当于在两台主机之间建立桥梁，可以对主机和服务机做操作<br>&lt;2&gt; FTP与SFTP之间的不同：<br>FTP是使用TCP&#x2F;IP协议的，传输效率高，使用明文传输，windows下较多使用FTP，FTP也较适用于内网；而SFTP属于SSH协议的一部分，与SSH同根同源，使用加密传输，传输效率低，较适用于与外网建立连接，确保数据机密性与完整性。<br>&lt;3&gt; 格式：</p>
-<ul>
-<li><strong>登录到服务端：</strong> <code>ssh user@IP_address  (-P port)</code></li>
-<li><strong>使用子命令传输</strong><br><strong>下载：</strong> <code>get 主机路径 本地路径</code><br><strong>上传：</strong> <code>put 本地路径 主机路径</code><br><code>普通命令</code>：作用在服务端<br><code>l+普通命令</code>：作用在本地（有时有的命令无法使用，可以使用 <code>!+command</code> 方式，<code>!</code> 叹号在这里表示逃离回本地shell执行）</li>
-</ul>
-<h3 id="九、rsync"><a href="#九、rsync" class="headerlink" title="九、rsync"></a>九、rsync</h3><p><strong>rsync命令——remote synchronize</strong><br>&lt;1&gt; rsync最大的特点在于可以增量传输，对已存在的文件不会进行二次传输，减少数据冗余。rsync在传输同一份文件时，第一次进行全部复制，后在复制属于增量传输，仅对新增的改变的进行传输，原存在的不再二次传输。<br>&lt;2&gt; 格式：<code>rsync  [command]  [源头地址]  [目标地址]</code><br>常用选项：<code>-r</code> 递归； <code>-z</code> 压缩；<code>-a</code> 归档； <code>-v</code> 展示详细内容；<code>-q</code> 精简输出；<br>配置文件：&#x2F;etc&#x2F;rsyncd.conf</p>
-]]></content>
+    <title>VPN</title>
+    <url>/2024/12/31/VPN/</url>
+    <content><![CDATA[<h2 id="一、-PPTP-协议"><a href="#一、-PPTP-协议" class="headerlink" title="一、 PPTP 协议"></a>一、 PPTP 协议</h2><p>点对点隧道协议，Point-to-Point Tunneling Protocol，是实现<a href="https://zh.wikipedia.org/wiki/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91" title="虚拟专用网">虚拟专用网</a>（VPN）的一种方式。<br>PPTP 使用<a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE" title="传输控制协议">传输控制协议</a>（TCP）建立控制通道以发送控制命令，并利用<a href="https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E8%B7%AF%E7%94%B1%E5%B0%81%E8%A3%85" title="通用路由封装">通用路由封装</a>（GRE）通道封装<a href="https://zh.wikipedia.org/wiki/%E7%82%B9%E5%AF%B9%E7%82%B9%E5%8D%8F%E8%AE%AE" title="点对点协议">点对点协议</a>（PPP）数据包以发送数据。</p>
+<h2 id="二、-PPTP-服务"><a href="#二、-PPTP-服务" class="headerlink" title="二、 PPTP 服务"></a>二、 PPTP 服务</h2><h4 id="2-1-基础信息："><a href="#2-1-基础信息：" class="headerlink" title="2.1 基础信息："></a>2.1 基础信息：</h4><p>下载安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y ppp </span><br><span class="line">wget http://dl.fedoraproject.org/pub/archive/epel/7/x86_64/Packages/p/pptpd-1.4.0-2.el7.x86_64.rpm</span><br><span class="line">yum install -y pptpd-1.4.0-2.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p>端口：1723&#x2F;tcp</p>
+<h4 id="2-2-防火墙"><a href="#2-2-防火墙" class="headerlink" title="2.2 防火墙"></a>2.2 防火墙</h4><p><code>--add-port=1723/tcp</code>，<code>--add-protocol=gre</code>，<code>--add-service=pptp</code>，<code>--zone=trusted --add-interface=ppp+</code>（该命令的作用是将所有以 ppp 开头的接口，例如 ppp0、ppp1 等添加到 trusted 区域，- –add-interface 用来将一个特定的网络接口添加到指定的区域中。ppp+ 是一个接口的名称。这里的 ppp+ 是一个匹配模式，ppp 通常是点对点协议 PPP 接口的名称，常见于拨号连接、VPN、拨号调制解调器等）</p>
+<h4 id="2-3-主配置文件：-etc-pptpd-conf"><a href="#2-3-主配置文件：-etc-pptpd-conf" class="headerlink" title="2.3 主配置文件：&#x2F;etc&#x2F;pptpd.conf"></a>2.3 主配置文件：&#x2F;etc&#x2F;pptpd.conf</h4><p>相关字段：<br>option 配置PPTP连接。选项文件包含了有关连接的各种配置设置，例如认证方式、加密方式、DNS服务器等<br>localip 指定了PPTP服务器在VPN连接中使用的本地IP地址<br>remoteip 指定了PPTP服务器用于分配给VPN客户端的IP地址范围</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">option /etc/ppp/options.pptpd</span><br><span class="line">localip &lt;PPTP服务器的IP地址&gt;</span><br><span class="line">remoteip &lt;分配给客户端的IP地址范围&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-用户配置文件：-etc-ppp-chap-secrets"><a href="#2-4-用户配置文件：-etc-ppp-chap-secrets" class="headerlink" title="2.4 用户配置文件：&#x2F;etc&#x2F;ppp&#x2F;chap-secrets"></a>2.4 用户配置文件：&#x2F;etc&#x2F;ppp&#x2F;chap-secrets</h4><p>添加用户名、服务器、密码和IP地址的条目。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Secrets for authentication using CHAP</span></span><br><span class="line"><span class="comment"># client        server  secret                  IP addresses</span></span><br><span class="line">  user1         *       password1               *</span><br><span class="line">  user2         *       password2               *</span><br></pre></td></tr></table></figure>
+<h4 id="2-5-开启linux的IP转发功能"><a href="#2-5-开启linux的IP转发功能" class="headerlink" title="2.5 开启linux的IP转发功能"></a>2.5 开启linux的IP转发功能</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sysctl -p /proc/sys/net/ipv4/ip_forward	   <span class="comment"># 刷新配置生效</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-6-开启-PPTP-的穿透功能"><a href="#2-6-开启-PPTP-的穿透功能" class="headerlink" title="2.6 开启 PPTP 的穿透功能"></a>2.6 开启 PPTP 的穿透功能</h4><p>这个命令用于加载 ip_nat_pptp 内核模块，以支持PPTP的网络地址转换（NAT）。<br>PPTP协议本身需要特殊的NAT处理来正确地转发PPTP通信中的控制和数据流量</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe ip_nat_pptp</span><br><span class="line">lsmod | grep pptp</span><br></pre></td></tr></table></figure>
+<h4 id="2-7-添加-pptp-服务的-xml-文件"><a href="#2-7-添加-pptp-服务的-xml-文件" class="headerlink" title="2.7 添加 pptp 服务的 xml 文件"></a>2.7 添加 pptp 服务的 xml 文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/lib/firewalld/services</span><br><span class="line"><span class="built_in">cp</span> -p http.xml pptp.xml</span><br><span class="line">vim pptp.xml</span><br><span class="line">&lt;service&gt;</span><br><span class="line">	...</span><br><span class="line">	&lt;port protocol=<span class="string">&quot;tcp&quot;</span> port=<span class="string">&quot;1723&quot;</span> /&gt;</span><br><span class="line">&lt;/service&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -388,29 +411,6 @@
 <h3 id="十三、常见报错"><a href="#十三、常见报错" class="headerlink" title="十三、常见报错"></a>十三、常见报错</h3><p>NOT FOUND：文件路径找不到，路径错误<br>Forbidden：权限错误</p>
 <h3 id="十四、访问出错排查"><a href="#十四、访问出错排查" class="headerlink" title="十四、访问出错排查"></a>十四、访问出错排查</h3><p>1，网络是否通常（内网和虚拟机，虚拟机内网ping外网）<br>2，DAC权限是否可以操作<br>3，防火墙firewalld是否关闭<br>4，Apache&#x2F;samba&#x2F;auditd是否开启（关乎是否能上网，是否能window与linux远程登陆，是否记录审计日志）<br>5，进程与文件是否属于同一个域<br>6，策略方案getsebool -a | grep<br>7，http 端口</p>
 ]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VPN</title>
-    <url>/2024/12/31/VPN/</url>
-    <content><![CDATA[<h2 id="一、-PPTP-协议"><a href="#一、-PPTP-协议" class="headerlink" title="一、 PPTP 协议"></a>一、 PPTP 协议</h2><p>点对点隧道协议，Point-to-Point Tunneling Protocol，是实现<a href="https://zh.wikipedia.org/wiki/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91" title="虚拟专用网">虚拟专用网</a>（VPN）的一种方式。<br>PPTP 使用<a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE" title="传输控制协议">传输控制协议</a>（TCP）建立控制通道以发送控制命令，并利用<a href="https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E8%B7%AF%E7%94%B1%E5%B0%81%E8%A3%85" title="通用路由封装">通用路由封装</a>（GRE）通道封装<a href="https://zh.wikipedia.org/wiki/%E7%82%B9%E5%AF%B9%E7%82%B9%E5%8D%8F%E8%AE%AE" title="点对点协议">点对点协议</a>（PPP）数据包以发送数据。</p>
-<h2 id="二、-PPTP-服务"><a href="#二、-PPTP-服务" class="headerlink" title="二、 PPTP 服务"></a>二、 PPTP 服务</h2><h4 id="2-1-基础信息："><a href="#2-1-基础信息：" class="headerlink" title="2.1 基础信息："></a>2.1 基础信息：</h4><p>下载安装：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y ppp </span><br><span class="line">wget http://dl.fedoraproject.org/pub/archive/epel/7/x86_64/Packages/p/pptpd-1.4.0-2.el7.x86_64.rpm</span><br><span class="line">yum install -y pptpd-1.4.0-2.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
-<p>端口：1723&#x2F;tcp</p>
-<h4 id="2-2-防火墙"><a href="#2-2-防火墙" class="headerlink" title="2.2 防火墙"></a>2.2 防火墙</h4><p><code>--add-port=1723/tcp</code>，<code>--add-protocol=gre</code>，<code>--add-service=pptp</code>，<code>--zone=trusted --add-interface=ppp+</code>（该命令的作用是将所有以 ppp 开头的接口，例如 ppp0、ppp1 等添加到 trusted 区域，- –add-interface 用来将一个特定的网络接口添加到指定的区域中。ppp+ 是一个接口的名称。这里的 ppp+ 是一个匹配模式，ppp 通常是点对点协议 PPP 接口的名称，常见于拨号连接、VPN、拨号调制解调器等）</p>
-<h4 id="2-3-主配置文件：-etc-pptpd-conf"><a href="#2-3-主配置文件：-etc-pptpd-conf" class="headerlink" title="2.3 主配置文件：&#x2F;etc&#x2F;pptpd.conf"></a>2.3 主配置文件：&#x2F;etc&#x2F;pptpd.conf</h4><p>相关字段：<br>option 配置PPTP连接。选项文件包含了有关连接的各种配置设置，例如认证方式、加密方式、DNS服务器等<br>localip 指定了PPTP服务器在VPN连接中使用的本地IP地址<br>remoteip 指定了PPTP服务器用于分配给VPN客户端的IP地址范围</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">option /etc/ppp/options.pptpd</span><br><span class="line">localip &lt;PPTP服务器的IP地址&gt;</span><br><span class="line">remoteip &lt;分配给客户端的IP地址范围&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="2-4-用户配置文件：-etc-ppp-chap-secrets"><a href="#2-4-用户配置文件：-etc-ppp-chap-secrets" class="headerlink" title="2.4 用户配置文件：&#x2F;etc&#x2F;ppp&#x2F;chap-secrets"></a>2.4 用户配置文件：&#x2F;etc&#x2F;ppp&#x2F;chap-secrets</h4><p>添加用户名、服务器、密码和IP地址的条目。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Secrets for authentication using CHAP</span></span><br><span class="line"><span class="comment"># client        server  secret                  IP addresses</span></span><br><span class="line">  user1         *       password1               *</span><br><span class="line">  user2         *       password2               *</span><br></pre></td></tr></table></figure>
-<h4 id="2-5-开启linux的IP转发功能"><a href="#2-5-开启linux的IP转发功能" class="headerlink" title="2.5 开启linux的IP转发功能"></a>2.5 开启linux的IP转发功能</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sysctl -p /proc/sys/net/ipv4/ip_forward	   <span class="comment"># 刷新配置生效</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-6-开启-PPTP-的穿透功能"><a href="#2-6-开启-PPTP-的穿透功能" class="headerlink" title="2.6 开启 PPTP 的穿透功能"></a>2.6 开启 PPTP 的穿透功能</h4><p>这个命令用于加载 ip_nat_pptp 内核模块，以支持PPTP的网络地址转换（NAT）。<br>PPTP协议本身需要特殊的NAT处理来正确地转发PPTP通信中的控制和数据流量</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe ip_nat_pptp</span><br><span class="line">lsmod | grep pptp</span><br></pre></td></tr></table></figure>
-<h4 id="2-7-添加-pptp-服务的-xml-文件"><a href="#2-7-添加-pptp-服务的-xml-文件" class="headerlink" title="2.7 添加 pptp 服务的 xml 文件"></a>2.7 添加 pptp 服务的 xml 文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/lib/firewalld/services</span><br><span class="line"><span class="built_in">cp</span> -p http.xml pptp.xml</span><br><span class="line">vim pptp.xml</span><br><span class="line">&lt;service&gt;</span><br><span class="line">	...</span><br><span class="line">	&lt;port protocol=<span class="string">&quot;tcp&quot;</span> port=<span class="string">&quot;1723&quot;</span> /&gt;</span><br><span class="line">&lt;/service&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -499,6 +499,33 @@
       </tags>
   </entry>
   <entry>
+    <title>文件操作</title>
+    <url>/2025/01/04/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="一、文件基础操作命令"><a href="#一、文件基础操作命令" class="headerlink" title="一、文件基础操作命令"></a>一、文件基础操作命令</h3><p><strong>进入主目录</strong> ： <code>cd</code><br><strong>查看当前目录</strong>： <code>pwd</code><br><strong>查看当前目录下的文件</strong>： <code>ls</code>，<code>ls -l</code>，<code>ls -a</code>， <code>ls -ld</code></p>
+<p><strong>创建文件&#x2F;文件夹&#x2F;目录</strong>： <code>touch</code> 命令创建文件，<code>mkdir</code> 命令创建文件夹创建目录<br><strong>输出内容到文件中</strong>： <code>echo</code> 命令   <code> echo 内容 &gt;/&gt;&gt; 文件</code>，&gt;直接覆盖内容，&gt;&gt;表示追加定向</p>
+<p><strong>显示查看文件内容</strong>： <code>cat+文件名</code><br><strong>查看大型文件01</strong>： <code>more+文件名</code><br>cat比较适合打开小型文件，一次性全显示出来，more适合查看打开大型文件，从头开始展示文件，以分屏展示，百分比进行显示内容调节，直接从顶部开始分页显示，左下角是显示进度百分比，可向后浏览，按enter进行一行一行翻，按空格进行一页一页翻，按Q退出此界面<br><strong>查看大型文件02</strong>： <code>less+文件名</code><br>按键盘上下箭头上下拖动浏览，前后均可浏览，按Q键退出<br><strong>查看文件默认前十行</strong>： <code>head</code>，<code>head -5</code> 查看前五行<br><strong>查看文件默认后十行</strong>： <code>tail</code>，<code>tail -5</code> 查看后五行</p>
+<p><strong>在系统内查找文件路径</strong>： <code>find 寻找地址 -name 文件名</code><br><strong>在文件中搜索有无此关键词</strong>： <code>grep+关键词词条+目标路径</code></p>
+<p><strong>复制</strong>： <code>cp+源头地址+目标地址 </code>（-r 递归<br><strong>移动</strong>： <code>mv+源头地址+目标地址</code></p>
+<p><strong>切换目录</strong>：  <code>cd+目录</code><br><strong>返回上层目录</strong>： <code>cd ..</code><br><strong>返回当前目录</strong>： <code>cd .</code><br><strong>返回家目录</strong>： <code>cd+空格</code> 或者 <code>cd ~</code></p>
+<p><strong>删除</strong>： （没有强制删除的话会提醒是否删除该文件？输入yes即可）<br>删除文件：<code>rm 文件名</code><br>强制删除文件：<code>rm -f 文件名</code><br>删除文件夹：<code>rm -r 文件夹</code><br>强制删除文件夹：<code>rm -rf 文件夹</code></p>
+<p><strong>创建递归文件</strong>：<br>创建文件夹：<code>mkdir</code><br>创建递归文件：<code>mkdir -p</code>（此处p表示parent，父子关系的多层文件）<br>递归查看opt文件：<code>ls -R /opt</code><br><strong>创建链接文件</strong>： <code>In -s</code> 源头链接 目标地址<br><strong>同时创建多个目录</strong>： 使用<code>mkdir</code>命令，中间用 <em>空格</em> 隔开即可</p>
+<p><strong>命令别名</strong>：<code>alias+别名=”命令名”</code><br>输入alias查看别名列表</p>
+<p><strong>统计文件大小</strong>： <code>du+选项+文件路径</code><br>s显示该目录总大小，h表示显示单位</p>
+<p><strong>通配符</strong>：<br>代表一个字符：<code>?</code><br>代表两个字符：<code>??</code><br>代表任意个字符：<code>*</code><br>匹配范围内的字符：<code>[]</code>中括号内用<code>-</code>相连，示例：<code>[1-3]</code><br>匹配字符集合：<code>&#123;&#125;</code>大括号内用 <code>,</code> 隔开，示例：<code>&#123;1,4&#125;</code></p>
+<h3 id="二、文件查找和压缩"><a href="#二、文件查找和压缩" class="headerlink" title="二、文件查找和压缩"></a>二、文件查找和压缩</h3><h4 id="1-find"><a href="#1-find" class="headerlink" title="1. find"></a>1. find</h4><p>格式：<code>find 路径 选项 内容</code><br><img src="/images/find.png"><br><strong>A 基础操作</strong><br>使用通配符搭配-name选项进行查找：<code>find / -name grub??</code><br>查找在&#x2F;etc下五天内被访问过的文件：<code>find /etc -atime -5</code><br>查找&#x2F;etc下所有大小为10M的文件：<code>find /etc -size +10</code><br>查找&#x2F;home 下yhx用户的所有文件：<code>find /home -user yhx</code><br>文件名不分大小查找：<code>find / -iname abc</code><br><strong>B 查找并操作</strong><br>格式： <code>find 路径 选项 (-print) -exec (-ok) 命令 &#123;&#125; \;</code><br>作用： -exec 的作用类似于管道符，把前面用find命令找出来的所有文件传递到后面做操作<br>其中{}代表占位符，指前面搜索到的文件 \；是结尾符<br>注意： 结尾符 ; 前面一定要有空格与前面内容隔开<br>注意：删除文件时，为避免程序出错等问题，删除时最好使用具有交互性指令，更加安全保险，两种方式如下：<br>【find -ok】ok选项和exec选项雷同，ok选项具有交互性：<code>find /home -name &#39;data*&#39; -ok rm -rf &#123;&#125; \;</code><br>【find -exec rm -i】rm -i选项在删除时也会弹出提示文本：<code>find /home -name &#39;data*&#39; -exec rm -i &#123;&#125; \;</code></p>
+<h4 id="2-grep"><a href="#2-grep" class="headerlink" title="2. grep"></a>2. grep</h4><p>格式：<code>grep 选项 关键词 目标文件</code><br>选项：<br><code>-i</code> 查找时忽略大小<br><code>-c</code> 返回这个关键词出现的次数（一行多个只有效一个）<br><code>-n</code> 输出时一并输出行号<br><code>-v</code> 反选-返回没有这个关键词的行<br>特殊通配符： <code>^</code>字符——返回以这个字符开头的    字符<code>$</code>返回以这个字符结尾的</p>
+<h4 id="3-wc"><a href="#3-wc" class="headerlink" title="3. wc"></a>3. wc</h4><p>格式：<code>wc [选项] 路径</code><br>选项：<br>-l 只显示此路径的行数（lines）<br>-w 只显示这个文件有多少单词&#x2F;字符串（words）<br>-c 只显示这个文件有多少字节（bytes）<br>-m 只显示这个文件有多少字符（chars）</p>
+<h4 id="4-tar"><a href="#4-tar" class="headerlink" title="4. tar"></a>4. tar</h4><p>格式：<code>[tar] [选项] [打包/压缩/解压后的文件名] [被打包的文件]</code><br>常用搭配：<br>（1）使用gzip 工具，<code>tar -czvf /压缩后的文件 /被打包压缩的文件</code><br>（2）使用 bzip2 工具，<code>tar -cjvf /压缩后的文件 /被打包压缩的文件</code><br>注意：压缩时，如果有多个目录，用空格隔开<br>压缩时性能对比：压缩速度 gzip &gt; bzip2<br>压缩时间 bzip2 &gt; gzip<br><img src="/images/tar.png"></p>
+<h4 id="5-zip"><a href="#5-zip" class="headerlink" title="5. zip"></a>5. zip</h4><p>压缩格式：<code>zip 压缩后名称 文件</code><br>常用命令：<br><code>zip -r</code> 递归压缩，同时压缩目录<br><code>zip -d</code> 指定解压路径<br>解压格式：<code>unzip 文件 (-d) 解压路径</code></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>代理</title>
     <url>/2024/12/31/%E4%BB%A3%E7%90%86/</url>
     <content><![CDATA[<h2 id="一、Proxy-代理和-NAT-地址转换的区别"><a href="#一、Proxy-代理和-NAT-地址转换的区别" class="headerlink" title="一、Proxy 代理和 NAT 地址转换的区别"></a>一、Proxy 代理和 NAT 地址转换的区别</h2><p><strong>NAT：</strong> 将一个内网 IP 映射为一个公网 IP 才可访问公网，不存在缓存加速功能，适用于小型网络如家庭路由器<br><strong>Proxy：</strong> 相当于一个局域网的出入口，代理服务器拥有一个公网 IP，所有内网 IP 将数据包发送给代理服务器，代理服务器接收数据包后进行转发到公网中；代理服务器因为频繁接收多个请求，会将某些内网 IP 频繁访问的数据进行缓存，每一个生命周期 TTL 过后进行一次更新</p>
@@ -575,33 +602,6 @@
 <p>（6）在测试机上验证<br>测试机的网关 gateway 指向该代理机，测试机的所有网络数据包发送到代理机的 80 端口进行端口转发，测试成功</p>
 <hr>
 <p>@ <a href="https://zybuluo.com/2303010148/note/2568518">Squid 正向代理服务器</a></p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件操作</title>
-    <url>/2025/01/04/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="一、文件基础操作命令"><a href="#一、文件基础操作命令" class="headerlink" title="一、文件基础操作命令"></a>一、文件基础操作命令</h3><p><strong>进入主目录</strong> ： <code>cd</code><br><strong>查看当前目录</strong>： <code>pwd</code><br><strong>查看当前目录下的文件</strong>： <code>ls</code>，<code>ls -l</code>，<code>ls -a</code>， <code>ls -ld</code></p>
-<p><strong>创建文件&#x2F;文件夹&#x2F;目录</strong>： <code>touch</code> 命令创建文件，<code>mkdir</code> 命令创建文件夹创建目录<br><strong>输出内容到文件中</strong>： <code>echo</code> 命令   <code> echo 内容 &gt;/&gt;&gt; 文件</code>，&gt;直接覆盖内容，&gt;&gt;表示追加定向</p>
-<p><strong>显示查看文件内容</strong>： <code>cat+文件名</code><br><strong>查看大型文件01</strong>： <code>more+文件名</code><br>cat比较适合打开小型文件，一次性全显示出来，more适合查看打开大型文件，从头开始展示文件，以分屏展示，百分比进行显示内容调节，直接从顶部开始分页显示，左下角是显示进度百分比，可向后浏览，按enter进行一行一行翻，按空格进行一页一页翻，按Q退出此界面<br><strong>查看大型文件02</strong>： <code>less+文件名</code><br>按键盘上下箭头上下拖动浏览，前后均可浏览，按Q键退出<br><strong>查看文件默认前十行</strong>： <code>head</code>，<code>head -5</code> 查看前五行<br><strong>查看文件默认后十行</strong>： <code>tail</code>，<code>tail -5</code> 查看后五行</p>
-<p><strong>在系统内查找文件路径</strong>： <code>find 寻找地址 -name 文件名</code><br><strong>在文件中搜索有无此关键词</strong>： <code>grep+关键词词条+目标路径</code></p>
-<p><strong>复制</strong>： <code>cp+源头地址+目标地址 </code>（-r 递归<br><strong>移动</strong>： <code>mv+源头地址+目标地址</code></p>
-<p><strong>切换目录</strong>：  <code>cd+目录</code><br><strong>返回上层目录</strong>： <code>cd ..</code><br><strong>返回当前目录</strong>： <code>cd .</code><br><strong>返回家目录</strong>： <code>cd+空格</code> 或者 <code>cd ~</code></p>
-<p><strong>删除</strong>： （没有强制删除的话会提醒是否删除该文件？输入yes即可）<br>删除文件：<code>rm 文件名</code><br>强制删除文件：<code>rm -f 文件名</code><br>删除文件夹：<code>rm -r 文件夹</code><br>强制删除文件夹：<code>rm -rf 文件夹</code></p>
-<p><strong>创建递归文件</strong>：<br>创建文件夹：<code>mkdir</code><br>创建递归文件：<code>mkdir -p</code>（此处p表示parent，父子关系的多层文件）<br>递归查看opt文件：<code>ls -R /opt</code><br><strong>创建链接文件</strong>： <code>In -s</code> 源头链接 目标地址<br><strong>同时创建多个目录</strong>： 使用<code>mkdir</code>命令，中间用 <em>空格</em> 隔开即可</p>
-<p><strong>命令别名</strong>：<code>alias+别名=”命令名”</code><br>输入alias查看别名列表</p>
-<p><strong>统计文件大小</strong>： <code>du+选项+文件路径</code><br>s显示该目录总大小，h表示显示单位</p>
-<p><strong>通配符</strong>：<br>代表一个字符：<code>?</code><br>代表两个字符：<code>??</code><br>代表任意个字符：<code>*</code><br>匹配范围内的字符：<code>[]</code>中括号内用<code>-</code>相连，示例：<code>[1-3]</code><br>匹配字符集合：<code>&#123;&#125;</code>大括号内用 <code>,</code> 隔开，示例：<code>&#123;1,4&#125;</code></p>
-<h3 id="二、文件查找和压缩"><a href="#二、文件查找和压缩" class="headerlink" title="二、文件查找和压缩"></a>二、文件查找和压缩</h3><h4 id="1-find"><a href="#1-find" class="headerlink" title="1. find"></a>1. find</h4><p>格式：<code>find 路径 选项 内容</code><br><img src="/images/find.png"><br><strong>A 基础操作</strong><br>使用通配符搭配-name选项进行查找：<code>find / -name grub??</code><br>查找在&#x2F;etc下五天内被访问过的文件：<code>find /etc -atime -5</code><br>查找&#x2F;etc下所有大小为10M的文件：<code>find /etc -size +10</code><br>查找&#x2F;home 下yhx用户的所有文件：<code>find /home -user yhx</code><br>文件名不分大小查找：<code>find / -iname abc</code><br><strong>B 查找并操作</strong><br>格式： <code>find 路径 选项 (-print) -exec (-ok) 命令 &#123;&#125; \;</code><br>作用： -exec 的作用类似于管道符，把前面用find命令找出来的所有文件传递到后面做操作<br>其中{}代表占位符，指前面搜索到的文件 \；是结尾符<br>注意： 结尾符 ; 前面一定要有空格与前面内容隔开<br>注意：删除文件时，为避免程序出错等问题，删除时最好使用具有交互性指令，更加安全保险，两种方式如下：<br>【find -ok】ok选项和exec选项雷同，ok选项具有交互性：<code>find /home -name &#39;data*&#39; -ok rm -rf &#123;&#125; \;</code><br>【find -exec rm -i】rm -i选项在删除时也会弹出提示文本：<code>find /home -name &#39;data*&#39; -exec rm -i &#123;&#125; \;</code></p>
-<h4 id="2-grep"><a href="#2-grep" class="headerlink" title="2. grep"></a>2. grep</h4><p>格式：<code>grep 选项 关键词 目标文件</code><br>选项：<br><code>-i</code> 查找时忽略大小<br><code>-c</code> 返回这个关键词出现的次数（一行多个只有效一个）<br><code>-n</code> 输出时一并输出行号<br><code>-v</code> 反选-返回没有这个关键词的行<br>特殊通配符： <code>^</code>字符——返回以这个字符开头的    字符<code>$</code>返回以这个字符结尾的</p>
-<h4 id="3-wc"><a href="#3-wc" class="headerlink" title="3. wc"></a>3. wc</h4><p>格式：<code>wc [选项] 路径</code><br>选项：<br>-l 只显示此路径的行数（lines）<br>-w 只显示这个文件有多少单词&#x2F;字符串（words）<br>-c 只显示这个文件有多少字节（bytes）<br>-m 只显示这个文件有多少字符（chars）</p>
-<h4 id="4-tar"><a href="#4-tar" class="headerlink" title="4. tar"></a>4. tar</h4><p>格式：<code>[tar] [选项] [打包/压缩/解压后的文件名] [被打包的文件]</code><br>常用搭配：<br>（1）使用gzip 工具，<code>tar -czvf /压缩后的文件 /被打包压缩的文件</code><br>（2）使用 bzip2 工具，<code>tar -cjvf /压缩后的文件 /被打包压缩的文件</code><br>注意：压缩时，如果有多个目录，用空格隔开<br>压缩时性能对比：压缩速度 gzip &gt; bzip2<br>压缩时间 bzip2 &gt; gzip<br><img src="/images/tar.png"></p>
-<h4 id="5-zip"><a href="#5-zip" class="headerlink" title="5. zip"></a>5. zip</h4><p>压缩格式：<code>zip 压缩后名称 文件</code><br>常用命令：<br><code>zip -r</code> 递归压缩，同时压缩目录<br><code>zip -d</code> 指定解压路径<br>解压格式：<code>unzip 文件 (-d) 解压路径</code></p>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -708,6 +708,33 @@
 ]]></content>
   </entry>
   <entry>
+    <title>权限</title>
+    <url>/2025/01/04/%E6%9D%83%E9%99%90/</url>
+    <content><![CDATA[<h2 id="一、一般权限"><a href="#一、一般权限" class="headerlink" title="一、一般权限"></a>一、一般权限</h2><p><strong>1. chmod修改权限—chown修改所有者—chgrp修改所属组</strong><br><strong>2. 权限位-硬链接数-属主-属组-大小-最后修改时间-文件或目录名称</strong></p>
+<p><strong>3. 文件权限的四种状态</strong><br>读权限<code>read</code>：允许用户读取文件内容，查看文件的属性内容信息—【<code>r</code>】<br>写权限<code>write</code>：允许用户对文件进行创建&#x2F;修改&#x2F;移动&#x2F;重命名等操作—【<code>w</code>】<br>执行权限<code>execute</code>：允许用户运行文件，执行脚本—【<code>x</code>】—对于文件属于执行模式 对于目录属于访问模式<br>无权限：用户对此文件目录无任何权限—【<code>-</code>】<br>权限只限制普通用户，限制不了超级用户root</p>
+<p><strong>4. 文件的归属关系</strong><br>所有者<code>user</code>：拥有此文件&#x2F;目录的用户【<code>u</code>】<br>所属组<code>group</code>：拥有此文件&#x2F;目录的用户组【<code>g</code>】<br>其他用户<code>other</code>：除去所有者和所属组之外的第三方用户【<code>o</code>】<br>所有用户<code>all</code>：包含以上三种用户【<code>a</code>】<br>优先级别：所有者 &gt; 所属组 &gt; 其他用户</p>
+<p><strong>5. 权限位的组成-字符模式</strong><br>权限位共有十个字符，共分成四组，第一组为文件类型，第二三四组分别各有三个字符位，二三四组代表所有	者权限&#x2F;所属组权限&#x2F;其他用户权限，其中文件类型：<br>-表示普通文件；b表示块设备文件通常位于&#x2F;dev目录下；d表示目录文件；s表示套接口文件；l表示软链接	文件例快捷方式等；p为管道文件用于通信；c为字符设备文件例键盘显示器文件等；<br><img src="/images/%E6%9D%83%E9%99%901.png"><br><img src="/images/%E6%9D%83%E9%99%902.png"></p>
+<p><strong>6. 权限位的组成-数字模式</strong><br>权限位由八进制的数字表示，r对应4，w对应2，x对应1，配置时需要求和使用<br><img src="/images/%E6%9D%83%E9%99%903.png"></p>
+<p><strong>7. chmod 更改文件目录权限</strong><br>英文全名：change the permissions mode of a file（更改文件的权限模式）<br>命令所在路径：&#x2F;bin&#x2F;chmod<br>功能描述：更改文件&#x2F;目录权限<br>命令格式：<code>chmod [ugoa] [+-=] [rwx]</code> 文件名（ugoa代表具体用户 +-&#x3D;代表加&#x2F;减&#x2F;赋值权限 rwx表示具体权限内容）<br>          <code>chmod [nnn] 文件名</code> （需要输入三个数字代表三种用户的权限）<br>常用命令选项：-R 递归修改文件权限</p>
+<p><strong>8. chown 更改文件目录所有者</strong><br>英文全名：change file ownership（更改权限所有者）<br>命令所在路径：&#x2F;bin&#x2F;chown<br>功能描述：更改文件&#x2F;目录的所有者<br>命令格式：<code>chown [-R] 用户 文件或目录</code><br>          <code>chown [-R] 用户:用户组 文件或目录</code><br>          <code>chown [-R] :用户组 文件或目录</code><br>常用命令选项：-R 递归修改文件权限<br>               -c 在更改时显示详细报告</p>
+<p><strong>9. chgrp 更改文件目录所属组</strong><br>英文全名：change file group ownership<br>命令所在路径：&#x2F;bin&#x2F;chgrp<br>功能描述：改变文件&#x2F;目录的所属组<br>命令格式：<code>chgrp 用户组 文件/目录</code></p>
+<h2 id="二、特殊权限"><a href="#二、特殊权限" class="headerlink" title="二、特殊权限"></a>二、特殊权限</h2><p><img src="/images/%E6%9D%83%E9%99%904.png"><br><img src="/images/%E6%9D%83%E9%99%905.png"></p>
+<p><strong>1.  命令名称：SUID</strong><br>占位：占用所有者的x位，所有者的 x 权限标识会变成 s<br>格式：字符法：<code>chmod u+s 文件名</code>   <code>chmod u-s 文件名</code><br>       数字法：<code>chmod 4[原有权限三位] 文件名</code>   <code>chmod 0[原有权限三位] 文件名</code><br>意义：对于一个可执行的文件用了SUID权限后，执行者会临时拥有所有者的权限，执行后则恢复原有身份，这个	  过程只是为了提高效率<br>范围：仅对可执行文件(命令)有意义<br>注意：使用数字修改SUID时，在原权限前加上SUID的数字表示法“4”即可，后接原有的权限三位数字<br>示例：passwd命令文件的属主执行位为s，普通用户(执行者)在使用此命令时拥有和属主root同等权力，可以修改密码</p>
+<p><strong>2. 命令名称：SGID</strong><br>占位：占用所属组的x位，所属组的 x 权限标识会变成 s<br>格式：<code>chmod g+s 文件名</code>  <code>chmod g-s 文件名</code><br>      <code>chmod 2[原有权限三位] 文件名</code>  <code>无删除SGID的数字表示法</code><br>意义：对文件传递所属组的身份；对目录任何用户在此目录下创建的文件都具有和该目录所属的组相同的组<br>范围：对文件和目录都生效</p>
+<p><strong>3. 命令名称：Sticky Bit</strong><br>占位：占用其他用户的x位，其他用户的 x 权限标识会变成 s<br>格式：字符法：<code>chmod o+t 文件名</code>  <code>chmod o-t 文件名</code><br>      数字法：<code>chmod 1[原有权限三位] 文件名</code>  <code>无删除Sticky Bit的数字表示法</code><br>意义：一个文件添加了STIB权限后，仅有root和文件所有者可以对所有文件作删除，其余用户就算拥有rwx权限，	  也只能删除自己的文件，无法对别的用户创建的文件作修改&#x2F;重命名&#x2F;删除等操作。<br>功能：防止误删，限制除root和文件拥有者外的其他用户的删除权力，此命令限制不了root和文件拥有者</p>
+<h2 id="三、其他权限"><a href="#三、其他权限" class="headerlink" title="三、其他权限"></a>三、其他权限</h2><h2 id="1-ACL"><a href="#1-ACL" class="headerlink" title="1. ACL"></a>1. ACL</h2><p>英文全称：FACL（file access control list）文件访问控制列表权限<br>用途：FACL用于设定用户或组针对文件的权限<br>注意：若某文件或目录设置了ACL权限，那么整个文件或目录的最终权限是取文件的用户 rwx 权限和 ACL 权限的交集</p>
+<p><strong>命令一：setfacl</strong><br>-m 对用户或组设置facl权限（<code>setfacl -m [u/g]:[用户名/组名]:[字符式权限] 文件/目录</code>）（注：不能使用数字法）<br>-b 删除所有FACL权限（<code>setfacl -b 文件/目录</code>）<br>-x 删除指定FACL权限（<code>setfacl -x 用户名/组名 文件/目录</code>）<br>-k 移除默认FACL 权限<br>-R 设置目录FACL权限（则是递归设置，目录中的所有子文件都随之改变）<br>-d 设置默认FACL权限（仅对目录生效，目录中新建的文件会拥有此默认权限）<br>-R 递归设置FACL权限</p>
+<p><strong>命令二：getfacl</strong><br>-a 展示所有FACL权限及其注释信息（注释信息为：文件路径；所有者；所属组）<br>-c 只显示FACL权限，不显示注释内容<br>-d 只显示注释内容，不显示FACL权限<br>-R 以列表显示目录下所有文件的FACL权限及其信息</p>
+<h3 id="2-umask"><a href="#2-umask" class="headerlink" title="2. umask"></a>2. umask</h3><p>显示四位：第一位 <code>SUID；SGID；Sticky Bit</code><br>      第二位 <code>User</code><br>      第三位 <code>Group</code><br>      第四位 <code>Other</code><br>查看方式：<code>umask -p</code> 查看默认权限掩码数字版；<code>umask -S</code> 查看默认权限的字符模式<br>临时修改默认权限：<code>umask [ugoa][+-=][rwx]</code>（重启即失效）  <code>umask [数字掩码]</code><br>永久修改默认权限：umask的配置文件是&#x2F;etc&#x2F;bashrc，所以 vim &#x2F;etc&#x2F;bashrc，把最后的umask值修改即可（重启即生效）</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>时间配置与同步</title>
     <url>/2025/01/04/%E6%97%B6%E9%97%B4%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%90%8C%E6%AD%A5/</url>
     <content><![CDATA[<h2 id="一、date"><a href="#一、date" class="headerlink" title="一、date"></a>一、date</h2><h4 id="1-显示当前日期和时间"><a href="#1-显示当前日期和时间" class="headerlink" title="1. 显示当前日期和时间"></a>1. 显示当前日期和时间</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">date</span></span><br><span class="line"><span class="comment"># Fri Jan  4 14:42:03 CST 2025</span></span><br></pre></td></tr></table></figure>
@@ -752,33 +779,6 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chronyc sources -v</span><br><span class="line"><span class="comment"># 210 Number of sources = 1</span></span><br><span class="line"><span class="comment">#   .-- Source mode  &#x27;^&#x27; = server, &#x27;=&#x27; = peer, &#x27;#&#x27; = local clock.</span></span><br><span class="line"><span class="comment">#  / .- Source state &#x27;*&#x27; = current synced, &#x27;+&#x27; = combined , &#x27;-&#x27; = not combined,</span></span><br><span class="line"><span class="comment"># | /   &#x27;?&#x27; = unreachable, &#x27;x&#x27; = time may be in error, &#x27;~&#x27; = time too variable.</span></span><br><span class="line"><span class="comment"># ||                                                 .- xxxx [ yyyy ] +/- zzzz</span></span><br><span class="line"><span class="comment"># ||      Reachability register (octal) -.           |  xxxx = adjusted offset,</span></span><br><span class="line"><span class="comment"># ||      Log2(Polling interval) --.      |          |  yyyy = measured offset,</span></span><br><span class="line"><span class="comment"># ||                                \     |          |  zzzz = estimated error.</span></span><br><span class="line"><span class="comment"># ||                                 |    |           \</span></span><br><span class="line"><span class="comment"># MS Name/IP address         Stratum Poll Reach LastRx Last sample</span></span><br><span class="line"><span class="comment"># ===============================================================================</span></span><br><span class="line"><span class="comment"># ^~ ntp1.aliyun.com               2   6     6   138  -240.0s[-240.0s] +/-   23ms</span></span><br></pre></td></tr></table></figure>
 <h4 id="3-修改chrony配置文件-将ntp1-aliyun-com作为NTP同步时间源"><a href="#3-修改chrony配置文件-将ntp1-aliyun-com作为NTP同步时间源" class="headerlink" title="3. 修改chrony配置文件,将ntp1.aliyun.com作为NTP同步时间源"></a>3. 修改chrony配置文件,将ntp1.aliyun.com作为NTP同步时间源</h4><p>步骤：修改配置文件，取消原有系统自带，按照格式添加需要的时间源；重启chronyd服务，开启NTP服务，开启chronyd服务开机自启，确认NTP同步成功——连接成功</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/chrony.conf | grep aliyun</span><br><span class="line"><span class="comment"># server ntp1.aliyun.com iburst</span></span><br><span class="line">systemctl restart chronyd &amp;&amp; systemctl status chronyd &amp;&amp; systemctl <span class="built_in">enable</span> --now chronyd</span><br><span class="line">timedatectl</span><br><span class="line"><span class="comment">#                Local time: Sat 2025-01-04 22:48:00 CST</span></span><br><span class="line"><span class="comment">#            Universal time: Sat 2025-01-04 14:48:00 UTC</span></span><br><span class="line"><span class="comment">#                  RTC time: Sat 2025-01-04 14:52:00</span></span><br><span class="line"><span class="comment">#                 Time zone: Asia/Beijing (CST, +0800)</span></span><br><span class="line"><span class="comment"># System clock synchronized: yes</span></span><br><span class="line"><span class="comment">#               NTP service: active    # 确保NTP开启且连接成功</span></span><br><span class="line"><span class="comment">#           RTC in local TZ: no</span></span><br><span class="line">chronyc sources -v</span><br><span class="line"><span class="comment"># 210 Number of sources = 1</span></span><br><span class="line"><span class="comment">#   .-- Source mode  &#x27;^&#x27; = server, &#x27;=&#x27; = peer, &#x27;#&#x27; = local clock.</span></span><br><span class="line"><span class="comment">#  / .- Source state &#x27;*&#x27; = current synced, &#x27;+&#x27; = combined , &#x27;-&#x27; = not combined,</span></span><br><span class="line"><span class="comment"># | /   &#x27;?&#x27; = unreachable, &#x27;x&#x27; = time may be in error, &#x27;~&#x27; = time too variable.</span></span><br><span class="line"><span class="comment"># ||                                                 .- xxxx [ yyyy ] +/- zzzz</span></span><br><span class="line"><span class="comment"># ||      Reachability register (octal) -.           |  xxxx = adjusted offset,</span></span><br><span class="line"><span class="comment"># ||      Log2(Polling interval) --.      |          |  yyyy = measured offset,</span></span><br><span class="line"><span class="comment"># ||                                \     |          |  zzzz = estimated error.</span></span><br><span class="line"><span class="comment"># ||                                 |    |           \</span></span><br><span class="line"><span class="comment"># MS Name/IP address         Stratum Poll Reach LastRx Last sample</span></span><br><span class="line"><span class="comment"># ===============================================================================</span></span><br><span class="line"><span class="comment"># ^~ ntp1.aliyun.com               2   6     6   138  -240.0s[-240.0s] +/-   23ms</span></span><br><span class="line">chronyc -a makestep</span><br><span class="line">chronyc sources -v    <span class="comment"># 可以使用强制同步，或者稍作等待再重新查看，因为chronyd具有一定延迟性</span></span><br><span class="line"><span class="comment"># 210 Number of sources = 1</span></span><br><span class="line"><span class="comment">#   .-- Source mode  &#x27;^&#x27; = server, &#x27;=&#x27; = peer, &#x27;#&#x27; = local clock.</span></span><br><span class="line"><span class="comment">#  / .- Source state &#x27;*&#x27; = current synced, &#x27;+&#x27; = combined , &#x27;-&#x27; = not combined,</span></span><br><span class="line"><span class="comment"># | /   &#x27;?&#x27; = unreachable, &#x27;x&#x27; = time may be in error, &#x27;~&#x27; = time too variable.</span></span><br><span class="line"><span class="comment"># ||                                                 .- xxxx [ yyyy ] +/- zzzz</span></span><br><span class="line"><span class="comment"># ||      Reachability register (octal) -.           |  xxxx = adjusted offset,</span></span><br><span class="line"><span class="comment"># ||      Log2(Polling interval) --.      |          |  yyyy = measured offset,</span></span><br><span class="line"><span class="comment"># ||                                \     |          |  zzzz = estimated error.</span></span><br><span class="line"><span class="comment"># ||                                 |    |           \</span></span><br><span class="line"><span class="comment"># MS Name/IP address         Stratum Poll Reach LastRx Last sample</span></span><br><span class="line"><span class="comment"># ===============================================================================</span></span><br><span class="line"><span class="comment"># ^* ntp1.aliyun.com               2   6     6   138  -240.0s[-240.0s] +/-   23ms</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>权限</title>
-    <url>/2025/01/04/%E6%9D%83%E9%99%90/</url>
-    <content><![CDATA[<h2 id="一、一般权限"><a href="#一、一般权限" class="headerlink" title="一、一般权限"></a>一、一般权限</h2><p><strong>1. chmod修改权限—chown修改所有者—chgrp修改所属组</strong><br><strong>2. 权限位-硬链接数-属主-属组-大小-最后修改时间-文件或目录名称</strong></p>
-<p><strong>3. 文件权限的四种状态</strong><br>读权限<code>read</code>：允许用户读取文件内容，查看文件的属性内容信息—【<code>r</code>】<br>写权限<code>write</code>：允许用户对文件进行创建&#x2F;修改&#x2F;移动&#x2F;重命名等操作—【<code>w</code>】<br>执行权限<code>execute</code>：允许用户运行文件，执行脚本—【<code>x</code>】—对于文件属于执行模式 对于目录属于访问模式<br>无权限：用户对此文件目录无任何权限—【<code>-</code>】<br>权限只限制普通用户，限制不了超级用户root</p>
-<p><strong>4. 文件的归属关系</strong><br>所有者<code>user</code>：拥有此文件&#x2F;目录的用户【<code>u</code>】<br>所属组<code>group</code>：拥有此文件&#x2F;目录的用户组【<code>g</code>】<br>其他用户<code>other</code>：除去所有者和所属组之外的第三方用户【<code>o</code>】<br>所有用户<code>all</code>：包含以上三种用户【<code>a</code>】<br>优先级别：所有者 &gt; 所属组 &gt; 其他用户</p>
-<p><strong>5. 权限位的组成-字符模式</strong><br>权限位共有十个字符，共分成四组，第一组为文件类型，第二三四组分别各有三个字符位，二三四组代表所有	者权限&#x2F;所属组权限&#x2F;其他用户权限，其中文件类型：<br>-表示普通文件；b表示块设备文件通常位于&#x2F;dev目录下；d表示目录文件；s表示套接口文件；l表示软链接	文件例快捷方式等；p为管道文件用于通信；c为字符设备文件例键盘显示器文件等；<br><img src="/images/%E6%9D%83%E9%99%901.png"><br><img src="/images/%E6%9D%83%E9%99%902.png"></p>
-<p><strong>6. 权限位的组成-数字模式</strong><br>权限位由八进制的数字表示，r对应4，w对应2，x对应1，配置时需要求和使用<br><img src="/images/%E6%9D%83%E9%99%903.png"></p>
-<p><strong>7. chmod 更改文件目录权限</strong><br>英文全名：change the permissions mode of a file（更改文件的权限模式）<br>命令所在路径：&#x2F;bin&#x2F;chmod<br>功能描述：更改文件&#x2F;目录权限<br>命令格式：<code>chmod [ugoa] [+-=] [rwx]</code> 文件名（ugoa代表具体用户 +-&#x3D;代表加&#x2F;减&#x2F;赋值权限 rwx表示具体权限内容）<br>          <code>chmod [nnn] 文件名</code> （需要输入三个数字代表三种用户的权限）<br>常用命令选项：-R 递归修改文件权限</p>
-<p><strong>8. chown 更改文件目录所有者</strong><br>英文全名：change file ownership（更改权限所有者）<br>命令所在路径：&#x2F;bin&#x2F;chown<br>功能描述：更改文件&#x2F;目录的所有者<br>命令格式：<code>chown [-R] 用户 文件或目录</code><br>          <code>chown [-R] 用户:用户组 文件或目录</code><br>          <code>chown [-R] :用户组 文件或目录</code><br>常用命令选项：-R 递归修改文件权限<br>               -c 在更改时显示详细报告</p>
-<p><strong>9. chgrp 更改文件目录所属组</strong><br>英文全名：change file group ownership<br>命令所在路径：&#x2F;bin&#x2F;chgrp<br>功能描述：改变文件&#x2F;目录的所属组<br>命令格式：<code>chgrp 用户组 文件/目录</code></p>
-<h2 id="二、特殊权限"><a href="#二、特殊权限" class="headerlink" title="二、特殊权限"></a>二、特殊权限</h2><p><img src="/images/%E6%9D%83%E9%99%904.png"><br><img src="/images/%E6%9D%83%E9%99%905.png"></p>
-<p><strong>1.  命令名称：SUID</strong><br>占位：占用所有者的x位，所有者的 x 权限标识会变成 s<br>格式：字符法：<code>chmod u+s 文件名</code>   <code>chmod u-s 文件名</code><br>       数字法：<code>chmod 4[原有权限三位] 文件名</code>   <code>chmod 0[原有权限三位] 文件名</code><br>意义：对于一个可执行的文件用了SUID权限后，执行者会临时拥有所有者的权限，执行后则恢复原有身份，这个	  过程只是为了提高效率<br>范围：仅对可执行文件(命令)有意义<br>注意：使用数字修改SUID时，在原权限前加上SUID的数字表示法“4”即可，后接原有的权限三位数字<br>示例：passwd命令文件的属主执行位为s，普通用户(执行者)在使用此命令时拥有和属主root同等权力，可以修改密码</p>
-<p><strong>2. 命令名称：SGID</strong><br>占位：占用所属组的x位，所属组的 x 权限标识会变成 s<br>格式：<code>chmod g+s 文件名</code>  <code>chmod g-s 文件名</code><br>      <code>chmod 2[原有权限三位] 文件名</code>  <code>无删除SGID的数字表示法</code><br>意义：对文件传递所属组的身份；对目录任何用户在此目录下创建的文件都具有和该目录所属的组相同的组<br>范围：对文件和目录都生效</p>
-<p><strong>3. 命令名称：Sticky Bit</strong><br>占位：占用其他用户的x位，其他用户的 x 权限标识会变成 s<br>格式：字符法：<code>chmod o+t 文件名</code>  <code>chmod o-t 文件名</code><br>      数字法：<code>chmod 1[原有权限三位] 文件名</code>  <code>无删除Sticky Bit的数字表示法</code><br>意义：一个文件添加了STIB权限后，仅有root和文件所有者可以对所有文件作删除，其余用户就算拥有rwx权限，	  也只能删除自己的文件，无法对别的用户创建的文件作修改&#x2F;重命名&#x2F;删除等操作。<br>功能：防止误删，限制除root和文件拥有者外的其他用户的删除权力，此命令限制不了root和文件拥有者</p>
-<h2 id="三、其他权限"><a href="#三、其他权限" class="headerlink" title="三、其他权限"></a>三、其他权限</h2><h2 id="1-ACL"><a href="#1-ACL" class="headerlink" title="1. ACL"></a>1. ACL</h2><p>英文全称：FACL（file access control list）文件访问控制列表权限<br>用途：FACL用于设定用户或组针对文件的权限<br>注意：若某文件或目录设置了ACL权限，那么整个文件或目录的最终权限是取文件的用户 rwx 权限和 ACL 权限的交集</p>
-<p><strong>命令一：setfacl</strong><br>-m 对用户或组设置facl权限（<code>setfacl -m [u/g]:[用户名/组名]:[字符式权限] 文件/目录</code>）（注：不能使用数字法）<br>-b 删除所有FACL权限（<code>setfacl -b 文件/目录</code>）<br>-x 删除指定FACL权限（<code>setfacl -x 用户名/组名 文件/目录</code>）<br>-k 移除默认FACL 权限<br>-R 设置目录FACL权限（则是递归设置，目录中的所有子文件都随之改变）<br>-d 设置默认FACL权限（仅对目录生效，目录中新建的文件会拥有此默认权限）<br>-R 递归设置FACL权限</p>
-<p><strong>命令二：getfacl</strong><br>-a 展示所有FACL权限及其注释信息（注释信息为：文件路径；所有者；所属组）<br>-c 只显示FACL权限，不显示注释内容<br>-d 只显示注释内容，不显示FACL权限<br>-R 以列表显示目录下所有文件的FACL权限及其信息</p>
-<h3 id="2-umask"><a href="#2-umask" class="headerlink" title="2. umask"></a>2. umask</h3><p>显示四位：第一位 <code>SUID；SGID；Sticky Bit</code><br>      第二位 <code>User</code><br>      第三位 <code>Group</code><br>      第四位 <code>Other</code><br>查看方式：<code>umask -p</code> 查看默认权限掩码数字版；<code>umask -S</code> 查看默认权限的字符模式<br>临时修改默认权限：<code>umask [ugoa][+-=][rwx]</code>（重启即失效）  <code>umask [数字掩码]</code><br>永久修改默认权限：umask的配置文件是&#x2F;etc&#x2F;bashrc，所以 vim &#x2F;etc&#x2F;bashrc，把最后的umask值修改即可（重启即生效）</p>
-]]></content>
       <categories>
         <category>Linux</category>
       </categories>
