@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>shell | 花开自有期，绽放义有时</title><meta name="author" content="titi"><meta name="copyright" content="titi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、解释器shell脚本开头定义解释器，一般为：&#x2F;bin&#x2F;bash 或者 &#x2F;bin&#x2F;sh 二、参数$# 参数个数$0 shell脚本自身文件名$1 第一个参数，以此类推$@ 所有参数 三、常用逻辑判断   缩写 全称 中文    -eq Equal to 等于   -ne Not equal to 不等于   -gt Greater than 大于   -ge Greater than or eq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell">
+<meta property="og:url" content="https://titizzz03.github.io/2025/01/06/shell/index.html">
+<meta property="og:site_name" content="花开自有期，绽放义有时">
+<meta property="og:description" content="一、解释器shell脚本开头定义解释器，一般为：&#x2F;bin&#x2F;bash 或者 &#x2F;bin&#x2F;sh 二、参数$# 参数个数$0 shell脚本自身文件名$1 第一个参数，以此类推$@ 所有参数 三、常用逻辑判断   缩写 全称 中文    -eq Equal to 等于   -ne Not equal to 不等于   -gt Greater than 大于   -ge Greater than or eq">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://titizzz03.github.io/uploads/avatar.jpg">
+<meta property="article:published_time" content="2025-01-06T12:29:59.000Z">
+<meta property="article:modified_time" content="2025-01-06T12:43:53.641Z">
+<meta property="article:author" content="titi">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://titizzz03.github.io/uploads/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://titizzz03.github.io/2025/01/06/shell/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'shell',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/uploads/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-handshake-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-id-card"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">花开自有期，绽放义有时</span></a><a class="nav-page-title" href="/"><span class="site-name">shell</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-handshake-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-id-card"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">shell</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-06T12:29:59.000Z" title="发表于 2025-01-06 20:29:59">2025-01-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-06T12:43:53.641Z" title="更新于 2025-01-06 20:43:53">2025-01-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="一、解释器"><a href="#一、解释器" class="headerlink" title="一、解释器"></a>一、解释器</h3><p>shell脚本开头定义解释器，一般为：<code>/bin/bash</code> 或者 <code>/bin/sh</code></p>
+<h3 id="二、参数"><a href="#二、参数" class="headerlink" title="二、参数"></a>二、参数</h3><p><code>$#</code> 参数个数<br><code>$0</code> shell脚本自身文件名<br><code>$1</code> 第一个参数，以此类推<br><code>$@</code> 所有参数</p>
+<h3 id="三、常用逻辑判断"><a href="#三、常用逻辑判断" class="headerlink" title="三、常用逻辑判断"></a>三、常用逻辑判断</h3><table>
+<thead>
+<tr>
+<th>缩写</th>
+<th>全称</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-eq</td>
+<td>Equal to</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>-ne</td>
+<td>Not equal to</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>-gt</td>
+<td>Greater than</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>-ge</td>
+<td>Greater than or equal to</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>-lt</td>
+<td>Less than</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>-le</td>
+<td>Less than or equal to</td>
+<td>小于等于</td>
+</tr>
+</tbody></table>
+<h3 id="四、shell语言基础循环-for结构"><a href="#四、shell语言基础循环-for结构" class="headerlink" title="四、shell语言基础循环 for结构"></a>四、shell语言基础循环 for结构</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">以下两种方式输出结果相同</span></span><br><span class="line">[sziit@2303010148 ~]$ for name in user01 user02 user03; do echo $&#123;name&#125;; done</span><br><span class="line">[sziit@2303010148 ~]$ for name in &#123;01..03&#125;; do echo user$&#123;name&#125;; done</span><br><span class="line">user01</span><br><span class="line">user02</span><br><span class="line">user03</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">以下两种方式输出结果相同</span></span><br><span class="line">[sziit@2303010148 ~]$ for name in `cat UserList.txt`; do echo stu$&#123;name&#125;; done</span><br><span class="line">[sziit@2303010148 ~]$ for name in $(cat UserList.txt); do echo stu$&#123;name&#125;; done</span><br><span class="line">stu2303010148</span><br><span class="line">stu2303010149</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、shell语言基础分支-case结构"><a href="#五、shell语言基础分支-case结构" class="headerlink" title="五、shell语言基础分支 case结构"></a>五、shell语言基础分支 case结构</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ id=123</span><br><span class="line">[sziit@2303010148 ~]$ case $&#123;id&#125; in</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">    123 | 321)    <span class="comment"># | 属于或运算</span></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">        <span class="built_in">echo</span> <span class="string">&quot;匹配 123&quot;</span></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">        ;;        <span class="comment"># ; 分号匹配一个代码块的结尾</span></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">    456 | 654)</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">        <span class="built_in">echo</span> <span class="string">&quot;匹配 456&quot;</span></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">        ;;</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">    *)</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">        <span class="built_in">echo</span> <span class="string">&quot;没有匹配项&quot;</span></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">        ;;</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"><span class="keyword">esac</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">匹配 123</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="六、shell语言基础分支-if结构"><a href="#六、shell语言基础分支-if结构" class="headerlink" title="六、shell语言基础分支 if结构"></a>六、shell语言基础分支 if结构</h3><p><code>-z</code> 判断字符串是否为空<br><code>-n</code> 判断字符串是否非空<br><code>==</code> 判断字符串是否相等<br><code>-e</code> 文件是否存在<br><code>-f</code> 文件是否存在且为普通文件<br><code>-d</code> 判断文件是否存在且为目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">判断两个数字是否相等</span></span><br><span class="line">[sziit@2303010148 ~]$ num1=1; num2=1</span><br><span class="line">[sziit@2303010148 ~]$ if [ $&#123;num1&#125; -eq $&#123;num2&#125; ]; then echo &#x27;true&#x27;; else echo &#x27;false&#x27;; fi</span><br><span class="line">true</span><br><span class="line"><span class="meta prompt_">  </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">判断字符串是否为空</span></span><br><span class="line">[sziit@2303010148 ~]$ str=&quot;&quot;</span><br><span class="line">[sziit@2303010148 ~]$ if [ -z &quot;$str&quot; ]; then echo &#x27;Null string.&#x27;; else echo &#x27;The string is not empty.&#x27;; fi</span><br><span class="line">Null string.</span><br><span class="line"><span class="meta prompt_">  </span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">判断文件是否存在</span></span><br><span class="line">[sziit@2303010148 ~]$ touch testFile</span><br><span class="line">[sziit@2303010148 ~]$ filepath=&#x27;/home/sziit/testFile&#x27;</span><br><span class="line">[sziit@2303010148 ~]$ if [ -e &quot;$filepath&quot; ]; then echo &#x27;file already exists.&#x27;; else echo &#x27;file does not exist.&#x27;; fi</span><br><span class="line">file already exists.</span><br></pre></td></tr></table></figure>
+
+<h3 id="七、shell语言变量的定义与截取"><a href="#七、shell语言变量的定义与截取" class="headerlink" title="七、shell语言变量的定义与截取"></a>七、shell语言变量的定义与截取</h3><blockquote>
+<p><code>variable=value</code> 定义变量，等号左右无空格<br><code>$&#123;arr:idnex:length&#125;</code> 从index索引位选取长度为length的元素<br><code>$&#123;arr:(-index)&#125;</code> 选取倒数多少个索引位</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[sziit@2303010148 ~]$ id=123456789</span><br><span class="line">[sziit@2303010148 ~]$ echo $&#123;id&#125;</span><br><span class="line">123456789</span><br><span class="line">[sziit@2303010148 ~]$ echo $&#123;id:2:3&#125;    </span><br><span class="line">345</span><br><span class="line">[sziit@2303010148 ~]$ echo $&#123;id:(-4)&#125;</span><br><span class="line">6789</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://titizzz03.github.io">titi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://titizzz03.github.io/2025/01/06/shell/">https://titizzz03.github.io/2025/01/06/shell/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://titizzz03.github.io" target="_blank">花开自有期，绽放义有时</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><div class="post-share"><div class="social-share" data-image="/uploads/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/01/06/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="环境变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">环境变量</div></div><div class="info-2"><div class="info-item-1"> 环境变量设置的三个分类： 临时性设置，单用户层面永久性设置，系统多用户层面永久性配置 环境配置相关文件：系统：/etc/profile（登陆shell时执行）；/etc/bashrc；用户：~/.bash_profile（登陆shell时执行）；~/ .bashrc； 相关命令：查看当前用户全部环境变量：env  export清除环境变量：unset使脚本文件生效：source显示指定变量对应的值：echo $变量名 printenv 变量名 相关环境变量值： PATH：可执行程序的搜索目录；SHELL：用户shell信息…   </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/12/31/Mail/" title="Mail"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-31</div><div class="info-item-2">Mail</div></div><div class="info-2"><div class="info-item-1">  邮件传输代理MTA-Mail Transport Agent，负责将邮件在服务器之间传输。常用协议：SMTP。常见代理商软件：postfix，sendmail，Exim 邮件用户代理MUA-Mail User Agent，负责发送和接收邮件。常用协议：IMAP，POP3，POP3S。常见代理商软件：Dovecot，常见Web端：openwebmail，roundcubemail。 邮件投递代理MDA-Mail Delivery Agent，负责将邮件存储到接收方的邮箱中。  一、Postfix 配置安装 postfix 软件包，对主配置文件 /et/postfix/main.cf 文件进行配置，并重启服务 12345678[titi@localhost ~]$ sudo dnf install -y postfix[titi@localhost ~]$ sudo vim /etc/postfix/main.cfmyhostname = mail.titi.cn    # 主机名mydomain = titi.cn           # 域名myorigin =...</div></div></div></a><a class="pagination-related" href="/2025/01/05/NFS%E7%BD%91%E7%BB%9C%E5%AD%98%E5%82%A8%E4%B8%8Eautofs%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD/" title="NFS网络存储与autofs自动挂载"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-05</div><div class="info-item-2">NFS网络存储与autofs自动挂载</div></div><div class="info-2"><div class="info-item-1">一、引言：Linux存储分类1. DAS直连附加存储：存储设备通过专用接口(SCSI, SATA, USB…)直接连接到服务器2. NAS网络连接存储：具有单独的存储操作系统，通过TCP&#x2F;IP协议访数据，支持(FTP, NFS,...</div></div></div></a><a class="pagination-related" href="/2025/01/06/RAID-LVM-VDO-%E7%A3%81%E7%9B%98%E4%BC%98%E5%8C%96/" title="RAID-LVM-VDO-磁盘优化"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-06</div><div class="info-item-2">RAID-LVM-VDO-磁盘优化</div></div><div class="info-2"><div class="info-item-1">一、RAID介绍：RAID 基维百科条带化 – 一种基于其片段在阵列组件之间的分布的数据组织技术。并行读取&#x2F;写入，速度快，但是数据分布在两个硬盘上，容错率不高，在 RAID 0 中使用。镜像 – 一种基于将信息复制到单独组件上的数据组织技术。镜像会创建一个组件的完整副本，并使用另一个组件来存储此副本。提高容错率，在 RAID 1 中使用。奇偶校验 – 一种数据组织技术，写入同时校验数据，教研结果存放到其他成员磁盘中，若数据丢失，可以通过校验数据反校验重建丢失的数据，速度快，在 RAID 5 中使用。 常见 RAID 等级： RAID 0（条带化，Striping）  特点：数据被分割成多个块，分别写入到不同的硬盘中。没有冗余，也就是说，如果一个硬盘损坏，所有数据将丢失。 优点：提升读取和写入性能。 缺点：没有数据冗余，数据丢失风险高。 适用场景：对性能要求高，但对数据安全性要求不高的应用。   RAID...</div></div></div></a><a class="pagination-related" href="/2025/01/01/SAMBA/" title="SAMBA"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-01</div><div class="info-item-2">SAMBA</div></div><div class="info-2"><div class="info-item-1">一、安装samba工具1. 确保虚拟机有连接光盘（光盘存放真正软件源，yum包起链接作用）2. 挂载光盘： mount &#x2F;dev&#x2F;sr0 &#x2F;mnt3. 切换目录： cd &#x2F;etc&#x2F;yum.repos.d4. 检查内部是否正常：ls &#x2F;etc&#x2F;yum.repos.d    cat &#x2F;etc&#x2F;yum.repos.d&#x2F;cdrom.repo    yum repolist -v.5. 开始下载： yum install samba -y6. 下载完成： which smbpasswd（查找有无此命令，有即工具已下载） rpm -qa | grep samba（查找有无samba工具） 二、介绍工具名：samba命令名：smbpasswd服务名：smb 三、命令3.1 smbpasswd将 linux 用户添加为 samba 用户：smbpasswd -a username显式添加samba用户：echo -e &quot;123\n123&quot; | smbpasswd -a...</div></div></div></a><a class="pagination-related" href="/2024/12/30/Selinux/" title="Selinux"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-30</div><div class="info-item-2">Selinux</div></div><div class="info-2"><div class="info-item-1">一、定义LINUX传统访问控制标准是DAC自主访问控制，这种情况下进程以一个UID或者一个SUID运行，拥有该角色的权限。而MAC强制访问控制中，策略和安全上下文决定了主体能够访问哪个对象。 二、工作模式Enforcing：强制模式，基于策略规则拒绝主体对目标的访问。Permissive：宽容模式，属于旁观者状态，不会拒绝访问，但是会把信息记录到日志中。Disabled：关闭禁用selinux。 三、工作策略Targeted：默认模式，对大部分网络服务进程进行管理Minimum：对选定的网络服务进行管理Mls：多级高级安全保护 四、配置文件：&#x2F;etc&#x2F;selinux&#x2F;config 五、查询selinux状态sestatus (-v) -v显示详细内容getenforce  六、设置selinux开关 临时开关：setenforce...</div></div></div></a><a class="pagination-related" href="/2025/01/01/SSH/" title="SSH"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-01</div><div class="info-item-2">SSH</div></div><div class="info-2"><div class="info-item-1">一、介绍：SSH(Secure Shell)是一个网络安全协议，用于多操作系统间的远程登录与服务，相对与Telnet明文传输而言，SSH是对传输内容进行了压缩，后在加密传送，非明文传送，更加安全可靠，提高传输速度 二、配置文件：服务端程序：/usr/bin/sshd，服务端配置文件：/etc/ssh/sshd_config客户端程序：/usr/bin/ssh， 客户端配置文件：/etc/ssh/ssh_config 三、&#x2F;etc&#x2F;ssh&#x2F;sshd_config 主要配置字段：PermitRootLogin no 是否允许root登录PasswordAuthentication yes 是否允许密码登录PubkeyAuthentication yes 是否允许公钥登录AllowUsers，AllowGroups 白名单DenyUsers，DenyGroups...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/uploads/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">titi</div><div class="author-info-description">花开自有期</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Titizzz03"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Titizzz03" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://leetcode.cn/u/thirsty-6aloismqk/" target="_blank" title="LeetCode"><i class="fa fa-bookmark"></i></a><a class="social-icon" href="mailto:3136552132@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/YDxuan?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-edit"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog ( ˙˘˙ )</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%A7%A3%E9%87%8A%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">一、解释器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%8F%82%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">二、参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%B8%B8%E7%94%A8%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD"><span class="toc-number">3.</span> <span class="toc-text">三、常用逻辑判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81shell%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%BE%AA%E7%8E%AF-for%E7%BB%93%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">四、shell语言基础循环 for结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81shell%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%88%86%E6%94%AF-case%E7%BB%93%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">五、shell语言基础分支 case结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81shell%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%88%86%E6%94%AF-if%E7%BB%93%E6%9E%84"><span class="toc-number">6.</span> <span class="toc-text">六、shell语言基础分支 if结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83%E3%80%81shell%E8%AF%AD%E8%A8%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E6%88%AA%E5%8F%96"><span class="toc-number">7.</span> <span class="toc-text">七、shell语言变量的定义与截取</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/06/shell/" title="shell">shell</a><time datetime="2025-01-06T12:29:59.000Z" title="发表于 2025-01-06 20:29:59">2025-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/06/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="环境变量">环境变量</a><time datetime="2025-01-06T12:29:49.000Z" title="发表于 2025-01-06 20:29:49">2025-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/06/%E7%B3%BB%E7%BB%9F%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%B0%83%E8%8A%82/" title="系统查询与调节">系统查询与调节</a><time datetime="2025-01-06T12:19:44.000Z" title="发表于 2025-01-06 20:19:44">2025-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/06/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/" title="文本处理三剑客">文本处理三剑客</a><time datetime="2025-01-06T08:12:27.000Z" title="发表于 2025-01-06 16:12:27">2025-01-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/06/RAID-LVM-VDO-%E7%A3%81%E7%9B%98%E4%BC%98%E5%8C%96/" title="RAID-LVM-VDO-磁盘优化">RAID-LVM-VDO-磁盘优化</a><time datetime="2025-01-06T06:14:40.000Z" title="发表于 2025-01-06 14:14:40">2025-01-06</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By titi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '217d864ed7dbbb2af904b358d26faf01'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Valine' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
